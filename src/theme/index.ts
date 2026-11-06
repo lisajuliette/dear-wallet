@@ -1,4 +1,5 @@
 export { useAppFonts, fontMap } from '@/theme/fonts';
+export { scriptTextStyle } from '@/theme/scriptText';
 export { ThemeProvider, usePaletteKey, useTokens } from '@/theme/ThemeProvider';
 export { useActivePalette, useThemeStore } from '@/theme/store';
 export {
