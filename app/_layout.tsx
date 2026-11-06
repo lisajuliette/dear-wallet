@@ -28,6 +28,7 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
         <Stack.Screen name="dev/theme" options={{ headerShown: true, title: 'Theme' }} />
+        <Stack.Screen name="dev/components" options={{ headerShown: true, title: 'Components' }} />
       </Stack>
     </ThemeProvider>
   );

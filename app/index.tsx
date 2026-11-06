@@ -7,9 +7,14 @@ export default function Index() {
       <Text className="font-script text-3xl text-ink">Dear Wallet</Text>
       <Text className="mt-2 font-sans text-base text-ink">soft money diary</Text>
       {__DEV__ ? (
-        <Link href="/dev/theme" className="mt-8">
-          <Text className="font-sans-semibold text-btn underline">open theme lab</Text>
-        </Link>
+        <View className="mt-8 items-center gap-3">
+          <Link href="/dev/theme">
+            <Text className="font-sans-semibold text-btn underline">open theme lab</Text>
+          </Link>
+          <Link href="/dev/components">
+            <Text className="font-sans-semibold text-btn underline">open components lab</Text>
+          </Link>
+        </View>
       ) : null}
     </View>
   );
