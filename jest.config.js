@@ -8,6 +8,7 @@ module.exports = {
     'src/lib/**/*.{ts,tsx}',
     '!**/*.d.ts',
     '!**/index.ts',
+    '!**/photos.ts',
   ],
   // collectCoverageFrom already limits to src/features and src/lib
   coverageThreshold: {

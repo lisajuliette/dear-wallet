@@ -50,6 +50,9 @@ export default function RootLayout() {
           name="reward"
           options={{ presentation: 'transparentModal', animation: 'fade' }}
         />
+        <Stack.Screen name="item/[id]" />
+        <Stack.Screen name="loved" />
+        <Stack.Screen name="recap" />
         <Stack.Screen name="dev/theme" options={{ headerShown: true, title: 'Theme' }} />
         <Stack.Screen name="dev/components" options={{ headerShown: true, title: 'Components' }} />
       </Stack>

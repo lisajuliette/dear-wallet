@@ -1,14 +1,27 @@
-import { Text, View } from 'react-native';
+import { useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { View } from 'react-native';
 
-import { Screen, ScriptText } from '@/components';
+import { Screen } from '@/components';
+import { TallyScreen, useTallyData, type TallyRange } from '@/features/tally';
 
-export default function TallyPlaceholder() {
-  return (
-    <Screen accessibilityLabel="Tally">
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-        <ScriptText size={28}>tally</ScriptText>
-        <Text className="font-sans text-ink">coming in a later step</Text>
-      </View>
-    </Screen>
+export default function TallyRoute() {
+  const [range, setRange] = useState<TallyRange>('month');
+  const { vm, refresh } = useTallyData(range);
+
+  useFocusEffect(
+    useCallback(() => {
+      void refresh();
+    }, [refresh]),
   );
+
+  if (!vm) {
+    return (
+      <Screen accessibilityLabel="Tally">
+        <View style={{ flex: 1 }} />
+      </Screen>
+    );
+  }
+
+  return <TallyScreen vm={vm} onRangeChange={setRange} />;
 }

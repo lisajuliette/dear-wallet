@@ -216,6 +216,29 @@ export const listByWeek = (db: ItemsDb, userId: string, at?: Date) =>
 export const listByMonth = (db: ItemsDb, userId: string, at?: Date) =>
   listByRange(db, userId, 'month', at);
 
+/** Loved items in the calendar month of `at`, newest first for the grid. */
+export async function listLovedByMonth(
+  db: ItemsDb,
+  userId: string,
+  at: Date = new Date(),
+): Promise<Item[]> {
+  const rows = await listByMonth(db, userId, at);
+  return rows
+    .filter((row) => row.kind === 'loved')
+    .sort((a, b) => b.happenedAt.localeCompare(a.happenedAt));
+}
+
+/** Kept items in range for the tally list (includes bought-after-all). */
+export async function listKeptByRange(
+  db: ItemsDb,
+  userId: string,
+  range: ListRange,
+  at: Date = new Date(),
+): Promise<Item[]> {
+  const rows = await listByRange(db, userId, range, at);
+  return rows.filter((row) => row.kind === 'kept').reverse();
+}
+
 /** Kept total: kind=kept, not bought-after-all, not deleted, happened_at in range. */
 export async function keptTotalCents(
   db: ItemsDb,
