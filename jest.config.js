@@ -16,6 +16,7 @@ module.exports = {
     },
   },
   moduleNameMapper: {
+    '^@/assets/(.*)$': '<rootDir>/assets/$1',
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.svg$': '<rootDir>/test/svgMock.js',
   },
