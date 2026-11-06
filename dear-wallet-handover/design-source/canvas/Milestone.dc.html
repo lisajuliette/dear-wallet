@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Milestone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<main style="width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: radial-gradient(circle at 50% 26%, {{t.surface}} 0, {{t.clear}} 50%), linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 100% 100%, 22px 22px, 22px 22px, 100% 100%">
+  <div aria-hidden="true" style="position: absolute; left: {{m.glowL}}px; top: {{m.winT}}px; width: 310px; height: {{m.glowH}}px; border-radius: 50%; background: conic-gradient(#FFC4E6, #BDEBFF, #DCCBFF, #BFF5D8, #FFEFA8, #FFC4E6); filter: blur(26px); opacity: 0.85"></div>
+  <sc-for list="{{confetti}}" as="c" hint-placeholder-count="10">
+    <svg aria-hidden="true" width="{{c.s}}" height="{{c.s}}" viewBox="0 0 24 24" style="position: absolute; left: {{c.x}}px; top: {{c.y}}px"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{c.fill}}" stroke="{{t.outline}}" stroke-width="1.8"></path></svg>
+  </sc-for>
+
+  <div style="position: absolute; left: 0; right: 0; top: {{m.tagT}}px; display: flex; justify-content: center">
+    <span style="padding: 3px 12px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">{{tag}}</span>
+  </div>
+
+  <section aria-label="{{aria}}" style="position: absolute; left: 36px; right: 36px; top: {{m.winT}}px; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 6px 0 {{t.shadow}}; overflow: hidden">
+    <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background: linear-gradient(90deg, #FFC4E6, #BDEBFF, #DCCBFF, #BFF5D8, #FFEFA8)">
+      <span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 7px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path></svg></span>
+      <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">MILESTONE.EXE</span>
+    </div>
+    <div style="padding: 14px 16px 18px; display: flex; flex-direction: column; align-items: center; text-align: center">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: {{m.bigF}}px; font-weight: 600; line-height: 1">{{big}}</span>
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: 0.08em">{{unit}}</span>
+    </div>
+  </section>
+
+  <div style="position: absolute; left: 24px; right: 24px; top: {{m.msgT}}px; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <span style="font-family: Pacifico, cursive; font-size: 32px; line-height: 1.35">{{headline}}</span>
+    <span style="font-size: 15px; font-weight: 800">{{sub}}</span>
+  </div>
+
+  <div style="position: absolute; left: 16px; right: 16px; top: {{m.cmpT}}px; height: 104px">
+    <svg aria-hidden="true" width="{{cw}}" height="108" viewBox="0 0 {{cw}} 108" style="position: absolute; left: 0; top: 0; overflow: visible"><path d="{{cmpPath}}" fill="{{t.shadow}}" transform="translate(0 4)"></path><path d="{{cmpPath}}" fill="{{t.c5}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+    <div style="position: absolute; left: 16px; right: 16px; top: 24px; bottom: 10px; display: flex; align-items: center; gap: 12px">
+      <sc-if value="{{unlock}}" hint-placeholder-val="{{true}}">
+        <svg width="104" height="62" viewBox="0 0 104 62" role="img" aria-label="three concert tickets" style="flex: none">
+          <g transform="rotate(-10 26 34)"><path d="M6 18h40v8a5 5 0 0 0 0 10v8H6v-8a5 5 0 0 0 0-10z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="2" stroke-linejoin="round"></path><path d="M14 26h18M14 32h12" stroke="{{t.outline}}" stroke-width="2" stroke-linecap="round"></path></g>
+          <g transform="rotate(2 52 30)"><path d="M32 12h40v8a5 5 0 0 0 0 10v8H32v-8a5 5 0 0 0 0-10z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="2" stroke-linejoin="round"></path><path d="M40 20h18M40 26h12" stroke="{{t.outline}}" stroke-width="2" stroke-linecap="round"></path></g>
+          <g transform="rotate(12 80 32)"><path d="M58 16h40v8a5 5 0 0 0 0 10v8H58v-8a5 5 0 0 0 0-10z" fill="{{t.c2}}" stroke="{{t.outline}}" stroke-width="2" stroke-linejoin="round"></path><path d="M66 24h18M66 30h12" stroke="{{t.outline}}" stroke-width="2" stroke-linecap="round"></path></g>
+        </svg>
+      </sc-if>
+      <sc-if value="{{noUnlock}}" hint-placeholder-val="{{false}}">
+        <span style="display: flex; flex: none">
+          <dc-import name="Sticker" kind="tea" size="44" hint-size="44px,44px"></dc-import>
+          <dc-import name="Sticker" kind="coins" size="44" hint-size="44px,44px"></dc-import>
+          <dc-import name="Sticker" kind="heart" size="44" hint-size="44px,44px"></dc-import>
+        </span>
+      </sc-if>
+      <div style="display: flex; flex-direction: column">
+        <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">THAT’S LIKE</span>
+        <span style="font-size: 17px; font-weight: 900; line-height: 1.3">{{compare}}</span>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{unlock}}" hint-placeholder-val="{{true}}">
+    <a href="Collection.dc.html" style="position: absolute; left: 16px; right: 16px; top: {{m.unlT}}px; box-sizing: border-box; border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; padding: 12px 14px 12px 12px; display: flex; align-items: center; gap: 12px; color: {{t.text}}; text-decoration: none">
+      <span style="width: 68px; height: 68px; flex: none; box-sizing: border-box; border-radius: 16px; border: 2px solid {{t.outline}}; background-color: {{t.c3}}; background-image: repeating-conic-gradient({{t.surface}} 0 25%, transparent 0 50%); background-size: 14px 14px; display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" width="30" height="30" viewBox="0 0 14 14" fill="none" stroke="{{t.outline}}" stroke-width="1.5"><path d="M3.5 6.5h7v6h-7z" fill="{{t.surface}}"></path><path d="M5 6.5V4.5a2 2 0 0 1 3.9-.6"></path></svg>
+      </span>
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 1px">
+        <span style="align-self: flex-start; padding: 0 8px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.c4}}; font-family: 'Pixelify Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.06em">U UNLOCKED</span>
+        <span style="font-size: 17px; font-weight: 900">y2k desk sticker pack</span>
+        <span style="font-size: 13px; font-weight: 700">6 new stickers, waiting in ur album</span>
+      </span>
+      <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.5L9.5 7 5 11.5"></path></svg>
+    </a>
+  </sc-if>
+  <sc-if value="{{noUnlock}}" hint-placeholder-val="{{false}}">
+    <div style="position: absolute; left: 24px; right: 24px; top: {{m.nuT}}px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+      <span style="height: 40px; box-sizing: border-box; padding: 0 16px 0 10px; border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 900"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>+1 milestone in ur collection</span>
+      <span style="font-size: 13px; font-weight: 800">next up: 100 nvms. no rush, it’ll come ♡</span>
+    </div>
+  </sc-if>
+
+  <div style="position: absolute; left: 16px; right: 16px; bottom: {{m.btnB}}px; display: flex; gap: 10px">
+    <button type="button" style="flex: 1; height: 56px; border-radius: 28px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 4px 0 {{t.shadow}}; font-family: Nunito, sans-serif; font-size: 16px; font-weight: 900; cursor: pointer">save card</button>
+    <a href="Home.dc.html" style="flex: 1.4; height: 56px; box-sizing: border-box; border-radius: 28px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 4px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900; text-decoration: none">yay ♡</a>
+  </div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"state":{"editor":"enum","options":["unlock","nounlock"],"default":"unlock","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+function cloud(w,h){var T=18,r=22,W=w-1,H=h-1;return "M"+(r+1)+" "+T+" L28 "+T+" A16 16 0 0 1 60 "+T+" L64 "+T+" A11 11 0 0 1 86 "+T+" L"+(W-r)+" "+T+" A"+r+" "+r+" 0 0 1 "+W+" "+(T+r)+" L"+W+" "+(H-r)+" A"+r+" "+r+" 0 0 1 "+(W-r)+" "+H+" L"+(r+1)+" "+H+" A"+r+" "+r+" 0 0 1 1 "+(H-r)+" L1 "+(T+r)+" A"+r+" "+r+" 0 0 1 "+(r+1)+" "+T+" Z";}
+class Component extends DCLogic {
+  renderVals() {
+    var unlock = (this.props.state ?? "unlock") === "unlock";
+    var W = Number(this.props.w ?? 390), H = Number(this.props.h ?? 844), compact = H < 740;
+    var m = compact
+      ? { tagT: 40, winT: 76, glowH: 200, bigF: 68, msgT: 244, cmpT: 318, unlT: 438, nuT: 444, btnB: 20 }
+      : { tagT: 60, winT: 110, glowH: 280, bigF: 96, msgT: 336, cmpT: 436, unlT: 560, nuT: 572, btnB: 40 };
+    m.glowL = Math.round((W - 310) / 2);
+    var t = tok(this.props.palette ?? "cloud");
+    var cols = [t.c1, t.c2, t.c3, t.c4, t.c5];
+    var pts = [[26, 96, 22], [330, 84, 26], [16, 300, 14], [350, 270, 16], [64, 40, 14], [300, 36, 12], [8, 420, 18], [356, 420, 12], [190, 30, 10], [150, 410, 10]];
+    var confetti = pts.map(function (p, i) { return { x: p[0], y: p[1], s: p[2], fill: cols[i % 5] }; });
+    return {
+      t: t, confetti: confetti, unlock: unlock, noUnlock: !unlock,
+      tag: unlock ? "NEW MILESTONE + UNLOCK ✦" : "NEW MILESTONE ✦",
+      aria: unlock ? "500 dollars kept" : "50 nvms logged",
+      big: unlock ? "$500" : "50",
+      unit: unlock ? "KEPT" : "NVMS LOGGED",
+      headline: unlock ? "that’s actually huge." : "u keep showing up.",
+      sub: unlock ? "all of it stayed with u since sept 12" : "50 times u chose u ♡",
+      cmpPath: cloud(W - 32, 104), cw: W - 32, W: W, H: H, m: m,
+      compare: unlock ? "3 concert tickets" : "50 lil wins in 7 weeks, no streak needed"
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Decorate page</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<main style="width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 22px 22px, 22px 22px, 100% 100%">
+  <header style="position: absolute; left: 16px; right: 16px; top: 54px; display: flex; align-items: center; gap: 8px">
+    <a href="DiaryEntry.dc.html" aria-label="Back to entry" style="width: 44px; height: 44px; box-sizing: border-box; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5L4.5 7 9 11.5"></path></svg></a>
+    <span style="flex: 1; display: flex; justify-content: center"><h1 style="margin: 0; padding: 2px 12px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.06em">NOV 5 · DECORATE</h1></span>
+    <a href="Diary.dc.html" style="height: 44px; padding: 0 18px; box-sizing: border-box; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; font-size: 15px; font-weight: 900; text-decoration: none">done</a>
+  </header>
+
+  <section aria-label="Diary page, November 5" style="position: absolute; left: 16px; top: 110px; width: {{pw}}px; height: {{ph}}px; box-sizing: border-box; border-radius: 20px; border: 2px solid {{t.outline}}; background-color: {{t.surface}}; background-image: linear-gradient(90deg, transparent 36px, {{t.c1}} 36px, {{t.c1}} 39px, transparent 39px), linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px); background-size: 100% 100%, 18px 18px, 18px 18px; box-shadow: 0 6px 0 {{t.shadow}}">
+    <div style="position: absolute; left: 52px; right: 18px; top: 16px; display: flex; flex-direction: column; gap: 2px">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <span style="font-family: Pacifico, cursive; font-size: 28px; line-height: 1.35">nov 5</span>
+        <dc-import name="Sticker" kind="tempted" size="36" hint-size="36px,36px"></dc-import>
+      </div>
+      <span style="font-family: Pacifico, cursive; font-size: 20px; line-height: 1.4">Dear Wallet,</span>
+      <p style="margin: 0; font-size: 15px; font-weight: 700; line-height: 30px; background-image: repeating-linear-gradient(transparent 0 28px, {{t.ring}} 28px 30px)">saw the cutest bag on a haul video and said nvm. kinda proud? also still thinking about it a lil lol</p>
+    </div>
+
+    <sc-if value="{{isBlank}}" hint-placeholder-val="{{false}}">
+      <div style="position: absolute; left: 52px; right: 18px; top: {{bT}}px; height: {{bH}}px; box-sizing: border-box; border-radius: 18px; border: 2px dashed {{t.ring}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; padding: 0 18px">
+        <svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="1.8"></path></svg>
+        <span style="font-size: 16px; font-weight: 900">this page is all urs</span>
+        <span style="font-size: 13px; font-weight: 700">drag a sticker up from the tray, anywhere u like</span>
+      </div>
+    </sc-if>
+
+    <sc-for list="{{placed}}" as="p" hint-placeholder-count="3">
+      <div style="position: absolute; left: {{p.x}}px; top: {{p.y}}px; width: {{p.s}}px; height: {{p.s}}px; transform: rotate({{p.r}}deg)">
+        <dc-import name="Sticker" kind="{{p.kind}}" size="{{p.s}}" hint-size="80px,80px"></dc-import>
+      </div>
+    </sc-for>
+
+    <sc-if value="{{hasSelection}}" hint-placeholder-val="{{false}}">
+      <div style="position: absolute; left: 118px; top: {{selT}}px; width: 100px; height: 100px; transform: rotate(-6deg)">
+        <div aria-hidden="true" style="position: absolute; left: -9px; top: -9px; right: -9px; bottom: -9px; border: 2px dashed {{t.btn}}; border-radius: 14px"></div>
+        <dc-import name="Sticker" kind="bubble" size="100" hint-size="100px,100px"></dc-import>
+        <button type="button" aria-label="Remove sticker, back to tray" style="position: absolute; left: -26px; top: -26px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 0 {{t.shadow}}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" aria-hidden="true"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7"></path></svg></button>
+        <button type="button" aria-label="Rotate sticker" style="position: absolute; left: 33px; top: -48px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.c2}}; color: {{t.text}}; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 0 {{t.shadow}}"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.5 7A4.5 4.5 0 1 1 10 3.6"></path><path d="M10.5 1.5v2.5H8"></path></svg></button>
+        <button type="button" aria-label="Resize sticker" style="position: absolute; right: -26px; bottom: -26px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 0 {{t.shadow}}"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5l7-7M7 3.5h3.5V7M7 10.5H3.5V7"></path></svg></button>
+      </div>
+    </sc-if>
+  </section>
+
+  <sc-if value="{{hasHint}}" hint-placeholder-val="{{true}}">
+    <div style="position: absolute; left: 0; right: 0; top: {{hintT}}px; display: flex; justify-content: center">
+      <span style="padding: 4px 12px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-size: 12px; font-weight: 800">{{hint}}</span>
+    </div>
+  </sc-if>
+
+  <section aria-label="Sticker tray" style="position: absolute; left: 0; right: 0; bottom: 0; height: {{trayH}}px; box-sizing: border-box; border: 2px solid {{t.outline}}; border-bottom: 0; border-radius: 28px 28px 0 0; background: {{t.surface}}; box-shadow: 0 -5px 0 {{t.shadow}}; overflow: hidden; display: flex; flex-direction: column">
+    <div style="height: 44px; flex: none; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 14px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c4}}; background-image: repeating-conic-gradient({{t.c5}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+      <h2 style="margin: 0; padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">STICKER TRAY</h2>
+      <span style="min-width: 24px; height: 24px; box-sizing: border-box; padding: 0 6px; border-radius: 12px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{trayCount}}</span>
+    </div>
+    <sc-if value="{{hasTray}}" hint-placeholder-val="{{true}}">
+      <div style="flex: 1; display: flex; gap: 12px; padding: 16px 16px 0; overflow-x: auto; align-items: flex-start">
+        <sc-for list="{{tray}}" as="i" hint-placeholder-count="5">
+          <button type="button" aria-label="{{i.aria}}" style="width: 78px; height: 86px; flex: none; box-sizing: border-box; border-radius: 16px; border: 2px {{i.bs}} {{t.outline}}; background: {{i.bg}}; position: relative; display: flex; align-items: center; justify-content: center; padding: 0; opacity: {{i.op}}; cursor: grab">
+            <dc-import name="Sticker" kind="{{i.kind}}" size="58" hint-size="58px,58px"></dc-import>
+            <sc-if value="{{i.hasCount}}" hint-placeholder-val="{{false}}">
+              <span style="position: absolute; right: -6px; top: -8px; padding: 0 6px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.c3}}; color: {{t.text}}; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 600">{{i.count}}</span>
+            </sc-if>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{trayEmpty}}" hint-placeholder-val="{{false}}">
+      <div style="flex: 1; display: flex; align-items: center; gap: 14px; padding: 0 20px 14px">
+        <span style="width: 64px; height: 64px; flex: none; box-sizing: border-box; border-radius: 18px; border: 2px dashed {{t.outline}}; display: flex; align-items: center; justify-content: center" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c2}}" stroke="{{t.outline}}" stroke-width="1.8"></path></svg>
+        </span>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 16px; font-weight: 900">all stuck! ur page looks cute</span>
+          <span style="font-size: 13px; font-weight: 700; line-height: 1.4">new stickers drop when u log or write. tap one on the page to send it back here.</span>
+        </div>
+      </div>
+    </sc-if>
+  </section>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"state":{"editor":"enum","options":["blank","decorated","trayempty"],"default":"decorated","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+var NAMES = { cloud: "lil cloud", holoCd: "holo mixtape CD, rare", tea: "nvm'd boba", coins: "kept stack", phone: "flip phone", bubble: "nvm! bubble", star: "gold star" };
+class Component extends DCLogic {
+  renderVals() {
+    var s = this.props.state ?? "decorated";
+    var t = tok(this.props.palette ?? "cloud");
+    var blank = s === "blank", empty = s === "trayempty", decorated = s === "decorated";
+    var placed = blank ? [] : (decorated ? [
+      { kind: "fly", x: 236, y: 6, s: 96, r: 12 },
+      { kind: "star", x: 10, y: 396, s: 84, r: -12 },
+      { kind: "heart", x: 246, y: 412, s: 74, r: 10 }
+    ] : [
+      { kind: "fly", x: 236, y: 6, s: 96, r: 12 },
+      { kind: "star", x: 10, y: 396, s: 84, r: -12 },
+      { kind: "heart", x: 246, y: 412, s: 74, r: 10 },
+      { kind: "bubble", x: 118, y: 286, s: 100, r: -6 },
+      { kind: "cloud", x: 120, y: 410, s: 88, r: 4 }
+    ]);
+    var trayRaw = decorated
+      ? [["cloud", 2], ["holoCd", 1], ["tea", 1], ["coins", 1], ["phone", 2], ["bubble", 0]]
+      : [["cloud", 2], ["holoCd", 1], ["tea", 1], ["coins", 1], ["phone", 2], ["bubble", 1], ["star", 1]];
+    var tray = trayRaw.map(function (a) {
+      var rare = a[0].indexOf("holo") === 0, used = a[1] === 0;
+      return {
+        kind: a[0], hasCount: a[1] > 1, count: "x" + a[1],
+        bg: rare ? t.text : t.surface, bs: used ? "dashed" : "solid", op: used ? 0.55 : 1,
+        aria: NAMES[a[0]] + (used ? ", placed on page" : ", " + a[1] + " left")
+      };
+    });
+    var W = Number(this.props.w ?? 390), H = Number(this.props.h ?? 844), compact = H < 740;
+    var trayH = compact ? 150 : 168;
+    var ph = compact ? H - 110 - trayH - 40 : 520, k = ph / 520;
+    placed = placed.map(function (p) { return Object.assign({}, p, { y: Math.round(p.y * k) }); });
+    return {
+      W: W, H: H, pw: W - 32, ph: ph, trayH: trayH, hintT: 110 + ph + 10,
+      selT: Math.round(286 * k), bT: compact ? 210 : 300, bH: compact ? ph - 230 : 190,
+      t: t, isBlank: blank, placed: placed, hasSelection: decorated,
+      hasHint: !empty, hint: blank ? "drag up · drop anywhere" : "drag · pinch to resize · twist to rotate",
+      hasTray: !empty, trayEmpty: empty, tray: tray,
+      trayCount: empty ? "0" : (decorated ? "7" : "9")
+    };
+  }
+}
+</script>
+</body>
+</html>

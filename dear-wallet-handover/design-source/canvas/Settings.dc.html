@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<main style="width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 22px 22px, 22px 22px, 100% 100%">
+  <header style="position: absolute; left: 16px; right: 16px; top: 54px; display: flex; align-items: center; gap: 10px">
+    <a href="Home.dc.html" aria-label="Back to home" style="width: 44px; height: 44px; flex: none; box-sizing: border-box; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5L4.5 7 9 11.5"></path></svg></a>
+    <h1 style="flex: 1; margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: 30px; line-height: 1.3">Settings</h1>
+  </header>
+
+  <section aria-label="Faceplates" style="position: absolute; left: 16px; right: 16px; top: 112px; border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+    <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+      <h2 style="margin: 0; padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">FACEPLATES</h2>
+      <span style="flex: 1"></span>
+      <span style="padding: 1px 8px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-size: 12px; font-weight: 900">3 of 6 unlocked</span>
+    </div>
+    <div style="display: flex; gap: 8px; padding: 12px 12px 12px; overflow-x: auto">
+      <sc-for list="{{plates}}" as="p" hint-placeholder-count="6">
+        <button type="button" aria-pressed="{{p.on}}" aria-label="{{p.aria}}" onClick="{{p.pick}}" style="width: 94px; flex: none; border: 0; background: transparent; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 5px; color: {{t.text}}; font-family: Nunito, sans-serif; cursor: pointer">
+          <span style="position: relative; display: block; padding: 3px; border-radius: 26px; border: 3px solid {{p.ring}}">
+            <dc-import name="Faceplate" palette="{{p.key}}" hint-size="84px,150px"></dc-import>
+            <sc-if value="{{p.locked}}" hint-placeholder-val="{{false}}">
+              <span style="position: absolute; right: -2px; top: -2px; width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="{{t.outline}}" stroke-width="1.8" aria-hidden="true"><path d="M3.5 6.5h7v6h-7z" fill="{{t.c3}}"></path><path d="M5 6.5V4.5a2 2 0 0 1 4 0v2"></path></svg></span>
+            </sc-if>
+            <sc-if value="{{p.on}}" hint-placeholder-val="{{false}}">
+              <span style="position: absolute; right: -2px; bottom: -2px; width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" aria-hidden="true"><path d="M2.5 7.5l3 3 6-6.5"></path></svg></span>
+            </sc-if>
+          </span>
+          <span style="font-size: 12px; font-weight: 900; line-height: 1.2">{{p.name}}</span>
+          <span style="margin-top: -4px; font-size: 11px; font-weight: 700">{{p.status}}</span>
+        </button>
+      </sc-for>
+    </div>
+  </section>
+
+  <section aria-label="Preferences" style="position: absolute; left: 16px; right: 16px; top: 394px; bottom: 16px; display: flex; flex-direction: column; border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+    <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c4}}; background-image: repeating-conic-gradient({{t.c5}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+      <h2 style="margin: 0; padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">SETTINGS.EXE</h2>
+    </div>
+    <div style="flex: 1; min-height: 0; overflow-y: auto; padding: 2px 12px 6px">
+      <sc-for list="{{rows}}" as="r" hint-placeholder-count="8">
+        <div style="min-height: 48px; display: flex; align-items: center; gap: 10px; border-bottom: {{r.sep}}">
+          <span style="width: 30px; height: 30px; flex: none; box-sizing: border-box; border-radius: 9px; border: 2px solid {{t.outline}}; background: {{r.bg}}; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="{{t.outline}}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{r.d}}"></path></svg></span>
+          <span style="flex: 1; display: flex; flex-direction: column">
+            <span style="font-size: 15px; font-weight: 800">{{r.label}}</span>
+            <sc-if value="{{r.hasSub}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; font-weight: 700">{{r.sub}}</span></sc-if>
+          </span>
+          <sc-if value="{{r.isToggle}}" hint-placeholder-val="{{false}}">
+            <button type="button" role="switch" aria-checked="{{r.on}}" aria-label="{{r.label}}" onClick="{{r.flip}}" style="width: 56px; height: 44px; flex: none; border: 0; background: transparent; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer">
+              <span style="width: 52px; height: 30px; box-sizing: border-box; border-radius: 15px; border: 2px solid {{t.outline}}; background: {{r.track}}; padding: 2px; display: flex; justify-content: {{r.justify}}"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: {{t.surface}}; border: 2px solid {{t.outline}}"></span></span>
+            </button>
+          </sc-if>
+          <sc-if value="{{r.isLink}}" hint-placeholder-val="{{true}}">
+            <button type="button" aria-label="{{r.label}}: {{r.value}}" style="height: 44px; flex: none; border: 0; background: transparent; padding: 0; display: flex; align-items: center; gap: 6px; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 13px; font-weight: 800; cursor: pointer">{{r.value}}<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2.5L9.5 7 5 11.5"></path></svg></button>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <sc-if value="{{trying}}" hint-placeholder-val="{{false}}">
+    <div role="status" style="position: absolute; left: 16px; right: 16px; bottom: 26px; box-sizing: border-box; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 6px 0 {{t.shadow}}; padding: 12px 12px 12px 14px; display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span style="width: 36px; height: 36px; flex: none; box-sizing: border-box; border-radius: 12px; border: 2px solid {{t.outline}}; background: {{t.c3}}; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="{{t.outline}}" stroke-width="1.8" aria-hidden="true"><path d="M3.5 6.5h7v6h-7z"></path><path d="M5 6.5V4.5a2 2 0 0 1 4 0v2"></path></svg></span>
+        <span style="flex: 1; display: flex; flex-direction: column">
+          <span style="font-size: 15px; font-weight: 900">trying on {{tryName}}</span>
+          <span style="font-size: 12px; font-weight: 800">{{tryCond}}</span>
+        </span>
+      </div>
+      <button type="button" onClick="{{reset}}" style="height: 48px; border-radius: 24px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 900; cursor: pointer">back to {{appliedName}}</button>
+    </div>
+  </sc-if>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"preview":{"editor":"enum","options":["none","cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"none","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+var PLATES = [
+  ["cloud", "Cloud Candy", false, ""], ["lilac", "Lilac Sky", false, ""], ["peachfuzz", "Peach Fuzz", false, ""],
+  ["peachsoda", "Peach Soda", true, "at 100 nvms"], ["orchid", "Orchid Pop", true, "at 30 diary lines"], ["midnight", "Midnight CD", true, "at $1,000 kept"]
+];
+var TO_GO = { peachsoda: "unlocks at 100 nvms · 50 to go", orchid: "unlocks at 30 diary lines · 18 to go", midnight: "unlocks at $1,000 kept · $525.50 to go" };
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var st = this.state || {};
+    var applied = this.props.palette ?? "cloud";
+    var pv = this.props.preview ?? "none";
+    var sel = st.sel || (pv !== "none" ? pv : applied);
+    var t = tok(sel);
+    var info = {};
+    PLATES.forEach(function (p) { info[p[0]] = p; });
+    var selLocked = info[sel] ? info[sel][2] : false;
+    var plates = PLATES.map(function (p) {
+      var on = p[0] === sel;
+      return {
+        key: p[0], name: p[1], locked: p[2], on: on,
+        status: p[2] ? p[3] : (p[0] === applied && !selLocked ? "on" : "free"),
+        ring: on ? t.btn : "transparent",
+        aria: p[1] + (p[2] ? ", locked, unlocks " + p[3] + ", tap to try on" : ", free"),
+        pick: function () { self.setState({ sel: p[0] }); }
+      };
+    });
+    var tg = st.tg || { sound: true, haptics: true, motion: false, lock: true };
+    var flip = function (k) { return function () { var n = Object.assign({}, tg); n[k] = !n[k]; self.setState({ tg: n }); }; };
+    var tgl = function (k, label, sub, d, bg) {
+      return { label: label, sub: sub, hasSub: !!sub, d: d, bg: bg, isToggle: true, isLink: false, on: tg[k], flip: flip(k),
+        track: tg[k] ? t.btn : t.c2, justify: tg[k] ? "flex-end" : "flex-start", sep: "2px dashed " + t.ring };
+    };
+    var lnk = function (label, value, sub, d, bg) {
+      return { label: label, value: value, sub: sub, hasSub: !!sub, d: d, bg: bg, isToggle: false, isLink: true, on: false, track: "", justify: "", sep: "2px dashed " + t.ring };
+    };
+    var rows = [
+      tgl("sound", "sounds", "chiptune blips + keypad tones", "M2.5 5.5h2l3-2.5v8l-3-2.5h-2zM10 5c1 1 1 3 0 4M11.5 3.5c2 2 2 5 0 7", t.c1),
+      tgl("haptics", "haptics", "", "M4.5 2.5h5v9h-5zM2 5v4M12 5v4", t.c2),
+      tgl("motion", "reduced motion", "fades instead of bounces", "M7 1.5C7.4 4.6 9.4 6.6 12.5 7C9.4 7.4 7.4 9.4 7 12.5C6.6 9.4 4.6 7.4 1.5 7C4.6 6.6 6.6 4.6 7 1.5Z", t.c3),
+      lnk("weekly check-in", "sun · 7 pm", "", "M3.5 10.5h7l-1-1.5V6.5a2.5 2.5 0 0 0-5 0V9zM6 12.2h2", t.c4),
+      lnk("currency", "USD $", "", "M7 1.8a5.2 5.2 0 1 0 0 10.4a5.2 5.2 0 1 0 0-10.4zM7 4.5v5", t.c5),
+      tgl("lock", "app lock", "face ID on the diary", "M3.5 6.5h7v6h-7zM5 6.5V4.5a2 2 0 0 1 4 0v2", t.c1),
+      lnk("export my data", "csv + photos", "", "M7 2v7M4 6.5L7 9.5l3-3M2.5 12h9", t.c2),
+      lnk("account", "signed in", "", "M7 7a2.5 2.5 0 1 0 0-5a2.5 2.5 0 1 0 0 5zM2.5 12.5c.5-2.5 2.3-4 4.5-4s4 1.5 4.5 4", t.c4)
+    ];
+    rows[rows.length - 1].sep = "none";
+    return {
+      t: t, plates: plates, rows: rows,
+      W: Number(this.props.w ?? 390), H: Number(this.props.h ?? 844),
+      trying: selLocked, tryName: info[sel] ? info[sel][1] : "", tryCond: TO_GO[sel] || "",
+      appliedName: info[applied] ? info[applied][1] : "Cloud Candy",
+      reset: function () { self.setState({ sel: applied }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

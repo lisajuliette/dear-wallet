@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tally</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<main style="width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 22px 22px, 22px 22px, 100% 100%">
+  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" style="position: absolute; left: 132px; top: 66px"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+
+  <header style="position: absolute; left: 16px; right: 16px; top: 54px; display: flex; align-items: center; gap: 8px">
+    <h1 style="flex: 1; margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: 32px; line-height: 1.3">Tally</h1>
+    <a href="LovedList.dc.html" style="height: 44px; padding: 0 14px 0 10px; box-sizing: border-box; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 900; text-decoration: none">
+      <svg width="18" height="18" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path></svg>loved list
+    </a>
+  </header>
+
+  <div style="position: absolute; left: 16px; right: 16px; top: 116px; bottom: 88px; overflow-y: auto; padding-bottom: 8px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; padding: 4px; gap: 4px; border-radius: 26px; border: 2px solid {{t.outline}}; background: {{t.surface}}">
+      <sc-for list="{{periods}}" as="p" hint-placeholder-count="3">
+        <button type="button" aria-pressed="{{p.on}}" style="flex: 1; height: 40px; border-radius: 20px; border: 2px solid {{p.border}}; background: {{p.bg}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 15px; font-weight: {{p.w}}; cursor: pointer">{{p.label}}</button>
+      </sc-for>
+    </div>
+
+    <section aria-label="Kept total" style="border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c3}}; background-image: repeating-conic-gradient({{t.c1}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+        <span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 7px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path></svg></span>
+        <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">{{winTitle}}</span>
+      </div>
+      <div style="padding: 10px 16px 12px; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 44px; font-weight: 600; line-height: 1.05">{{total}}</span>
+        <span style="font-size: 14px; font-weight: 800">{{caption}}</span>
+        <sc-if value="{{hasBars}}" hint-placeholder-val="{{true}}">
+          <div style="height: 140px; margin-top: 8px; display: flex; gap: 8px">
+            <sc-for list="{{bars}}" as="b" hint-placeholder-count="5">
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px">
+                <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 11px; font-weight: 600">{{b.amt}}</span>
+                <span style="width: 100%; height: {{b.h}}px; box-sizing: border-box; border-radius: 9px 9px 4px 4px; border: 2px {{b.bs}} {{t.outline}}; background: {{b.bg}}"></span>
+                <span style="font-size: 11px; font-weight: 800">{{b.label}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{noBars}}" hint-placeholder-val="{{false}}">
+          <div style="height: 140px; margin-top: 8px; box-sizing: border-box; border-radius: 16px; border: 2px dashed {{t.outline}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; padding: 0 20px">
+            <span style="display: flex; gap: 6px; align-items: flex-end" aria-hidden="true">
+              <span style="width: 18px; height: 14px; border-radius: 5px 5px 2px 2px; border: 2px dashed {{t.outline}}"></span>
+              <span style="width: 18px; height: 26px; border-radius: 5px 5px 2px 2px; border: 2px dashed {{t.outline}}"></span>
+              <span style="width: 18px; height: 20px; border-radius: 5px 5px 2px 2px; border: 2px dashed {{t.outline}}"></span>
+            </span>
+            <span style="font-size: 15px; font-weight: 900">ur bars grow from ur first nvm</span>
+            <span style="font-size: 13px; font-weight: 700">tap + whenever something tempts u</span>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+      <div style="height: 70px; box-sizing: border-box; border-radius: 18px; border: 2px solid {{t.outline}}; background: {{t.surface}}; padding: 8px 14px; display: flex; flex-direction: column; justify-content: center">
+        <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">ALL TIME</span>
+        <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 24px; font-weight: 600">{{allTime}}</span>
+      </div>
+      <div style="height: 70px; box-sizing: border-box; border-radius: 18px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; padding: 8px 14px; display: flex; flex-direction: column; justify-content: center; gap: 1px">
+        <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">SIDE TOTALS</span>
+        <span style="font-size: 13px; font-weight: 800; white-space: pre-line; line-height: 1.35">{{side}}</span>
+      </div>
+    </div>
+
+    <section aria-label="Kept items" style="border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c4}}; background-image: repeating-conic-gradient({{t.c5}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+        <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">{{listTitle}}</span>
+        <span style="flex: 1"></span>
+        <span style="min-width: 24px; height: 24px; box-sizing: border-box; padding: 0 6px; border-radius: 12px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{count}}</span>
+      </div>
+      <div style="padding: 8px; display: flex; flex-direction: column; gap: 6px">
+        <sc-for list="{{items}}" as="it" hint-placeholder-count="3">
+          <a href="ItemDetail.dc.html" style="min-height: 46px; box-sizing: border-box; padding: 0 12px; border-radius: 15px; border: 2px solid {{t.outline}}; background: {{it.fill}}; color: {{t.text}}; display: flex; align-items: center; gap: 10px; text-decoration: none">
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" style="flex: none"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+              <span style="font-size: 15px; font-weight: 800; line-height: 1.2">{{it.name}}</span>
+              <span style="font-size: 12px; font-weight: 700">{{it.meta}}</span>
+            </span>
+            <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 18px; font-weight: 600">{{it.amt}}</span>
+          </a>
+        </sc-for>
+        <sc-if value="{{hasNote}}" hint-placeholder-val="{{false}}">
+          <p style="margin: 0; padding: 10px 8px 6px; font-size: 13px; font-weight: 800; text-align: center">{{listNote}}</p>
+        </sc-if>
+      </div>
+    </section>
+  </div>
+
+  <div style="position: absolute; left: 0; bottom: 0; width: {{W}}px; height: 96px">
+    <dc-import name="Taskbar" palette="{{palette}}" active="tally" w="{{W}}" hint-size="390px,96px"></dc-import>
+  </div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"state":{"editor":"enum","options":["none","quiet","busy"],"default":"busy","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+class Component extends DCLogic {
+  renderVals() {
+    var palette = this.props.palette ?? "cloud";
+    var s = this.props.state ?? "busy";
+    var t = tok(palette);
+    var busy = s === "busy", quiet = s === "quiet", none = s === "none";
+    var active = busy ? "month" : "week";
+    var periods = ["day", "week", "month"].map(function (p) {
+      var on = p === active;
+      return { label: p, on: on, bg: on ? t.c3 : "transparent", border: on ? t.outline : "transparent", w: on ? 900 : 800 };
+    });
+    var cols = [t.c1, t.c2, t.c3, t.c4, t.c5];
+    var raw = busy
+      ? [["wk 1", 86], ["wk 2", 142.5], ["wk 3", 64], ["wk 4", 120], ["wk 5", 62]]
+      : [["M", 0], ["T", 0], ["W", 6.5], ["T", 0], ["F", 0], ["S", 0], ["S", 0]];
+    var max = busy ? 142.5 : 40;
+    var bars = raw.map(function (b, i) {
+      var zero = b[1] === 0;
+      var amt = zero ? "" : "$" + (b[1] % 1 ? b[1].toFixed(2) : Math.round(b[1]));
+      return { label: b[0], amt: amt, h: zero ? 6 : Math.max(14, Math.round(b[1] / max * 100)), bg: zero ? "transparent" : cols[i % 5], bs: zero ? "dashed" : "solid" };
+    });
+    var items = busy ? [
+      { name: "platform sneakers", meta: "today · shoes", amt: "$24.00", fill: t.c1 },
+      { name: "bubble tea", meta: "yesterday", amt: "$6.50", fill: t.c5 },
+      { name: "phone case", meta: "nov 3 · moved to savings", amt: "$32.00", fill: t.c3 }
+    ] : (quiet ? [{ name: "bubble tea", meta: "wed · 3:12 pm", amt: "$6.50", fill: t.c5 }] : []);
+    return {
+      t: t, palette: palette, periods: periods,
+      W: Number(this.props.w ?? 390), H: Number(this.props.h ?? 844),
+      winTitle: busy ? "KEPT THIS MONTH" : "KEPT THIS WEEK",
+      total: busy ? "$474.50" : (quiet ? "$6.50" : "$0.00"),
+      caption: busy ? "wk 2 was ur biggest week ✦" : (quiet ? "a quiet week. still counts ♡" : "nothing yet, and that’s fine"),
+      hasBars: !none, noBars: none, bars: bars,
+      allTime: busy ? "$1,284.50" : (quiet ? "$816.50" : "$0.00"),
+      side: none ? "tag any item to\nsee these" : "savings $120\ndebt paid $60",
+      listTitle: busy ? "THIS MONTH" : "THIS WEEK",
+      count: busy ? "14" : (quiet ? "1" : "0"),
+      items: items,
+      hasNote: !busy,
+      listNote: quiet ? "small week, still a win ♡" : "ur kept things land here"
+    };
+  }
+}
+</script>
+</body>
+</html>

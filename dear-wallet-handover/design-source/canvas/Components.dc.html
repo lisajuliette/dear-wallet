@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dear Wallet component set</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1280px; height: 1040px; box-sizing: border-box; padding: 48px 64px; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(160deg, {{t.bg1}}, {{t.bg2}}); background-size: 22px 22px, 22px 22px, 100% 100%; display: flex; flex-direction: column; gap: 24px">
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 14px; letter-spacing: 0.08em">FOUNDATIONS · COMPONENT SET</span>
+      <h1 style="margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: 40px; line-height: 1.3">the lil parts</h1>
+    </div>
+    <p style="margin: 0; max-width: 520px; font-size: 15px; line-height: 1.5; font-weight: 700">2 px outlines, hard drop shadows in outline colour, chunky pills. Every colour is a token. Stickers keep fixed colours because they are collectibles.</p>
+  </div>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start">
+
+    <div style="width: 340px; display: flex; flex-direction: column; gap: 14px">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em">WINDOW</span>
+      <div style="border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+        <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+          <span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 7px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path></svg></span>
+          <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">WINDOW TITLE</span>
+          <span style="flex: 1"></span>
+          <button type="button" aria-label="Close" style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 7px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; padding: 0; display: flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" aria-hidden="true"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7"></path></svg></button>
+        </div>
+        <div style="padding: 14px 16px; font-size: 14px; font-weight: 700; line-height: 1.5">Radius 20 · checker title bar from c1 + c2 · title on a surface pill so it always reads. The X is shown only where it really closes something.</div>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 10px">BUTTONS</span>
+      <button type="button" style="height: 60px; border-radius: 30px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 4px 0 {{t.shadow}}; font-family: Nunito, sans-serif; font-size: 22px; font-weight: 900">nvm!</button>
+      <div style="display: flex; gap: 10px">
+        <button type="button" style="flex: 1; height: 44px; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.c3}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 900">secondary</button>
+        <button type="button" style="height: 44px; padding: 0 18px; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 3px 0 {{t.shadow}}; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 900">go</button>
+        <button type="button" disabled style="height: 44px; padding: 0 16px; border-radius: 22px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 900">not yet</button>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 10px">PILL TOGGLE + SWITCH</span>
+      <div style="display: flex; gap: 12px">
+        <button type="button" role="switch" aria-checked="true" style="flex: 1; height: 52px; box-sizing: border-box; border-radius: 18px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; padding: 0 10px 0 14px; display: flex; align-items: center; justify-content: space-between; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 800">
+          sounds
+          <span style="width: 52px; height: 30px; box-sizing: border-box; border-radius: 15px; border: 2px solid {{t.outline}}; background: {{t.btn}}; padding: 2px; display: flex; justify-content: flex-end"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: {{t.surface}}; border: 2px solid {{t.outline}}"></span></span>
+        </button>
+        <button type="button" role="switch" aria-checked="false" style="flex: 1; height: 52px; box-sizing: border-box; border-radius: 18px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; padding: 0 10px 0 14px; display: flex; align-items: center; justify-content: space-between; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 800">
+          motion
+          <span style="width: 52px; height: 30px; box-sizing: border-box; border-radius: 15px; border: 2px solid {{t.outline}}; background: {{t.c2}}; padding: 2px; display: flex; justify-content: flex-start"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: {{t.surface}}; border: 2px solid {{t.outline}}"></span></span>
+        </button>
+      </div>
+      <div style="display: flex; padding: 4px; gap: 4px; border-radius: 26px; border: 2px solid {{t.outline}}; background: {{t.surface}}">
+        <button type="button" aria-pressed="true" style="flex: 1; height: 40px; border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.c1}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 900">didn’t buy</button>
+        <button type="button" aria-pressed="false" style="flex: 1; height: 40px; border-radius: 20px; border: 2px solid transparent; background: transparent; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 800">loved it</button>
+      </div>
+    </div>
+
+    <div style="width: 340px; display: flex; flex-direction: column; gap: 12px">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em">CLOUD CARD · ONE COLOUR PER ROW</span>
+      <sc-for list="{{cards}}" as="c" hint-placeholder-count="5">
+        <div style="position: relative; height: 76px">
+          <svg aria-hidden="true" width="340" height="80" viewBox="0 0 340 80" style="position: absolute; left: 0; top: 0; overflow: visible"><path d="{{cardPath}}" fill="{{t.shadow}}" transform="translate(0 4)"></path><path d="{{cardPath}}" fill="{{c.fill}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+          <div style="position: absolute; left: 16px; right: 16px; top: 22px; bottom: 6px; display: flex; align-items: center; justify-content: space-between">
+            <span style="display: flex; flex-direction: column">
+              <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; letter-spacing: 0.06em">{{c.k}}</span>
+              <span style="font-size: 15px; font-weight: 900">{{c.use}}</span>
+            </span>
+            <span style="font-size: 12px; font-weight: 800">{{c.hex}}</span>
+          </div>
+        </div>
+      </sc-for>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 10px">STICKERS · FIXED COLOURS</span>
+      <div style="display: flex; gap: 20px; align-items: center">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+          <svg width="120" height="100" viewBox="0 0 120 100" role="img" aria-label="lil cloud sticker" style="overflow: visible"><path d="M32 82C18 82 12 70 18 61C10 51 18 37 32 40C33 26 50 18 62 28C70 18 90 22 92 38C104 37 112 49 106 59C113 69 104 82 92 82Z" fill="#5B6FB0" stroke="#5B6FB0" stroke-width="18" stroke-linejoin="round"></path><path d="M32 82C18 82 12 70 18 61C10 51 18 37 32 40C33 26 50 18 62 28C70 18 90 22 92 38C104 37 112 49 106 59C113 69 104 82 92 82Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="14" stroke-linejoin="round"></path><path d="M32 82C18 82 12 70 18 61C10 51 18 37 32 40C33 26 50 18 62 28C70 18 90 22 92 38C104 37 112 49 106 59C113 69 104 82 92 82Z" fill="#F4ECFF" stroke="#5B6FB0" stroke-width="2.5"></path><ellipse cx="50" cy="56" rx="3.2" ry="4.2" fill="#2E2F73"></ellipse><ellipse cx="70" cy="56" rx="3.2" ry="4.2" fill="#2E2F73"></ellipse><path d="M55 63Q60 68 65 63" fill="none" stroke="#2E2F73" stroke-width="2.6" stroke-linecap="round"></path><ellipse cx="42" cy="64" rx="5.5" ry="3.2" fill="#F9B8DA"></ellipse><ellipse cx="78" cy="64" rx="5.5" ry="3.2" fill="#F9B8DA"></ellipse><circle cx="88" cy="71" r="11" fill="#FFE08A" stroke="#B98A1E" stroke-width="2.5"></circle><path d="M88 76l-4.5-4.5a2.7 2.7 0 0 1 4.5-3.2a2.7 2.7 0 0 1 4.5 3.2z" fill="#F48FC4"></path></svg>
+          <span style="font-size: 12px; font-weight: 800">common · lil cloud</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+          <svg width="104" height="104" viewBox="0 0 112 112" role="img" aria-label="rare holo CD sticker" style="overflow: visible"><defs><linearGradient id="dwCompA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC4E6"></stop><stop offset="0.25" stop-color="#BDEBFF"></stop><stop offset="0.5" stop-color="#DCCBFF"></stop><stop offset="0.75" stop-color="#BFF5D8"></stop><stop offset="1" stop-color="#FFEFA8"></stop></linearGradient><linearGradient id="dwCompB" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"></stop><stop offset="0.42" stop-color="#FFFFFF" stop-opacity="0"></stop><stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.85"></stop><stop offset="0.58" stop-color="#FFFFFF" stop-opacity="0"></stop><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop></linearGradient></defs><circle cx="56" cy="56" r="55" fill="#5B6FB0"></circle><circle cx="56" cy="56" r="52.5" fill="#FFFFFF"></circle><circle cx="56" cy="56" r="45" fill="url(#dwCompA)" stroke="#5B6FB0" stroke-width="2"></circle><circle cx="56" cy="56" r="45" fill="url(#dwCompB)"></circle><circle cx="56" cy="56" r="36" fill="none" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="1.5"></circle><circle cx="56" cy="56" r="27" fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1.5"></circle><circle cx="56" cy="56" r="14" fill="#FFFFFF" stroke="#5B6FB0" stroke-width="2"></circle><circle cx="56" cy="56" r="5" fill="#DCCBFF" stroke="#5B6FB0" stroke-width="2"></circle></svg>
+          <span style="font-size: 12px; font-weight: 800">rare · holo CD</span>
+        </div>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 10px">SPARKLE BURST</span>
+      <div style="position: relative; height: 96px; border-radius: 20px; border: 2px dashed {{t.ring}}">
+        <sc-for list="{{burst}}" as="b" hint-placeholder-count="8">
+          <svg aria-hidden="true" width="{{b.s}}" height="{{b.s}}" viewBox="0 0 24 24" style="position: absolute; left: {{b.x}}px; top: {{b.y}}px"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{b.fill}}" stroke="{{t.outline}}" stroke-width="1.8"></path></svg>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="width: 392px; display: flex; flex-direction: column; gap: 14px">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em">TASKBAR · SHARED COMPONENT</span>
+      <div style="width: 390px; height: 96px; border-radius: 0 0 4px 4px">
+        <dc-import name="Taskbar" palette="{{palette}}" active="home" hint-size="390px,96px"></dc-import>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 10px">AMOUNT PAD</span>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{keys}}" as="k" hint-placeholder-count="12">
+          <button type="button" aria-label="{{k.label}}" style="height: 44px; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.c2}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; font-family: 'Pixelify Sans', sans-serif; font-size: 22px; font-weight: 600">{{k.v}}</button>
+        </sc-for>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 10px">PIXEL ICONS · OUTLINE = currentColor, FILL = A CARD TOKEN</span>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+        <div style="height: 62px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 800"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M3.5 7.5h7v5h-7z" fill="{{t.c3}}" stroke="none"></path><path d="M1.5 7.5h1v-1h1v-1h1v-1h1v-1h1v-1h1v1h1v1h1v1h1v1h1v1h1"></path><path d="M3.5 7.5v5h7v-5M6.5 12.5v-2h1v2"></path></svg>home</div>
+        <div style="height: 62px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 800"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8.5h2v3h-2zM6.5 5.5h2v6h-2zM9.5 2.5h2v9h-2z" fill="{{t.c4}}"></path><path d="M1.5 12.5h11"></path></svg>tally</div>
+        <div style="height: 62px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 800"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M3.5 1.5h8v11h-8z" fill="{{t.c1}}"></path><path d="M5.5 1.5v11M7.5 4.5h2M7.5 6.5h2"></path></svg>diary</div>
+        <div style="height: 62px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 800"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M6.5 1.5h1v2h1v2h3v1h-1v1h-1v1h1v3h-1v-1h-2v-1h-1v1h-2v1h-1v-3h1v-1h-1v-1h-1v-1h3v-2h1z" fill="{{t.c2}}"></path></svg>collection</div>
+        <div style="height: 62px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 800"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M5.5 3.5h3v1h1v1h1v3h-1v1h-1v1h-3v-1h-1v-1h-1v-3h1v-1h1z" fill="{{t.c2}}"></path><path d="M6.5 1.5v1M7.5 1.5v1M6.5 11.5v1M7.5 11.5v1M1.5 6.5h1M1.5 7.5h1M11.5 6.5h1M11.5 7.5h1"></path><path d="M6.5 6.5h1v1h-1z" fill="{{t.surface}}"></path></svg>settings</div>
+        <div style="height: 62px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 800"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="currentColor" stroke-width="1"></path></svg>heart</div>
+        <div style="height: 62px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 800"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M5.5 1.5h3v1h2v1h1v2h1v4h-1v2h-1v1h-2v1h-3v-1h-2v-1h-1v-2h-1v-4h1v-2h1v-1h2z" fill="{{t.c3}}" stroke="currentColor" stroke-width="1"></path><path d="M6.5 4.5h1v6h-1z" fill="currentColor"></path></svg>coin</div>
+        <div style="height: 62px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 800"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M1.5 4.5h3v-1h1v-1h3v1h1v1h3v7h-11z" fill="{{t.c5}}"></path><path d="M5.5 6.5h3v3h-3z" fill="{{t.surface}}"></path></svg>photo</div>
+        <div style="height: 62px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 800"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M2.5 4.5h7v1h1v1h1v2h-1v1h-1v1h-7z" fill="{{t.c4}}"></path><path d="M4.5 6.5h1v1h-1z"></path></svg>category</div>
+        <div style="height: 62px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 800"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M3.5 1.5h7v11h-7z" fill="{{t.c3}}"></path><path d="M5.5 4.5h3M5.5 6.5h3M5.5 8.5h2"></path></svg>note</div>
+        <div style="height: 62px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 800"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M3.5 10.5h8v-1h1v-2h-1v-1h-1v-2h-1v-1h-3v1h-1v1h-1v1h-1v1h-1v2h1z" fill="{{t.surface}}"></path><path d="M1.5 1.5l11 11"></path></svg>offline</div>
+        <div style="height: 62px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 800"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M5.5 3.5h7v7h-7v-1h-1v-1h-1v-1h-1v-1h1v-1h1v-1h1z" fill="{{t.surface}}"></path><path d="M7.5 5.5l3 3M10.5 5.5l-3 3"></path></svg>delete</div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"$preview":{"width":1280,"height":1040}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+function cloud(w,h){var T=18,r=22,W=w-1,H=h-1;return "M"+(r+1)+" "+T+" L28 "+T+" A16 16 0 0 1 60 "+T+" L64 "+T+" A11 11 0 0 1 86 "+T+" L"+(W-r)+" "+T+" A"+r+" "+r+" 0 0 1 "+W+" "+(T+r)+" L"+W+" "+(H-r)+" A"+r+" "+r+" 0 0 1 "+(W-r)+" "+H+" L"+(r+1)+" "+H+" A"+r+" "+r+" 0 0 1 1 "+(H-r)+" L1 "+(T+r)+" A"+r+" "+r+" 0 0 1 "+(r+1)+" "+T+" Z";}
+class Component extends DCLogic {
+  renderVals() {
+    var palette = this.props.palette ?? "cloud";
+    var t = tok(palette);
+    var uses = ["today, highlights", "quest", "goal, coin", "done, tags", "list rows"];
+    var cards = ["c1", "c2", "c3", "c4", "c5"].map(function (k, i) { return { k: k.toUpperCase(), fill: t[k], hex: t[k], use: uses[i] }; });
+    var cols = [t.c1, t.c2, t.c3, t.c4, t.c5];
+    var pts = [[150, 30, 30], [110, 14, 16], [196, 18, 20], [80, 50, 14], [232, 52, 18], [124, 62, 22], [182, 66, 12], [264, 22, 12]];
+    var burst = pts.map(function (p, i) { return { x: p[0], y: p[1], s: p[2], fill: cols[i % 5] }; });
+    var keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "⌫"].map(function (v) { return { v: v, label: v === "⌫" ? "Delete" : (v === "." ? "Decimal point" : v) }; });
+    return { t: t, palette: palette, cards: cards, cardPath: cloud(340, 76), burst: burst, keys: keys };
+  }
+}
+</script>
+</body>
+</html>

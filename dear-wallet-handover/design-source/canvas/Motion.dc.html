@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Motion notes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1660px; height: 1480px; box-sizing: border-box; padding: 56px 80px; font-family: Nunito, sans-serif; color: #2E2F73; background-image: linear-gradient(#4A72A81A 1px, transparent 1px), linear-gradient(90deg, #4A72A81A 1px, transparent 1px), linear-gradient(160deg, #F6CDEB, #C6EFDD); background-size: 24px 24px, 24px 24px, 100% 100%; display: flex; flex-direction: column; gap: 28px">
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 40px">
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 14px; letter-spacing: 0.08em">FOUNDATIONS · MOTION NOTES</span>
+      <h1 style="margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: 48px; line-height: 1.3">how the wins move</h1>
+    </div>
+    <p style="margin: 0; max-width: 700px; font-size: 16px; line-height: 1.5; font-weight: 700">Springy and short. The reward lands before attention moves on (first feedback by 300 ms). Tap anywhere skips straight to the end state. With reduced motion on, everything is a single 200 ms fade and the final values show at once.</p>
+  </div>
+
+  <sc-for list="{{sections}}" as="sec" hint-placeholder-count="2">
+    <section style="border-radius: 24px; border: 2px solid #4A72A8; background: #FFFFFF; box-shadow: 0 5px 0 #4A72A84D; overflow: hidden">
+      <div style="height: 40px; box-sizing: border-box; display: flex; align-items: center; gap: 10px; padding: 0 12px; border-bottom: 2px solid #4A72A8; background-color: #FDD2EE; background-image: repeating-conic-gradient(#E1D5FD 0 25%, transparent 0 50%); background-size: 12px 12px">
+        <span style="padding: 1px 12px; border-radius: 999px; border: 2px solid #4A72A8; background: #FFFFFF; font-family: 'Pixelify Sans', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.06em">{{sec.title}}</span>
+        <span style="font-size: 13px; font-weight: 800">{{sec.sub}}</span>
+      </div>
+      <div style="padding: 14px 20px 18px; display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; height: 22px">
+          <span style="width: 320px; flex: none"></span>
+          <div style="position: relative; width: 1120px; height: 22px">
+            <sc-for list="{{ticks}}" as="tk" hint-placeholder-count="8">
+              <span style="position: absolute; left: {{tk.x}}px; top: 0; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500">{{tk.label}}</span>
+            </sc-for>
+          </div>
+        </div>
+        <sc-for list="{{sec.rows}}" as="r" hint-placeholder-count="8">
+          <div style="display: flex; align-items: center; min-height: 40px; border-top: 2px dashed #4A72A833">
+            <div style="width: 320px; flex: none; display: flex; flex-direction: column; padding-right: 16px">
+              <span style="font-size: 14px; font-weight: 900">{{r.label}}</span>
+              <span style="font-size: 12px; font-weight: 700">{{r.desc}}</span>
+            </div>
+            <div style="position: relative; width: 1120px; height: 28px; background-image: repeating-linear-gradient(90deg, #4A72A81F 0 2px, transparent 2px 80px)">
+              <sc-if value="{{r.bar}}" hint-placeholder-val="{{true}}">
+                <span style="position: absolute; left: {{r.x}}px; top: 3px; width: {{r.w}}px; height: 22px; box-sizing: border-box; border-radius: 11px; border: 2px solid #4A72A8; background: {{r.fill}}; font-family: 'Pixelify Sans', sans-serif; font-size: 11px; font-weight: 600; display: flex; align-items: center; padding: 0 8px; white-space: nowrap; overflow: hidden">{{r.ms}}</span>
+              </sc-if>
+              <sc-if value="{{r.marker}}" hint-placeholder-val="{{false}}">
+                <span style="position: absolute; left: {{r.x}}px; top: 4px; width: 20px; height: 20px; box-sizing: border-box; border: 2px solid #4A72A8; background: {{r.fill}}; transform: translateX(-10px) rotate(45deg)"></span>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-for>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+    <div style="border-radius: 18px; border: 2px solid #4A72A8; background: #FFFFFF; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em">POP · SPRING</span><span style="font-size: 14px; font-weight: 800; line-height: 1.4">stiffness 220, damping 14, mass 1. Windows, coin, sticker window.</span></div>
+    <div style="border-radius: 18px; border: 2px solid #4A72A8; background: #FFFFFF; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em">FADE + SLIDE · EASE-OUT</span><span style="font-size: 14px; font-weight: 800; line-height: 1.4">cubic-bezier(0.2, 0.8, 0.2, 1). Veils, cards, chips.</span></div>
+    <div style="border-radius: 18px; border: 2px solid #4A72A8; background: #FFFFFF; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em">COUNTER · STEPPED</span><span style="font-size: 14px; font-weight: 800; line-height: 1.4">Each digit rolls like an old counter, ones place last. One keypad blip per digit.</span></div>
+    <div style="border-radius: 18px; border: 2px solid #4A72A8; background: #FFFFFF; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em">PERFORMANCE</span><span style="font-size: 14px; font-weight: 800; line-height: 1.4">Native-driver transforms and opacity only (Reanimated). No blur animation on Android; holo sweep is a moving gradient mask.</span></div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1660,"height":1480}}'>
+var K = 1120 / 1500;
+function row(label, desc, a, b, fill) {
+  var marker = a === b;
+  return { label: label, desc: desc, bar: !marker, marker: marker, x: Math.round(a * K), w: Math.max(28, Math.round((b - a) * K)), fill: fill, ms: marker ? "" : a + "–" + b + " ms" };
+}
+var SECTIONS = [
+  { title: "REWARD MOMENT", sub: "after nvm! or a saved diary entry · total ~1.2 s · tap anywhere skips", rows: [
+    row("success haptic", "notificationSuccess", 0, 0, "#FDEFC0"),
+    row("veil fades in", "opacity 0 → 1, ease-out", 0, 200, "#E1D5FD"),
+    row("coin drops", "y −120 → 0, spring with ~8% overshoot", 0, 300, "#FDEFC0"),
+    row("sparkle burst", "scale 0.4 → 1.1, then fade out", 180, 500, "#FDD2EE"),
+    row("tally rolls up", "stepped digits, keypad blip each", 200, 700, "#B4F2DD"),
+    row("+$ chip floats", "y 0 → −12, fades out at the end", 300, 700, "#ADD9FE"),
+    row("sticker window pops", "only if one dropped · scale 0.85 → 1, spring", 700, 920, "#FDD2EE"),
+    row("rare holo sweep", "rare only · one gradient pass, then still", 920, 1500, "#E1D5FD"),
+    row("reduced motion", "everything fades together, final values shown", 0, 200, "#FFFFFF")
+  ] },
+  { title: "MILESTONE", sub: "full screen, shown once after the normal reward · total ~1.5 s", rows: [
+    row("haptic + fanfare", "success haptic, short chiptune (if sounds on)", 0, 0, "#FDEFC0"),
+    row("window pops open", "scale 0.7 → 1, spring", 0, 400, "#E1D5FD"),
+    row("holo glow", "opacity 0 → 0.85 behind the window", 100, 500, "#FDD2EE"),
+    row("number counts up", "from the previous milestone, ease-out", 300, 900, "#FDEFC0"),
+    row("comparison card", "y +24 → 0 and fade in", 900, 1150, "#ADD9FE"),
+    row("unlock card", "only when something unlocks · y +24 → 0", 1150, 1400, "#B4F2DD"),
+    row("buttons enable", "fade in; avoids an accidental early dismiss", 1300, 1500, "#FFFFFF"),
+    row("reduced motion", "one fade, final number and cards shown", 0, 200, "#FFFFFF")
+  ] }
+];
+class Component extends DCLogic {
+  renderVals() {
+    var ticks = [];
+    for (var ms = 0; ms <= 1400; ms += 200) ticks.push({ x: Math.round(ms * K), label: ms + " ms" });
+    return { sections: SECTIONS, ticks: ticks };
+  }
+}
+</script>
+</body>
+</html>

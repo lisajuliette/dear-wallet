@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Taskbar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<nav aria-label="Main" style="width: {{W}}px; height: 96px; position: relative; font-family: Nunito, sans-serif; color: {{t.text}}">
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 80px; box-sizing: border-box; background: {{t.surface}}; border-top: 2px solid {{t.outline}}; border-radius: 26px 26px 0 0; box-shadow: 0 -4px 0 {{t.shadow}}; padding: 6px 6px 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: start">
+    <a href="Home.dc.html" aria-current="{{n.homeCur}}" style="min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: {{t.text}}">
+      <span style="width: 46px; height: 28px; border-radius: 14px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; border: 2px solid {{n.homeBd}}; background: {{n.homeBg}}">
+        <svg width="24" height="24" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M3.5 7.5h7v5h-7z" fill="{{t.c3}}" stroke="none"></path><path d="M1.5 7.5h1v-1h1v-1h1v-1h1v-1h1v-1h1v1h1v1h1v1h1v1h1v1h1"></path><path d="M3.5 7.5v5h7v-5M6.5 12.5v-2h1v2"></path></svg>
+      </span>
+      <span style="font-size: 11px; font-weight: {{n.homeW}}">home</span>
+    </a>
+    <a href="Tally.dc.html" aria-current="{{n.tallyCur}}" style="min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: {{t.text}}">
+      <span style="width: 46px; height: 28px; border-radius: 14px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; border: 2px solid {{n.tallyBd}}; background: {{n.tallyBg}}">
+        <svg width="24" height="24" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8.5h2v3h-2zM6.5 5.5h2v6h-2zM9.5 2.5h2v9h-2z" fill="{{t.c4}}"></path><path d="M1.5 12.5h11"></path></svg>
+      </span>
+      <span style="font-size: 11px; font-weight: {{n.tallyW}}">tally</span>
+    </a>
+    <span aria-hidden="true"></span>
+    <a href="Diary.dc.html" aria-current="{{n.diaryCur}}" style="min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: {{t.text}}">
+      <span style="width: 46px; height: 28px; border-radius: 14px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; border: 2px solid {{n.diaryBd}}; background: {{n.diaryBg}}">
+        <svg width="24" height="24" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M3.5 1.5h8v11h-8z" fill="{{t.c1}}"></path><path d="M5.5 1.5v11M7.5 4.5h2M7.5 6.5h2"></path></svg>
+      </span>
+      <span style="font-size: 11px; font-weight: {{n.diaryW}}">diary</span>
+    </a>
+    <a href="Collection.dc.html" aria-current="{{n.collCur}}" style="min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: {{t.text}}">
+      <span style="width: 46px; height: 28px; border-radius: 14px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; border: 2px solid {{n.collBd}}; background: {{n.collBg}}">
+        <svg width="24" height="24" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M6.5 1.5h1v2h1v2h3v1h-1v1h-1v1h1v3h-1v-1h-2v-1h-1v1h-2v1h-1v-3h1v-1h-1v-1h-1v-1h3v-2h1z" fill="{{t.c2}}"></path></svg>
+      </span>
+      <span style="font-size: 11px; font-weight: {{n.collW}}">collection</span>
+    </a>
+  </div>
+  <a href="QuickLog.dc.html" aria-label="Quick log" style="position: absolute; left: calc(50% - 36px); top: 0; width: 72px; height: 72px; box-sizing: border-box; border-radius: 50%; background: {{t.btn}}; color: {{t.btnText}}; border: 2px solid {{t.outline}}; box-shadow: 0 4px 0 {{t.shadow}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; text-decoration: none">
+    <svg width="26" height="26" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M7 2.5v9M2.5 7h9"></path></svg>
+    <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.06em">LOG</span>
+  </a>
+</nav>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"active":{"editor":"enum","options":["home","tally","diary","collection","none"],"default":"home"},"$preview":{"width":390,"height":96}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+class Component extends DCLogic {
+  renderVals() {
+    var t = tok(this.props.palette ?? "cloud");
+    var a = this.props.active ?? "home";
+    var n = {};
+    ["home", "tally", "diary", "coll"].forEach(function (k) {
+      var on = a === k || (k === "coll" && a === "collection");
+      n[k + "Bg"] = on ? t.c1 : "transparent";
+      n[k + "W"] = on ? 900 : 700;
+      n[k + "Cur"] = on ? "page" : "false";
+      n[k + "Bd"] = on ? t.outline : "transparent";
+    });
+    return { t: t, n: n, W: Number(this.props.w ?? 390) };
+  }
+}
+</script>
+</body>
+</html>

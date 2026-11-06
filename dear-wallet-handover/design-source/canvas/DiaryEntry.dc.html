@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Diary entry</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<main style="width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: radial-gradient(circle at 50% 26%, {{t.surface}} 0, {{t.clear}} 46%), linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 100% 100%, 22px 22px, 22px 22px, 100% 100%">
+
+  <sc-if value="{{editor}}" hint-placeholder-val="{{true}}">
+    <section aria-label="Diary entry" style="position: absolute; left: 12px; right: 12px; top: 54px; bottom: 24px; box-sizing: border-box; border-radius: 24px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 6px 0 {{t.shadow}}; overflow: hidden; display: flex; flex-direction: column">
+      <div style="height: 52px; flex: none; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 6px 0 12px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 14px 14px">
+        <span style="width: 28px; height: 28px; box-sizing: border-box; border-radius: 8px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path></svg></span>
+        <h1 style="margin: 0; padding: 2px 12px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.06em">{{winTitle}}</h1>
+        <span style="flex: 1"></span>
+        <a href="Diary.dc.html" aria-label="Close" style="width: 44px; height: 44px; box-sizing: border-box; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7"></path></svg></a>
+      </div>
+
+      <div style="flex: 1; box-sizing: border-box; padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 14px">
+        <div style="border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.c2}}; padding: 8px 8px 8px 14px; display: flex; align-items: center; gap: 10px">
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+            <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">PROMPT · OPTIONAL</span>
+            <span style="font-size: 16px; font-weight: 900; line-height: 1.3">how’s ur wallet feeling today?</span>
+          </div>
+          <button type="button" aria-label="New prompt" style="width: 44px; height: 44px; flex: none; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.5 7A4.5 4.5 0 1 1 10 3.6"></path><path d="M10.5 1.5v2.5H8"></path></svg></button>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">MOOD · OPTIONAL</span>
+          <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px">
+            <sc-for list="{{moods}}" as="m" hint-placeholder-count="5">
+              <button type="button" aria-pressed="{{m.on}}" style="height: 74px; border-radius: 16px; border: 2px solid {{m.border}}; background: {{m.bg}}; color: {{t.text}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0; font-family: Nunito, sans-serif; font-size: 11px; font-weight: {{m.w}}; cursor: pointer">
+                <dc-import name="Sticker" kind="{{m.kind}}" size="42" hint-size="42px,42px"></dc-import>{{m.kind}}
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <label style="flex: 1; display: flex; flex-direction: column; gap: 4px; border-radius: 18px; border: 2px solid {{t.outline}}; background: {{t.surface}}; padding: 8px 14px 6px">
+          <span style="font-family: Pacifico, cursive; font-size: 24px; line-height: 1.35">Dear Wallet,</span>
+          <span style="position: relative; flex: 1; display: block">
+            <textarea value="{{text}}" style="width: 100%; height: 100%; min-height: {{taMin}}px; box-sizing: border-box; border: 0; padding: 0; resize: none; background-color: transparent; background-image: repeating-linear-gradient(transparent 0 29px, {{t.ring}} 29px 31px); background-attachment: local; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 16px; font-weight: 700; line-height: 31px"></textarea>
+            <sc-if value="{{isNew}}" hint-placeholder-val="{{false}}">
+              <span aria-hidden="true" style="position: absolute; left: 0; top: 0; font-size: 16px; font-weight: 600; line-height: 31px; color: {{t.soft}}; pointer-events: none">a line or two is plenty…</span>
+            </sc-if>
+          </span>
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3.5 6.5h7v6h-7z"></path><path d="M5 6.5V4.5a2 2 0 0 1 4 0v2"></path></svg>
+            only u can see this
+            <span style="flex: 1"></span>{{count}} / 280
+          </span>
+        </label>
+
+        <sc-if value="{{isEditing}}" hint-placeholder-val="{{true}}">
+          <div style="display: flex; gap: 10px">
+            <a href="Decorate.dc.html" style="flex: 1; height: 56px; box-sizing: border-box; border-radius: 28px; border: 2px solid {{t.outline}}; background: {{t.c3}}; color: {{t.text}}; box-shadow: 0 4px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 16px; font-weight: 900; text-decoration: none">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>decorate
+            </a>
+            <a href="DiaryEntry_Saved.dc.html" style="flex: 1.3; height: 56px; box-sizing: border-box; border-radius: 28px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 4px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900; text-decoration: none">save ♡</a>
+          </div>
+        </sc-if>
+        <sc-if value="{{isNew}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <button type="button" disabled style="height: 56px; border-radius: 28px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 18px; font-weight: 900">save ♡</button>
+            <span style="font-size: 12px; font-weight: 800; text-align: center">a mood or one line is enough to save. stickers come after.</span>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{saved}}" hint-placeholder-val="{{false}}">
+    <a href="Diary.dc.html" aria-label="Entry saved. Tap anywhere to close" style="position: absolute; left: 0; top: 0; width: {{W}}px; height: {{H}}px; display: block; color: {{t.text}}; text-decoration: none">
+      <div style="position: absolute; left: 0; top: 0; width: 390px; height: 380px; transform-origin: 195px 220px; transform: translate({{sv.dx}}px, {{sv.dy}}px) scale({{sv.gs}})">
+      <div aria-hidden="true" style="position: absolute; left: 80px; top: 105px; width: 230px; height: 230px; box-sizing: border-box; border-radius: 50%; border: 2px dashed {{t.ring}}"></div>
+      <div aria-hidden="true" style="position: absolute; left: 105px; top: 130px; width: 180px; height: 180px; box-sizing: border-box; border-radius: 50%; border: 2px solid {{t.ring}}"></div>
+      <sc-for list="{{burst}}" as="b" hint-placeholder-count="9">
+        <svg aria-hidden="true" width="{{b.s}}" height="{{b.s}}" viewBox="0 0 24 24" style="position: absolute; left: {{b.x}}px; top: {{b.y}}px"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{b.fill}}" stroke="{{t.outline}}" stroke-width="1.8"></path></svg>
+      </sc-for>
+      <svg aria-hidden="true" width="150" height="150" viewBox="0 0 24 24" style="position: absolute; left: 120px; top: 145px; overflow: visible"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.shadow}}" transform="translate(0 0.8)"></path><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="0.55" stroke-linejoin="round"></path><path d="M10.6 6.5C10.9 8.2 10 9.6 8.6 10.4" fill="none" stroke="{{t.surface}}" stroke-width="0.8" stroke-linecap="round"></path></svg>
+      <span style="position: absolute; left: 262px; top: 150px; transform: rotate(8deg); height: 34px; box-sizing: border-box; padding: 0 12px; border-radius: 17px; border: 2px solid {{t.outline}}; background: {{t.c4}}; display: flex; align-items: center; font-family: 'Pixelify Sans', sans-serif; font-size: 18px; font-weight: 600">+1 ✦</span>
+
+      </div>
+      <div style="position: absolute; left: 24px; right: 24px; top: {{sv.msgT}}px; display: flex; flex-direction: column; align-items: center; text-align: center">
+        <span style="font-family: Pacifico, cursive; font-size: 46px; line-height: 1.3">saved!</span>
+        <span style="font-size: 19px; font-weight: 900">u showed up today ♡</span>
+      </div>
+
+      <div style="position: absolute; left: 44px; right: 44px; top: {{sv.polT}}px; transform: rotate(-2deg); border-radius: 18px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+        <div style="height: 30px; box-sizing: border-box; display: flex; align-items: center; gap: 6px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 10px 10px">
+          <span style="padding: 0 8px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">NOV 5 · +1 STAR</span>
+        </div>
+        <div style="padding: 10px 14px 12px; display: flex; gap: 10px; align-items: flex-start">
+          <dc-import name="Sticker" kind="tempted" size="40" hint-size="40px,40px"></dc-import>
+          <div style="display: flex; flex-direction: column; min-width: 0">
+            <span style="font-family: Pacifico, cursive; font-size: 20px; line-height: 1.3">Dear Wallet,</span>
+            <span style="font-size: 14px; font-weight: 700; line-height: 1.4">saw the cutest bag on a haul video and said nvm. kinda proud?</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="position: absolute; left: 32px; right: 32px; top: {{sv.stkT}}px; box-sizing: border-box; border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 4px 0 {{t.shadow}}; padding: 10px 14px 10px 10px; display: flex; align-items: center; gap: 12px">
+        <dc-import name="Sticker" kind="cloud" size="60" hint-size="60px,60px"></dc-import>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <span style="align-self: flex-start; padding: 0 8px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.c4}}; font-family: 'Pixelify Sans', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.06em">NEW STICKER</span>
+          <span style="font-size: 16px; font-weight: 900">lil cloud</span>
+          <span style="font-size: 13px; font-weight: 700">in ur tray, ready for this page</span>
+        </div>
+      </div>
+
+      <span style="position: absolute; left: 0; right: 0; bottom: {{sv.ftB}}px; display: flex; justify-content: center">
+        <span style="padding: 6px 14px; border-radius: 999px; background: {{t.surface}}; border: 2px solid {{t.outline}}; font-size: 14px; font-weight: 800">tap anywhere to close</span>
+      </span>
+    </a>
+  </sc-if>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"state":{"editor":"enum","options":["new","editing","saved"],"default":"editing","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+var TEXT = "saw the cutest bag on a haul video and said nvm. kinda proud? also still thinking about it a lil lol";
+class Component extends DCLogic {
+  renderVals() {
+    var s = this.props.state ?? "editing";
+    var W = Number(this.props.w ?? 390), H = Number(this.props.h ?? 844), compact = H < 740;
+    var sv = compact
+      ? { dx: (W - 390) / 2, dy: -60, gs: 0.8, msgT: 236, polT: 330, stkT: 480, ftB: 18 }
+      : { dx: (W - 390) / 2, dy: 0, gs: 1, msgT: 318, polT: 430, stkT: 628, ftB: 34 };
+    var t = tok(this.props.palette ?? "cloud");
+    var isNew = s === "new", saved = s === "saved";
+    var sel = isNew ? "" : "tempted";
+    var moods = ["proud", "chill", "meh", "tempted", "wobbly"].map(function (k) {
+      var on = k === sel;
+      return { kind: k, on: on, bg: on ? t.c1 : "transparent", border: on ? t.outline : "transparent", w: on ? 900 : 800 };
+    });
+    var cols = [t.c1, t.c2, t.c4, t.c5, t.c3];
+    var angles = [-90, -52, -16, 22, 56, 124, 158, 196, 232];
+    var sizes = [26, 14, 22, 12, 18, 18, 12, 22, 14];
+    var burst = angles.map(function (a, i) {
+      var rad = a * Math.PI / 180, r = i % 2 ? 112 : 132;
+      if (a > 40 && a < 140) r = 118;
+      return { x: Math.round(195 + Math.cos(rad) * r - sizes[i] / 2), y: Math.round(220 + Math.sin(rad) * r - sizes[i] / 2), s: sizes[i], fill: cols[i % 5] };
+    });
+    return {
+      W: W, H: H, sv: sv, taMin: compact ? 110 : 180,
+      t: t, editor: !saved, saved: saved, isNew: isNew, isEditing: s === "editing",
+      winTitle: isNew ? "NOV 6 · NEW ENTRY" : "NOV 5 · EDITING",
+      moods: moods,
+      text: isNew ? "" : TEXT,
+      count: isNew ? 0 : TEXT.length,
+      burst: burst
+    };
+  }
+}
+</script>
+</body>
+</html>

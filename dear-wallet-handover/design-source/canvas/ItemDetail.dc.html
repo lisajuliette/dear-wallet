@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Item detail</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<main style="width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 22px 22px, 22px 22px, 100% 100%">
+  <header style="position: absolute; left: 16px; right: 16px; top: 54px; display: flex; align-items: center; gap: 8px">
+    <a href="Tally.dc.html" aria-label="Back to tally" style="width: 44px; height: 44px; box-sizing: border-box; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5L4.5 7 9 11.5"></path></svg></a>
+    <span style="flex: 1; display: flex; justify-content: center"><span style="padding: 2px 12px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.06em">ITEM</span></span>
+    <button type="button" aria-label="Edit item" style="width: 44px; height: 44px; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; padding: 0; cursor: pointer"><svg width="22" height="22" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 11.5l.8-3 6-6 2.2 2.2-6 6z" fill="{{t.c3}}"></path><path d="M8 3.8l2.2 2.2"></path></svg></button>
+  </header>
+
+  <div style="position: absolute; left: 16px; right: 16px; top: 110px; bottom: 0; overflow-y: auto; padding-bottom: 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px">
+    <sc-if value="{{hasPhoto}}" hint-placeholder-val="{{true}}">
+      <section aria-label="Photo" style="border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+        <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+          <span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 7px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path></svg></span>
+          <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">SNEAKERS.JPG</span>
+        </div>
+        <div style="height: 140px; background: linear-gradient(135deg, {{t.c1}}, {{t.c5}}); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px">
+          <svg width="44" height="44" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="{{t.outline}}" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M1.5 4.5h3v-1h1v-1h3v1h1v1h3v7h-11z" fill="{{t.surface}}"></path><path d="M5.5 6.5h3v3h-3z" fill="{{t.c3}}"></path></svg>
+          <span style="padding: 2px 10px; border-radius: 999px; background: {{t.surface}}; font-size: 12px; font-weight: 800">her photo goes here</span>
+        </div>
+      </section>
+    </sc-if>
+    <sc-if value="{{noPhoto}}" hint-placeholder-val="{{false}}">
+      <button type="button" style="height: 72px; border-radius: 20px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 900; cursor: pointer">
+        <svg width="26" height="26" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M1.5 4.5h3v-1h1v-1h3v1h1v1h3v7h-11z" fill="{{t.c5}}"></path><path d="M5.5 6.5h3v3h-3z" fill="{{t.surface}}"></path></svg>
+        + add a photo <span style="font-weight: 700; font-size: 13px">· optional</span>
+      </button>
+    </sc-if>
+
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <h1 style="flex: 1; margin: 0; font-size: 24px; font-weight: 900; line-height: 1.25">platform sneakers</h1>
+        <span style="padding: 3px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{statusBg}}; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; white-space: nowrap">{{status}}</span>
+      </div>
+      <div style="display: flex; align-items: baseline; gap: 10px">
+        <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 40px; font-weight: 600; line-height: 1.1; text-decoration: {{amtDeco}}">$24.00</span>
+        <span style="font-size: 13px; font-weight: 800">{{amtNote}}</span>
+      </div>
+    </div>
+
+    <sc-if value="{{bought}}" hint-placeholder-val="{{false}}">
+      <div style="position: relative; height: 80px">
+        <svg aria-hidden="true" width="{{cw}}" height="84" viewBox="0 0 {{cw}} 84" style="position: absolute; left: 0; top: 0; overflow: visible"><path d="{{msgPath}}" fill="{{t.shadow}}" transform="translate(0 4)"></path><path d="{{msgPath}}" fill="{{t.c2}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+        <div style="position: absolute; left: 16px; right: 16px; top: 24px; bottom: 8px; display: flex; align-items: center; gap: 10px">
+          <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" style="flex: none"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+          <span style="font-size: 15px; font-weight: 900; line-height: 1.35">all good. u still paused, and that counts.</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <section aria-label="Details" style="border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c4}}; background-image: repeating-conic-gradient({{t.c5}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+        <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">DETAILS</span>
+      </div>
+      <div style="padding: 4px 14px 8px; display: flex; flex-direction: column">
+        <div style="min-height: 44px; display: flex; align-items: center; gap: 12px; border-bottom: 2px dashed {{t.ring}}">
+          <span style="width: 74px; flex: none; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">WHEN</span>
+          <span style="font-size: 15px; font-weight: 800">nov 6 · 3:12 pm</span>
+        </div>
+        <div style="min-height: 44px; display: flex; align-items: center; gap: 12px; border-bottom: 2px dashed {{t.ring}}">
+          <span style="width: 74px; flex: none; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">CATEGORY</span>
+          <span style="padding: 2px 10px; border-radius: 999px; border: 2px {{catBorder}} {{t.outline}}; background: {{catBg}}; font-size: 14px; font-weight: 800">{{category}}</span>
+        </div>
+        <div style="min-height: 44px; padding: 10px 0 4px; display: flex; align-items: flex-start; gap: 12px">
+          <span style="width: 74px; flex: none; padding-top: 2px; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">NOTE</span>
+          <span style="font-size: 15px; font-weight: 700; line-height: 1.4">saw them in a haul video. still cute, still not needed rn</span>
+        </div>
+      </div>
+    </section>
+
+    <sc-if value="{{showTags}}" hint-placeholder-val="{{true}}">
+      <div style="display: flex; gap: 8px">
+        <button type="button" aria-pressed="{{savOn}}" style="flex: 1; height: 44px; border-radius: 22px; border: 2px {{savBorder}} {{t.outline}}; background: {{savBg}}; color: {{t.text}}; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: Nunito, sans-serif; font-size: 14px; font-weight: {{savW}}; cursor: pointer">
+          <sc-if value="{{savOn}}" hint-placeholder-val="{{false}}"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M2.5 7.5l3 3 6-6.5"></path></svg></sc-if>{{savLabel}}
+        </button>
+        <button type="button" aria-pressed="false" style="flex: 1; height: 44px; border-radius: 22px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; cursor: pointer">+ paid off debt</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{kept}}" hint-placeholder-val="{{true}}">
+      <button type="button" style="height: 52px; border-radius: 26px; border: 2px solid {{t.outline}}; background: {{t.c3}}; color: {{t.text}}; box-shadow: 0 4px 0 {{t.shadow}}; font-family: Nunito, sans-serif; font-size: 16px; font-weight: 900; cursor: pointer">i bought it after all</button>
+    </sc-if>
+    <sc-if value="{{bought}}" hint-placeholder-val="{{false}}">
+      <button type="button" style="height: 52px; border-radius: 26px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 4px 0 {{t.shadow}}; font-family: Nunito, sans-serif; font-size: 16px; font-weight: 900; cursor: pointer">undo, i didn’t buy it</button>
+    </sc-if>
+    <a href="ItemDetail_Delete.dc.html" style="height: 48px; margin-top: -2px; box-sizing: border-box; border-radius: 24px; color: {{t.text}}; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 15px; font-weight: 800; text-decoration: underline">
+      <svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 4.5h7l-.8 8H4.3z" fill="{{t.c1}}"></path><path d="M2.5 4.5h9M5.5 4.5v-2h3v2"></path></svg>delete item
+    </a>
+  </div>
+
+  <sc-if value="{{confirm}}" hint-placeholder-val="{{false}}">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: {{t.scrim}}"></div>
+    <section role="alertdialog" aria-label="Delete platform sneakers?" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; border: 2px solid {{t.outline}}; border-bottom: 0; border-radius: 28px 28px 0 0; background: {{t.surface}}; box-shadow: 0 -5px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 48px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 14px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+        <span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 8px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="{{t.outline}}" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 4.5h7l-.8 8H4.3z" fill="{{t.c1}}"></path><path d="M2.5 4.5h9M5.5 4.5v-2h3v2"></path></svg></span>
+        <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">DELETE ITEM?</span>
+      </div>
+      <div style="padding: 18px 20px 34px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; align-items: center; gap: 14px">
+          <dc-import name="Sticker" kind="wobbly" size="56" hint-size="56px,56px"></dc-import>
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <h2 style="margin: 0; font-size: 20px; font-weight: 900; line-height: 1.25">delete platform sneakers?</h2>
+            <p style="margin: 0; font-size: 14px; font-weight: 700; line-height: 1.4">it leaves ur tally and ur history. this one can’t be undone.</p>
+          </div>
+        </div>
+        <div style="border-radius: 16px; border: 2px dashed {{t.outline}}; padding: 10px 14px; font-size: 13px; font-weight: 800; line-height: 1.4">bought it after all? use that instead. it keeps the memory and there’s no penalty ♡</div>
+        <a href="ItemDetail.dc.html" style="height: 56px; box-sizing: border-box; border-radius: 28px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 4px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 900; text-decoration: none">keep it</a>
+        <a href="Tally.dc.html" style="height: 52px; box-sizing: border-box; border-radius: 26px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 16px; font-weight: 900; text-decoration: none">yes, delete it</a>
+      </div>
+    </section>
+  </sc-if>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"state":{"editor":"enum","options":["kept","bought","tagged","nophoto","delete"],"default":"kept","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+function cloud(w,h){var T=18,r=22,W=w-1,H=h-1;return "M"+(r+1)+" "+T+" L28 "+T+" A16 16 0 0 1 60 "+T+" L64 "+T+" A11 11 0 0 1 86 "+T+" L"+(W-r)+" "+T+" A"+r+" "+r+" 0 0 1 "+W+" "+(T+r)+" L"+W+" "+(H-r)+" A"+r+" "+r+" 0 0 1 "+(W-r)+" "+H+" L"+(r+1)+" "+H+" A"+r+" "+r+" 0 0 1 1 "+(H-r)+" L1 "+(T+r)+" A"+r+" "+r+" 0 0 1 "+(r+1)+" "+T+" Z";}
+class Component extends DCLogic {
+  renderVals() {
+    var s = this.props.state ?? "kept";
+    var W = Number(this.props.w ?? 390);
+    var t = tok(this.props.palette ?? "cloud");
+    var bought = s === "bought", tagged = s === "tagged", nophoto = s === "nophoto";
+    return {
+      t: t, confirm: s === "delete",
+      hasPhoto: !nophoto, noPhoto: nophoto,
+      bought: bought, kept: !bought, showTags: !bought,
+      status: bought ? "BOUGHT AFTER ALL" : "KEPT ♡",
+      statusBg: bought ? t.c2 : t.c4,
+      amtDeco: bought ? "line-through" : "none",
+      amtNote: bought ? "not in ur tally anymore" : (tagged ? "in savings too ♡" : "stays with u ♡"),
+      msgPath: cloud(W - 32, 80), cw: W - 32, W: W, H: Number(this.props.h ?? 844),
+      category: nophoto ? "+ add" : "shoes",
+      catBg: nophoto ? t.surface : t.c5,
+      catBorder: nophoto ? "dashed" : "solid",
+      savOn: tagged,
+      savBg: tagged ? t.c4 : t.surface,
+      savBorder: tagged ? "solid" : "dashed",
+      savW: tagged ? 900 : 800,
+      savLabel: tagged ? "moved to savings" : "+ moved to savings"
+    };
+  }
+}
+</script>
+</body>
+</html>

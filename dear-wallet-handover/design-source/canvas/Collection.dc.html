@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Collection</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<main style="width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 22px 22px, 22px 22px, 100% 100%">
+  <header style="position: absolute; left: 16px; right: 16px; top: 54px; display: flex; align-items: center; gap: 8px">
+    <h1 style="flex: 1; margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: 30px; line-height: 1.3">Collection</h1>
+    <span style="height: 36px; box-sizing: border-box; padding: 0 12px 0 8px; border-radius: 18px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; gap: 5px">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 16px; font-weight: 600">{{stars}}</span>
+      <span style="font-size: 12px; font-weight: 800">stars</span>
+    </span>
+  </header>
+
+  <div style="position: absolute; left: 16px; right: 16px; top: 112px; bottom: 88px; overflow-y: auto; padding-bottom: 8px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px">
+    <section aria-label="Milestones" style="border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c3}}; background-image: repeating-conic-gradient({{t.c1}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+        <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">MILESTONES</span>
+        <span style="flex: 1"></span>
+        <span style="padding: 1px 8px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-size: 12px; font-weight: 900">{{mileCount}}</span>
+      </div>
+      <div style="padding: 12px 10px 10px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+        <sc-for list="{{miles}}" as="m" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center">
+            <span style="width: 52px; height: 52px; box-sizing: border-box; border-radius: 50%; border: 2px {{m.bs}} {{t.outline}}; background: {{m.bg}}; display: flex; align-items: center; justify-content: center; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 600">
+              <sc-if value="{{m.done}}" hint-placeholder-val="{{true}}"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="2"></path></svg></sc-if>
+              <sc-if value="{{m.next}}" hint-placeholder-val="{{false}}">{{m.pct}}</sc-if>
+              <sc-if value="{{m.locked}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 14 14" fill="none" stroke="{{t.outline}}" stroke-width="1.6"><path d="M3.5 6.5h7v6h-7z"></path><path d="M5 6.5V4.5a2 2 0 0 1 4 0v2"></path></svg></sc-if>
+            </span>
+            <span style="font-size: 11px; font-weight: 800; line-height: 1.25">{{m.label}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section aria-label="Sticker album" style="border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+        <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">STICKER ALBUM</span>
+        <span style="flex: 1"></span>
+        <span style="padding: 1px 8px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 600">{{albumCount}}</span>
+      </div>
+      <div style="padding: 12px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px">
+        <sc-for list="{{album}}" as="a" hint-placeholder-count="12">
+          <span style="height: 50px; box-sizing: border-box; border-radius: 12px; border: 2px {{a.bs}} {{a.border}}; background: {{a.bg}}; display: flex; align-items: center; justify-content: center">
+            <sc-if value="{{a.owned}}" hint-placeholder-val="{{true}}"><dc-import name="Sticker" kind="{{a.kind}}" size="38" hint-size="38px,38px"></dc-import></sc-if>
+            <sc-if value="{{a.missing}}" hint-placeholder-val="{{false}}"><span aria-hidden="true" style="font-family: 'Pixelify Sans', sans-serif; font-size: 16px; font-weight: 600; color: {{t.outline}}">?</span></sc-if>
+          </span>
+        </sc-for>
+      </div>
+      <p style="margin: 0; padding: 0 12px 12px; font-size: 13px; font-weight: 800; text-align: center">{{albumNote}}</p>
+    </section>
+
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">STICKER PACKS</span>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+        <button type="button" style="height: 150px; box-sizing: border-box; border-radius: 18px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 4px 0 {{t.shadow}}; padding: 0; overflow: hidden; display: flex; flex-direction: column; color: {{t.text}}; font-family: Nunito, sans-serif; cursor: pointer">
+          <span style="height: 92px; flex: none; position: relative; border-bottom: 2px solid {{t.outline}}; background: {{t.c5}}; display: block">
+            <span style="position: absolute; left: 4px; top: 22px; transform: rotate(-12deg)"><dc-import name="Sticker" kind="cloud" size="46" hint-size="46px,46px"></dc-import></span>
+            <span style="position: absolute; left: 32px; top: 10px; transform: rotate(4deg)"><dc-import name="Sticker" kind="heart" size="46" hint-size="46px,46px"></dc-import></span>
+            <span style="position: absolute; left: 58px; top: 28px; transform: rotate(14deg)"><dc-import name="Sticker" kind="fly" size="46" hint-size="46px,46px"></dc-import></span>
+          </span>
+          <span style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 10px; text-align: left">
+            <span style="font-size: 13px; font-weight: 900">starter</span>
+            <span style="font-size: 11px; font-weight: 800">{{starterSub}}</span>
+          </span>
+        </button>
+        <a href="Collection_Locked.dc.html" aria-label="y2k desk pack, locked, unlocks at 500 dollars kept" style="height: 150px; box-sizing: border-box; border-radius: 18px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; overflow: hidden; display: flex; flex-direction: column; color: {{t.text}}; text-decoration: none">
+          <span style="height: 92px; flex: none; border-bottom: 2px dashed {{t.outline}}; background-color: {{t.c3}}; background-image: repeating-conic-gradient({{t.surface}} 0 25%, transparent 0 50%); background-size: 16px 16px; display: flex; align-items: center; justify-content: center">
+            <span style="width: 48px; height: 48px; box-sizing: border-box; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 14 14" fill="none" stroke="{{t.outline}}" stroke-width="1.6"><path d="M3.5 6.5h7v6h-7z" fill="{{t.c3}}"></path><path d="M5 6.5V4.5a2 2 0 0 1 4 0v2"></path></svg></span>
+          </span>
+          <span style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 10px">
+            <span style="font-size: 13px; font-weight: 900">y2k desk</span>
+            <span style="font-size: 11px; font-weight: 800">at $500 kept</span>
+          </span>
+        </a>
+        <button type="button" aria-label="holo club pack, locked, unlocks at 50 logs" style="height: 150px; box-sizing: border-box; border-radius: 18px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; padding: 0; overflow: hidden; display: flex; flex-direction: column; color: {{t.text}}; font-family: Nunito, sans-serif; cursor: pointer">
+          <span style="height: 92px; flex: none; border-bottom: 2px dashed {{t.outline}}; background: linear-gradient(135deg, #FFC4E6, #BDEBFF, #DCCBFF, #BFF5D8, #FFEFA8); display: flex; align-items: center; justify-content: center">
+            <span style="width: 48px; height: 48px; box-sizing: border-box; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 14 14" fill="none" stroke="{{t.outline}}" stroke-width="1.6"><path d="M3.5 6.5h7v6h-7z" fill="{{t.c2}}"></path><path d="M5 6.5V4.5a2 2 0 0 1 4 0v2"></path></svg></span>
+          </span>
+          <span style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 10px; text-align: left">
+            <span style="font-size: 13px; font-weight: 900">holo club</span>
+            <span style="font-size: 11px; font-weight: 800">at 50 logs</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 0; bottom: 0; width: {{W}}px; height: 96px">
+    <dc-import name="Taskbar" palette="{{palette}}" active="collection" w="{{W}}" hint-size="390px,96px"></dc-import>
+  </div>
+
+  <sc-if value="{{sheet}}" hint-placeholder-val="{{false}}">
+    <div aria-hidden="true" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: {{t.scrim}}"></div>
+    <section role="dialog" aria-label="y2k desk pack, locked" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; border: 2px solid {{t.outline}}; border-bottom: 0; border-radius: 28px 28px 0 0; background: {{t.surface}}; box-shadow: 0 -5px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 48px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 14px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c3}}; background-image: repeating-conic-gradient({{t.c1}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+        <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">Y2K DESK PACK</span>
+        <span style="flex: 1"></span>
+        <a href="Collection.dc.html" aria-label="Close" style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 12px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7"></path></svg></a>
+      </div>
+      <div style="padding: 18px 20px 34px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px">
+          <sc-for list="{{lockedSlots}}" as="l" hint-placeholder-count="6">
+            <span style="height: 48px; box-sizing: border-box; border-radius: 14px; border: 2px dashed {{t.outline}}; background: {{l}}; display: flex; align-items: center; justify-content: center; font-family: 'Pixelify Sans', sans-serif; font-size: 16px; font-weight: 600" aria-hidden="true">?</span>
+          </sc-for>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <h2 style="margin: 0; font-size: 20px; font-weight: 900">6 desk stickers: lava lamp, sticky notes, the works</h2>
+          <p style="margin: 0; font-size: 14px; font-weight: 700">it opens on its own when ur kept total hits $500</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <div style="display: flex; gap: 4px">
+            <sc-for list="{{segs}}" as="g" hint-placeholder-count="12">
+              <span style="flex: 1; height: 16px; box-sizing: border-box; border-radius: 4px; border: 2px solid {{t.outline}}; background: {{g.bg}}"></span>
+            </sc-for>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 800">
+            <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 15px; font-weight: 600">$474.50 / $500</span>
+            <span>$25.50 to go ♡</span>
+          </div>
+        </div>
+        <a href="Collection.dc.html" style="height: 56px; box-sizing: border-box; border-radius: 28px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 4px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 900; text-decoration: none">cute, got it</a>
+      </div>
+    </section>
+  </sc-if>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"state":{"editor":"enum","options":["empty","partial","locked"],"default":"partial","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+class Component extends DCLogic {
+  renderVals() {
+    var palette = this.props.palette ?? "cloud";
+    var s = this.props.state ?? "partial";
+    var t = tok(palette);
+    var empty = s === "empty";
+    var mk = function (label, st, pct) {
+      return { label: label, done: st === "done", next: st === "next", locked: st === "locked", pct: pct || "",
+        bg: st === "done" ? t.c3 : t.surface, bs: st === "done" ? "solid" : "dashed" };
+    };
+    var miles = empty
+      ? [mk("first nvm", "done"), mk("$100 kept", "next", "12%"), mk("10 diary lines", "locked"), mk("$500 kept", "locked")]
+      : [mk("first nvm", "done"), mk("$100 kept", "done"), mk("10 diary lines", "done"), mk("$500 kept", "next", "95%")];
+    var owned = empty ? ["cloud"] : ["cloud", "phone", "fly", "coins", "tea", "heart", "star", "bubble", "holoCd"];
+    var album = [];
+    for (var i = 0; i < 12; i++) {
+      var k = owned[i];
+      var rare = k && k.indexOf("holo") === 0;
+      album.push({ owned: !!k, missing: !k, kind: k || "cloud", bg: rare ? t.text : (k ? t.surface : "transparent"), bs: k ? "solid" : "dashed", border: k ? t.outline : t.ring });
+    }
+    var segs = [];
+    for (var j = 0; j < 12; j++) segs.push({ bg: j < 11 ? t.btn : t.surface });
+    return {
+      t: t, palette: palette,
+      W: Number(this.props.w ?? 390), H: Number(this.props.h ?? 844),
+      stars: empty ? "1" : "13",
+      mileCount: empty ? "1 of 9" : "3 of 9",
+      miles: miles, album: album,
+      albumCount: empty ? "1 / 24" : "9 / 24",
+      albumNote: empty ? "it fills up as u log + write. no rush ♡" : "15 more to find. rares are holo ✦",
+      starterSub: empty ? "1 of 12" : "9 of 12",
+      sheet: s === "locked",
+      lockedSlots: [t.c1, t.c2, t.c3, t.c4, t.c5, t.c1],
+      segs: segs
+    };
+  }
+}
+</script>
+</body>
+</html>

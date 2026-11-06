@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Faceplate</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div aria-hidden="true" style="width: 84px; height: 150px; box-sizing: border-box; position: relative; border-radius: 22px; border: 2px solid {{t.outline}}; background: linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); overflow: hidden; font-family: Nunito, sans-serif; color: {{t.text}}">
+  <span style="position: absolute; left: 30px; top: 6px; width: 20px; height: 5px; border-radius: 3px; background: {{t.outline}}"></span>
+  <span style="position: absolute; left: 8px; right: 8px; top: 18px; height: 34px; box-sizing: border-box; border-radius: 8px; border: 2px solid {{t.outline}}; background: {{t.surface}}; overflow: hidden">
+    <span style="display: block; height: 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 6px 6px"></span>
+    <span style="display: block; padding: 1px 5px; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 600; line-height: 1.3">$38</span>
+  </span>
+  <span style="position: absolute; left: 8px; right: 8px; top: 58px; height: 14px; box-sizing: border-box; border-radius: 7px; border: 2px solid {{t.outline}}; background: {{t.c2}}"></span>
+  <span style="position: absolute; left: 8px; right: 8px; top: 76px; height: 14px; box-sizing: border-box; border-radius: 7px; border: 2px solid {{t.outline}}; background: {{t.c3}}"></span>
+  <span style="position: absolute; left: 8px; right: 8px; top: 94px; height: 14px; box-sizing: border-box; border-radius: 7px; border: 2px solid {{t.outline}}; background: {{t.c4}}"></span>
+  <span style="position: absolute; left: 6px; right: 6px; bottom: 6px; height: 22px; box-sizing: border-box; border-radius: 10px; border: 2px solid {{t.outline}}; background: {{t.surface}}"></span>
+  <span style="position: absolute; left: 32px; bottom: 14px; width: 20px; height: 20px; box-sizing: border-box; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.btn}}"></span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"$preview":{"width":84,"height":150}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt};}
+class Component extends DCLogic {
+  renderVals() {
+    return { t: tok(this.props.palette ?? "cloud") };
+  }
+}
+</script>
+</body>
+</html>

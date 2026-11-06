@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<main style="width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: radial-gradient(circle at 50% 24%, {{t.surface}} 0, {{t.clear}} 48%), linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 100% 100%, 22px 22px, 22px 22px, 100% 100%">
+  <div style="position: absolute; left: 20px; right: 12px; top: 52px; display: flex; align-items: center; gap: 6px">
+    <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">{{stepAria}}</span>
+    <span aria-hidden="true" style="display: flex; gap: 6px">
+      <sc-for list="{{dots}}" as="d" hint-placeholder-count="3">
+        <span style="width: {{d.w}}px; height: 10px; box-sizing: border-box; border-radius: 5px; border: 2px solid {{t.outline}}; background: {{d.bg}}"></span>
+      </sc-for>
+    </span>
+    <span style="flex: 1"></span>
+    <a href="Home.dc.html" style="height: 44px; padding: 0 14px; box-sizing: border-box; border-radius: 22px; display: flex; align-items: center; color: {{t.text}}; font-size: 15px; font-weight: 900; text-decoration: underline">skip</a>
+  </div>
+
+  <sc-if value="{{isWelcome}}" hint-placeholder-val="{{true}}">
+    <div style="position: absolute; left: 0; right: 0; top: {{o.logoT}}px; display: flex; justify-content: center">
+      <svg width="{{o.logoS}}" height="{{o.logoS}}" viewBox="90 100 860 840" role="img" aria-label="Dear Wallet logo">
+        <circle cx="512" cy="450" r="250" fill="{{t.shadow}}"></circle>
+        <circle cx="512" cy="430" r="250" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="18"></circle>
+        <circle cx="512" cy="430" r="204" fill="none" stroke="{{t.outline}}" stroke-width="9" stroke-dasharray="28 20" stroke-linecap="round"></circle>
+        <ellipse cx="398" cy="292" rx="54" ry="26" fill="{{t.surface}}" opacity="0.9" transform="rotate(-35 398 292)"></ellipse>
+        <g transform="translate(393 296) scale(17)" shape-rendering="crispEdges"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path></g>
+        <path d="M250 900C160 900 120 830 150 770C100 720 140 630 230 640C240 560 340 520 410 570C450 500 580 490 620 570C680 520 790 545 800 630C890 620 940 720 880 780C920 840 860 900 780 900Z" fill="{{t.shadow}}" transform="translate(0 20)"></path>
+        <path d="M250 900C160 900 120 830 150 770C100 720 140 630 230 640C240 560 340 520 410 570C450 500 580 490 620 570C680 520 790 545 800 630C890 620 940 720 880 780C920 840 860 900 780 900Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="18" stroke-linejoin="round"></path>
+        <g transform="translate(740 115) scale(7.917)"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="1.8"></path></g>
+        <g transform="translate(135 195) scale(4.583)"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c5}}" stroke="{{t.outline}}" stroke-width="3.1"></path></g>
+      </svg>
+    </div>
+    <div style="position: absolute; left: 24px; right: 24px; top: {{o.titleT}}px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px">
+      <h1 style="margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: 36px; line-height: 1.35">hi, i’m Dear Wallet</h1>
+      <p style="margin: 0; font-size: 16px; font-weight: 800; line-height: 1.45">a lil diary for the money u kept, and how it all feels</p>
+    </div>
+    <section aria-label="What it does" style="position: absolute; left: 24px; right: 24px; top: {{o.featT}}px; border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; padding: 8px 14px">
+      <sc-for list="{{features}}" as="f" hint-placeholder-count="3">
+        <div style="min-height: 48px; display: flex; align-items: center; gap: 12px; border-bottom: {{f.sep}}">
+          <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" style="flex: none"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{f.fill}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+          <span style="font-size: 15px; font-weight: 800">{{f.text}}</span>
+        </div>
+      </sc-for>
+    </section>
+    <a href="Onboarding_Palette.dc.html" style="position: absolute; left: 24px; right: 24px; bottom: 44px; height: 58px; box-sizing: border-box; border-radius: 29px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 4px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900; text-decoration: none">let’s go ♡</a>
+  </sc-if>
+
+  <sc-if value="{{isPalette}}" hint-placeholder-val="{{false}}">
+    <div style="position: absolute; left: 24px; right: 24px; top: {{o.headT}}px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px">
+      <h1 style="margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: 34px; line-height: 1.35">pick ur faceplate</h1>
+      <p style="margin: 0; font-size: 15px; font-weight: 800">tap one to try it. swap anytime in settings</p>
+    </div>
+    <div style="position: absolute; left: 16px; right: 16px; top: {{o.gridT}}px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+      <sc-for list="{{free}}" as="p" hint-placeholder-count="3">
+        <button type="button" aria-pressed="{{p.on}}" aria-label="{{p.name}}" onClick="{{p.pick}}" style="border: 0; background: transparent; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; color: {{t.text}}; font-family: Nunito, sans-serif; cursor: pointer">
+          <span style="position: relative; display: block; width: {{o.pW}}px; height: {{o.pH}}px; box-sizing: content-box; padding: 3px; border-radius: 30px; border: 3px solid {{p.ring}}">
+            <span style="display: block; width: 84px; height: 150px; transform: scale({{o.pS}}); transform-origin: 0 0">
+              <dc-import name="Faceplate" palette="{{p.key}}" hint-size="84px,150px"></dc-import>
+            </span>
+            <sc-if value="{{p.on}}" hint-placeholder-val="{{false}}">
+              <span style="position: absolute; right: -4px; bottom: -4px; width: 30px; height: 30px; box-sizing: border-box; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" aria-hidden="true"><path d="M2.5 7.5l3 3 6-6.5"></path></svg></span>
+            </sc-if>
+          </span>
+          <span style="font-size: 14px; font-weight: 900">{{p.name}}</span>
+        </button>
+      </sc-for>
+    </div>
+    <section aria-label="Palettes to unlock" style="position: absolute; left: 16px; right: 16px; top: {{o.lockT}}px; border-radius: 20px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; padding: 12px 14px; display: flex; align-items: center; gap: 14px">
+      <span style="display: flex; gap: 6px; flex: none" aria-hidden="true">
+        <sc-for list="{{lockedPlates}}" as="l" hint-placeholder-count="3">
+          <span style="position: relative; display: block; width: 42px; height: 75px">
+            <span style="display: block; width: 84px; height: 150px; transform: scale(0.5); transform-origin: 0 0"><dc-import name="Faceplate" palette="{{l}}" hint-size="84px,150px"></dc-import></span>
+            <span style="position: absolute; left: 9px; top: 25px; width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="{{t.outline}}" stroke-width="2"><path d="M3.5 6.5h7v6h-7z"></path><path d="M5 6.5V4.5a2 2 0 0 1 4 0v2"></path></svg></span>
+          </span>
+        </sc-for>
+      </span>
+      <span style="display: flex; flex-direction: column">
+        <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">3 MORE TO UNLOCK</span>
+        <span style="font-size: 14px; font-weight: 800; line-height: 1.35">they pop open as u log + write. lil surprises ✦</span>
+      </span>
+    </section>
+    <a href="Onboarding_FirstLog.dc.html" style="position: absolute; left: 24px; right: 24px; bottom: 44px; height: 58px; box-sizing: border-box; border-radius: 29px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 4px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900; text-decoration: none">this one ♡</a>
+  </sc-if>
+
+  <sc-if value="{{isLog}}" hint-placeholder-val="{{false}}">
+    <div style="position: absolute; left: 24px; right: 24px; top: {{o.headT}}px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px">
+      <h1 style="margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: 34px; line-height: 1.35">log ur first nvm</h1>
+      <p style="margin: 0; font-size: 15px; font-weight: 800">something u wanted lately but didn’t get?</p>
+    </div>
+    <section aria-label="First nvm" style="position: absolute; left: 16px; right: 16px; top: {{o.winT}}px; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+        <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">FIRST_NVM.EXE</span>
+      </div>
+      <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px">
+        <label style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">WHAT WAS IT?</span>
+          <input type="text" value="a cropped hoodie" style="height: 48px; box-sizing: border-box; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; padding: 0 14px; font-family: Nunito, sans-serif; font-size: 16px; font-weight: 800">
+        </label>
+        <label style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">HOW MUCH?</span>
+          <input type="text" inputmode="decimal" value="$40" style="height: 60px; box-sizing: border-box; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; padding: 0 14px; font-family: 'Pixelify Sans', sans-serif; font-size: 34px; font-weight: 600">
+        </label>
+        <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">OR TAP ONE</span>
+        <div style="display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 8px">
+          <button type="button" style="flex: none; white-space: nowrap; height: 44px; padding: 0 14px; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.c5}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; cursor: pointer">bubble tea · $6</button>
+          <button type="button" style="flex: none; white-space: nowrap; height: 44px; padding: 0 14px; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.c3}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; cursor: pointer">phone case · $24</button>
+          <button type="button" style="flex: none; white-space: nowrap; height: 44px; padding: 0 14px; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.c4}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; cursor: pointer">lip gloss · $14</button>
+        </div>
+      </div>
+    </section>
+    <div style="position: absolute; left: 24px; right: 24px; bottom: 30px; display: flex; flex-direction: column; gap: 4px">
+      <a href="Reward.dc.html" style="height: 58px; box-sizing: border-box; border-radius: 29px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 4px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; text-decoration: none">nvm!</a>
+      <a href="Home.dc.html" style="height: 44px; display: flex; align-items: center; justify-content: center; color: {{t.text}}; font-size: 14px; font-weight: 800; text-decoration: underline">nothing comes to mind? i’ll log later</a>
+    </div>
+  </sc-if>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"step":{"editor":"enum","options":["welcome","palette","log"],"default":"welcome","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var st = this.state || {};
+    var step = this.props.step ?? "welcome";
+    var W = Number(this.props.w ?? 390), H = Number(this.props.h ?? 844), compact = H < 740;
+    var o = compact
+      ? { logoT: 92, logoS: 150, titleT: 250, featT: 350, headT: 88, gridT: 170, pW: 84, pH: 150, pS: 1, lockT: 372, winT: 178 }
+      : { logoT: 116, logoS: 220, titleT: 350, featT: 472, headT: 108, gridT: 222, pW: 101, pH: 180, pS: 1.2, lockT: 488, winT: 216 };
+    var sel = st.sel || (this.props.palette ?? "cloud");
+    var t = tok(sel);
+    var idx = step === "welcome" ? 0 : (step === "palette" ? 1 : 2);
+    var dots = [0, 1, 2].map(function (i) { return { w: i === idx ? 40 : 18, bg: i <= idx ? t.btn : t.surface }; });
+    var free = [["cloud", "Cloud Candy"], ["lilac", "Lilac Sky"], ["peachfuzz", "Peach Fuzz"]].map(function (p) {
+      var on = p[0] === sel;
+      return { key: p[0], name: p[1], on: on, ring: on ? t.btn : "transparent", pick: function () { self.setState({ sel: p[0] }); } };
+    });
+    var feats = [["log a nvm in under 10 seconds", t.c3], ["no streaks, no shame, ever", t.c1], ["private by default ♡", t.c5]];
+    return {
+      t: t, dots: dots, o: o, W: W, H: H, stepAria: "Step " + (idx + 1) + " of 3",
+      isWelcome: idx === 0, isPalette: idx === 1, isLog: idx === 2,
+      features: feats.map(function (f, i) { return { text: f[0], fill: f[1], sep: i < 2 ? "2px dashed " + t.ring : "none" }; }),
+      free: free,
+      lockedPlates: ["peachsoda", "orchid", "midnight"]
+    };
+  }
+}
+</script>
+</body>
+</html>

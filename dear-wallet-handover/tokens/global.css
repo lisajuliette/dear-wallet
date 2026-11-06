@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default palette (Cloud Candy) so the first frame is never unstyled.
+   At runtime the root View overrides these with vars(paletteVars(key)) from theme.ts. */
+:root {
+  --bg1: 246 205 235;
+  --bg2: 198 239 221;
+  --c1: 253 210 238;
+  --c2: 225 213 253;
+  --c3: 253 239 192;
+  --c4: 180 242 221;
+  --c5: 173 217 254;
+  --surface: 255 255 255;
+  --outline: 74 114 168;
+  --text: 46 47 115;
+  --btn: 74 114 168;
+  --btnText: 255 255 255;
+}

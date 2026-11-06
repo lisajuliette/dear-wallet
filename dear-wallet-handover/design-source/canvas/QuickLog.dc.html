@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quick log</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<main style="width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 22px 22px, 22px 22px, 100% 100%">
+  <div aria-hidden="true" style="position: absolute; left: 16px; top: 10px; font-family: Pacifico, cursive; font-size: 26px; line-height: 1.3">Dear Wallet</div>
+  <div aria-hidden="true" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: {{t.scrim}}"></div>
+
+  <section aria-label="Quick log" style="position: absolute; left: 0; right: 0; top: {{q.sheetT}}px; bottom: 0; box-sizing: border-box; background: {{t.surface}}; border: 2px solid {{t.outline}}; border-bottom: 0; border-radius: 28px 28px 0 0; box-shadow: 0 -5px 0 {{t.shadow}}; overflow: hidden; display: flex; flex-direction: column">
+    <div style="height: 56px; flex: none; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 10px 0 14px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 14px 14px">
+      <span style="width: 28px; height: 28px; box-sizing: border-box; border-radius: 8px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path></svg></span>
+      <h2 style="margin: 0; padding: 2px 12px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 15px; font-weight: 500; letter-spacing: 0.06em">QUICK LOG</h2>
+      <sc-if value="{{offline}}" hint-placeholder-val="{{false}}">
+        <span style="height: 28px; box-sizing: border-box; padding: 0 10px 0 6px; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.c3}}; display: flex; align-items: center; gap: 4px; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.05em">
+          <svg width="18" height="18" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M3.5 10.5h8v-1h1v-2h-1v-1h-1v-2h-1v-1h-3v1h-1v1h-1v1h-1v1h-1v2h1z" fill="{{t.surface}}"></path><path d="M1.5 1.5l11 11"></path></svg>OFFLINE
+        </span>
+      </sc-if>
+      <span style="flex: 1"></span>
+      <button type="button" aria-label="Close" style="width: 44px; height: 44px; flex: none; border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; display: flex; align-items: center; justify-content: center; padding: 0; cursor: pointer">
+        <svg width="20" height="20" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7"></path></svg>
+      </button>
+    </div>
+
+    <div style="flex: 1; box-sizing: border-box; padding: 14px 16px 20px; display: flex; flex-direction: column; gap: {{q.gap}}px">
+      <div style="display: flex; padding: 4px; gap: 4px; border-radius: 26px; border: 2px solid {{t.outline}}; background: {{t.surface}}">
+        <button type="button" aria-pressed="true" style="flex: 1; height: 40px; border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.c1}}; color: {{t.text}}; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 900; cursor: pointer">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>didn’t buy
+        </button>
+        <button type="button" aria-pressed="false" style="flex: 1; height: 40px; border-radius: 20px; border: 2px solid transparent; background: transparent; color: {{t.text}}; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 800; cursor: pointer">
+          <svg width="16" height="16" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path></svg>loved it
+        </button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center">
+        <span style="display: {{q.lbl}}; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">HOW MUCH?</span>
+        <span style="font-family: 'Pixelify Sans', sans-serif; font-size: {{q.af}}px; font-weight: 600; line-height: 1.05">{{amount}}</span>
+      </div>
+
+      <label style="display: flex; flex-direction: column; gap: 6px">
+        <span style="display: {{q.lbl}}; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">WHAT WAS IT?</span>
+        <span style="position: relative; display: block">
+          <input type="text" value="{{name}}" style="width: 100%; height: 48px; box-sizing: border-box; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; padding: 0 14px; font-family: Nunito, sans-serif; font-size: 16px; font-weight: 800">
+          <sc-if value="{{nameEmpty}}" hint-placeholder-val="{{false}}">
+            <span aria-hidden="true" style="position: absolute; left: 16px; top: 13px; font-size: 16px; font-weight: 600; color: {{t.soft}}; pointer-events: none">bubble tea, shoes, a phone case…</span>
+          </sc-if>
+        </span>
+      </label>
+
+      <sc-if value="{{q.roomy}}" hint-placeholder-val="{{true}}">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">RECENT</span>
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+            <sc-for list="{{recent}}" as="r" hint-placeholder-count="4">
+              <button type="button" aria-pressed="{{r.on}}" style="height: 44px; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{r.bg}}; color: {{r.fg}}; font-family: 'Pixelify Sans', sans-serif; font-size: 17px; font-weight: 600; cursor: pointer">{{r.v}}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{q.compact}}" hint-placeholder-val="{{false}}">
+        <div aria-label="Recent amounts and extras" style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -16px; padding: 0 16px">
+          <sc-for list="{{recent}}" as="r" hint-placeholder-count="4">
+            <button type="button" aria-pressed="{{r.on}}" style="flex: none; width: 72px; height: 44px; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{r.bg}}; color: {{r.fg}}; font-family: 'Pixelify Sans', sans-serif; font-size: 17px; font-weight: 600; cursor: pointer">{{r.v}}</button>
+          </sc-for>
+          <button type="button" style="flex: none; height: 44px; padding: 0 14px; border-radius: 22px; border: 2px {{catBorder}} {{t.outline}}; background: {{catBg}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; white-space: nowrap; cursor: pointer">{{catLabel}}</button>
+          <button type="button" style="flex: none; height: 44px; padding: 0 14px; border-radius: 22px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; white-space: nowrap; cursor: pointer">+ note</button>
+          <button type="button" style="flex: none; height: 44px; padding: 0 14px; border-radius: 22px; border: 2px {{photoBorder}} {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; white-space: nowrap; cursor: pointer">{{photoLabel}}</button>
+        </div>
+      </sc-if>
+
+      <div style="display: {{q.extras}}; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <button type="button" style="height: 44px; border-radius: 22px; border: 2px {{catBorder}} {{t.outline}}; background: {{catBg}}; color: {{t.text}}; display: flex; align-items: center; justify-content: center; gap: 5px; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; cursor: pointer">
+          <svg width="18" height="18" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M2.5 4.5h7v1h1v1h1v2h-1v1h-1v1h-7z" fill="{{t.c4}}"></path><path d="M4.5 6.5h1v1h-1z"></path></svg>{{catLabel}}
+        </button>
+        <button type="button" style="height: 44px; border-radius: 22px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; display: flex; align-items: center; justify-content: center; gap: 5px; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; cursor: pointer">
+          <svg width="18" height="18" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M3.5 1.5h7v11h-7z" fill="{{t.c3}}"></path><path d="M5.5 4.5h3M5.5 6.5h3M5.5 8.5h2"></path></svg>+ note
+        </button>
+        <sc-if value="{{noPhoto}}" hint-placeholder-val="{{true}}">
+          <button type="button" style="width: 100%; height: 44px; border-radius: 22px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; display: flex; align-items: center; justify-content: center; gap: 5px; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; cursor: pointer">
+            <svg width="18" height="18" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M1.5 4.5h3v-1h1v-1h3v1h1v1h3v7h-11z" fill="{{t.c5}}"></path><path d="M5.5 6.5h3v3h-3z" fill="{{t.surface}}"></path></svg>+ photo
+          </button>
+        </sc-if>
+        <sc-if value="{{hasPhoto}}" hint-placeholder-val="{{false}}">
+          <button type="button" aria-label="Photo added, tap to change" style="width: 100%; height: 44px; box-sizing: border-box; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; display: flex; align-items: center; gap: 6px; padding: 0 10px 0 4px; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; cursor: pointer">
+            <span style="width: 34px; height: 34px; flex: none; box-sizing: border-box; border-radius: 50%; border: 2px solid {{t.outline}}; background: linear-gradient(135deg, {{t.c1}}, {{t.c5}}); display: flex; align-items: center; justify-content: center">
+              <svg width="16" height="16" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="{{t.outline}}" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M1.5 4.5h3v-1h1v-1h3v1h1v1h3v7h-11z" fill="{{t.surface}}"></path><path d="M5.5 6.5h3v3h-3z"></path></svg>
+            </span>
+            added
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true" style="margin-left: auto"><path d="M2.5 7.5l3 3 6-6.5"></path></svg>
+          </button>
+        </sc-if>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{keys}}" as="k" hint-placeholder-count="12">
+          <button type="button" aria-label="{{k.label}}" style="height: {{q.kh}}px; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.c2}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; font-family: 'Pixelify Sans', sans-serif; font-size: 24px; font-weight: 600; cursor: pointer">
+            <sc-if value="{{k.isBack}}" hint-placeholder-val="{{false}}"><svg width="26" height="26" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M5.5 3.5h7v7h-7v-1h-1v-1h-1v-1h-1v-1h1v-1h1v-1h1z" fill="{{t.surface}}"></path><path d="M7.5 5.5l3 3M10.5 5.5l-3 3"></path></svg></sc-if>
+            <sc-if value="{{k.isDigit}}" hint-placeholder-val="{{true}}">{{k.v}}</sc-if>
+          </button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ready}}" hint-placeholder-val="{{true}}">
+        <a href="Reward.dc.html" style="height: {{q.nh}}px; box-sizing: border-box; border-radius: 30px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 4px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: Nunito, sans-serif; font-size: 22px; font-weight: 900; text-decoration: none">
+          nvm!
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+        </a>
+      </sc-if>
+      <sc-if value="{{notReady}}" hint-placeholder-val="{{false}}">
+        <button type="button" disabled style="height: {{q.nh}}px; border-radius: 30px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 22px; font-weight: 900">nvm!</button>
+      </sc-if>
+
+      <sc-if value="{{hasNote}}" hint-placeholder-val="{{false}}">
+        <p style="margin: -2px 0 0; font-size: 13px; font-weight: 700; text-align: center">{{note}}</p>
+      </sc-if>
+    </div>
+  </section>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"state":{"editor":"enum","options":["empty","filled","photo","offline"],"default":"filled","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+class Component extends DCLogic {
+  renderVals() {
+    var s = this.props.state ?? "filled";
+    var W = Number(this.props.w ?? 390), H = Number(this.props.h ?? 844), compact = H < 740;
+    var q = compact
+      ? { compact: true, roomy: false, sheetT: 40, gap: 8, af: 44, kh: 40, nh: 52, lbl: "none", extras: "none" }
+      : { compact: false, roomy: true, sheetT: 56, gap: 12, af: 52, kh: 46, nh: 60, lbl: "block", extras: "grid" };
+    var t = tok(this.props.palette ?? "cloud");
+    var empty = s === "empty", photo = s === "photo", offline = s === "offline";
+    var recent = ["$6.50", "$12", "$24", "$50"].map(function (v) {
+      var on = !empty && v === "$24";
+      return { v: v, on: on, bg: on ? t.btn : t.surface, fg: on ? t.btnText : t.text };
+    });
+    var keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "back"].map(function (v) {
+      return { v: v, isBack: v === "back", isDigit: v !== "back", label: v === "back" ? "Delete" : (v === "." ? "Decimal point" : v) };
+    });
+    return {
+      t: t, W: W, H: H, q: q,
+      photoLabel: photo ? "photo ✓" : "+ photo", photoBorder: photo ? "solid" : "dashed",
+      offline: offline,
+      amount: empty ? "$0" : "$24.00",
+      name: empty ? "" : "platform sneakers",
+      nameEmpty: empty,
+      recent: recent,
+      catLabel: photo ? "shoes" : "+ category",
+      catBg: photo ? t.c4 : t.surface,
+      catBorder: photo ? "solid" : "dashed",
+      noPhoto: !photo, hasPhoto: photo,
+      keys: keys,
+      ready: !empty, notReady: empty,
+      hasNote: empty || offline,
+      note: offline ? "saved on ur phone ♡ it syncs when ur back online" : "an amount and a name is all it needs"
+    };
+  }
+}
+</script>
+</body>
+</html>

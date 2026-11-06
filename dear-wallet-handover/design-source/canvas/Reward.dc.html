@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reward moment</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<a href="Home.dc.html" aria-label="Reward. Tap anywhere to close" style="display: block; width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; text-decoration: none; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: radial-gradient(circle at 50% 28%, {{t.surface}} 0, {{t.clear}} 46%), linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 100% 100%, 22px 22px, 22px 22px, 100% 100%">
+
+  <div style="position: absolute; left: 0; top: 0; width: 390px; height: 400px; transform-origin: 195px 236px; transform: translate({{r.dx}}px, {{r.dy}}px) scale({{r.gs}})">
+  <sc-if value="{{isRare}}" hint-placeholder-val="{{false}}">
+    <div aria-hidden="true" style="position: absolute; left: 85px; top: 126px; width: 220px; height: 220px; border-radius: 50%; background: conic-gradient(#FFD1EC, #C8F1FF, #E3D4FF, #C9F7DF, #FFF2B8, #FFD1EC); filter: blur(16px); opacity: 0.9"></div>
+  </sc-if>
+  <div aria-hidden="true" style="position: absolute; left: 80px; top: 121px; width: 230px; height: 230px; box-sizing: border-box; border-radius: 50%; border: 2px dashed {{t.ring}}"></div>
+  <div aria-hidden="true" style="position: absolute; left: 105px; top: 146px; width: 180px; height: 180px; box-sizing: border-box; border-radius: 50%; border: 2px solid {{t.ring}}"></div>
+
+  <sc-for list="{{burst}}" as="b" hint-placeholder-count="9">
+    <svg aria-hidden="true" width="{{b.s}}" height="{{b.s}}" viewBox="0 0 24 24" style="position: absolute; left: {{b.x}}px; top: {{b.y}}px"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{b.fill}}" stroke="{{t.outline}}" stroke-width="1.8"></path></svg>
+  </sc-for>
+
+  <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 104px; display: flex; justify-content: center; gap: 22px">
+    <span style="width: 4px; height: 18px; border-radius: 2px; background: {{t.ring}}; margin-top: 10px"></span>
+    <span style="width: 4px; height: 28px; border-radius: 2px; background: {{t.ring}}"></span>
+    <span style="width: 4px; height: 18px; border-radius: 2px; background: {{t.ring}}; margin-top: 10px"></span>
+  </div>
+
+  <div aria-hidden="true" style="position: absolute; left: 125px; top: 166px; width: 140px; height: 140px; box-sizing: border-box; border-radius: 50%; border: 3px solid {{t.outline}}; background: {{t.c3}}; box-shadow: 0 6px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center">
+    <div style="position: absolute; left: 11px; top: 11px; right: 11px; bottom: 11px; border-radius: 50%; border: 2px dashed {{t.outline}}"></div>
+    <div style="position: absolute; left: 28px; top: 22px; width: 22px; height: 12px; border-radius: 50%; background: {{t.surface}}; transform: rotate(-30deg)"></div>
+    <svg width="60" height="60" viewBox="0 0 14 14" shape-rendering="crispEdges"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path><path d="M4 4h1v1H4z" fill="{{t.surface}}"></path></svg>
+  </div>
+
+  <span style="position: absolute; left: 258px; top: 158px; transform: rotate(8deg); height: 34px; box-sizing: border-box; padding: 0 12px; border-radius: 17px; border: 2px solid {{t.outline}}; background: {{t.c4}}; display: flex; align-items: center; font-family: 'Pixelify Sans', sans-serif; font-size: 18px; font-weight: 600">+$24.00</span>
+
+  </div>
+
+  <div style="position: absolute; left: 24px; right: 24px; top: {{r.msgT}}px; display: flex; flex-direction: column; align-items: center; text-align: center">
+    <span style="font-family: Pacifico, cursive; font-size: 46px; line-height: 1.3">nvm!</span>
+    <span style="font-size: 19px; font-weight: 900">$24 stays with u ♡</span>
+  </div>
+
+  <div style="position: absolute; left: 24px; right: 24px; top: {{r.cntT}}px; display: flex; flex-direction: column; align-items: center; gap: 6px">
+    <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">KEPT THIS MONTH</span>
+    <div style="display: flex; gap: 4px">
+      <sc-for list="{{digits}}" as="d" hint-placeholder-count="7">
+        <span style="width: {{d.w}}px; height: 50px; box-sizing: border-box; border-radius: 9px; border: 2px solid {{t.outline}}; background: {{d.bg}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; font-family: 'Pixelify Sans', sans-serif; font-size: 30px; font-weight: 600">{{d.ch}}</span>
+      </sc-for>
+    </div>
+  </div>
+
+  <sc-if value="{{isPlain}}" hint-placeholder-val="{{true}}">
+    <div style="position: absolute; left: 24px; right: 24px; top: {{r.plT}}px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+      <span style="height: 44px; box-sizing: border-box; padding: 0 18px 0 12px; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 4px 0 {{t.shadow}}; display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 900">
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+        +1 star on ur calendar
+      </span>
+      <span style="font-size: 14px; font-weight: 700">13 stars so far. they never reset ♡</span>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{hasSticker}}" hint-placeholder-val="{{false}}">
+    <section aria-label="Sticker" style="position: absolute; left: 24px; right: 24px; top: {{r.stT}}px; border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background: {{barBg}}; background-size: {{barSize}}">
+        <span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 7px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path></svg></span>
+        <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">{{winTitle}}</span>
+      </div>
+      <div style="padding: 16px 16px 18px; display: flex; align-items: center; gap: 16px">
+        <div style="width: 120px; height: 120px; flex: none; display: flex; align-items: center; justify-content: center">
+          <sc-if value="{{isSticker}}" hint-placeholder-val="{{false}}">
+            <svg width="120" height="100" viewBox="0 0 120 100" role="img" aria-label="lil cloud sticker" style="overflow: visible; transform: rotate(-6deg)"><path d="M32 82C18 82 12 70 18 61C10 51 18 37 32 40C33 26 50 18 62 28C70 18 90 22 92 38C104 37 112 49 106 59C113 69 104 82 92 82Z" fill="#5B6FB0" stroke="#5B6FB0" stroke-width="18" stroke-linejoin="round"></path><path d="M32 82C18 82 12 70 18 61C10 51 18 37 32 40C33 26 50 18 62 28C70 18 90 22 92 38C104 37 112 49 106 59C113 69 104 82 92 82Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="14" stroke-linejoin="round"></path><path d="M32 82C18 82 12 70 18 61C10 51 18 37 32 40C33 26 50 18 62 28C70 18 90 22 92 38C104 37 112 49 106 59C113 69 104 82 92 82Z" fill="#F4ECFF" stroke="#5B6FB0" stroke-width="2.5"></path><ellipse cx="50" cy="56" rx="3.2" ry="4.2" fill="#2E2F73"></ellipse><ellipse cx="70" cy="56" rx="3.2" ry="4.2" fill="#2E2F73"></ellipse><path d="M55 63Q60 68 65 63" fill="none" stroke="#2E2F73" stroke-width="2.6" stroke-linecap="round"></path><ellipse cx="42" cy="64" rx="5.5" ry="3.2" fill="#F9B8DA"></ellipse><ellipse cx="78" cy="64" rx="5.5" ry="3.2" fill="#F9B8DA"></ellipse><circle cx="88" cy="71" r="11" fill="#FFE08A" stroke="#B98A1E" stroke-width="2.5"></circle><path d="M88 76l-4.5-4.5a2.7 2.7 0 0 1 4.5-3.2a2.7 2.7 0 0 1 4.5 3.2z" fill="#F48FC4"></path><path d="M26 18C26.5 22 28 23.5 32 24C28 24.5 26.5 26 26 30C25.5 26 24 24.5 20 24C24 23.5 25.5 22 26 18Z" fill="#FFFFFF" stroke="#5B6FB0" stroke-width="1.6"></path></svg>
+          </sc-if>
+          <sc-if value="{{isRare}}" hint-placeholder-val="{{false}}">
+            <svg width="116" height="116" viewBox="0 0 112 112" role="img" aria-label="rare holo CD sticker" style="overflow: visible; transform: rotate(8deg)"><defs><linearGradient id="dwHoloA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC4E6"></stop><stop offset="0.25" stop-color="#BDEBFF"></stop><stop offset="0.5" stop-color="#DCCBFF"></stop><stop offset="0.75" stop-color="#BFF5D8"></stop><stop offset="1" stop-color="#FFEFA8"></stop></linearGradient><linearGradient id="dwHoloB" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"></stop><stop offset="0.42" stop-color="#FFFFFF" stop-opacity="0"></stop><stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.85"></stop><stop offset="0.58" stop-color="#FFFFFF" stop-opacity="0"></stop><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop></linearGradient></defs><circle cx="56" cy="56" r="55" fill="#5B6FB0"></circle><circle cx="56" cy="56" r="52.5" fill="#FFFFFF"></circle><circle cx="56" cy="56" r="45" fill="url(#dwHoloA)" stroke="#5B6FB0" stroke-width="2"></circle><circle cx="56" cy="56" r="45" fill="url(#dwHoloB)"></circle><circle cx="56" cy="56" r="36" fill="none" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="1.5"></circle><circle cx="56" cy="56" r="27" fill="none" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1.5"></circle><circle cx="56" cy="56" r="14" fill="#FFFFFF" stroke="#5B6FB0" stroke-width="2"></circle><circle cx="56" cy="56" r="5" fill="#DCCBFF" stroke="#5B6FB0" stroke-width="2"></circle><path d="M92 4C93 11 96 14 103 15C96 16 93 19 92 26C91 19 88 16 81 15C88 14 91 11 92 4Z" fill="#FFFFFF" stroke="#5B6FB0" stroke-width="1.8"></path><path d="M14 84C14.6 88 16 89.4 20 90C16 90.6 14.6 92 14 96C13.4 92 12 90.6 8 90C12 89.4 13.4 88 14 84Z" fill="#FFF2B8" stroke="#5B6FB0" stroke-width="1.6"></path></svg>
+          </sc-if>
+        </div>
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+          <span style="align-self: flex-start; padding: 1px 8px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{tagBg}}; color: {{tagText}}; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">{{tag}}</span>
+          <span style="font-size: 20px; font-weight: 900; line-height: 1.25">{{stickerName}}</span>
+          <span style="font-size: 14px; font-weight: 700; line-height: 1.4">{{stickerSub}}</span>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <span style="position: absolute; left: 0; right: 0; bottom: {{r.ftB}}px; display: flex; justify-content: center">
+    <span style="padding: 6px 14px; border-radius: 999px; background: {{t.surface}}; border: 2px solid {{t.outline}}; font-size: 14px; font-weight: 800">tap anywhere to close</span>
+  </span>
+</a>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"state":{"editor":"enum","options":["plain","sticker","rare"],"default":"plain","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+class Component extends DCLogic {
+  renderVals() {
+    var s = this.props.state ?? "plain";
+    var W = Number(this.props.w ?? 390), H = Number(this.props.h ?? 844), compact = H < 740;
+    var r = compact
+      ? { dx: (W - 390) / 2, dy: -66, gs: 0.8, msgT: 250, cntT: 340, plT: 432, stT: 422, ftB: 14 }
+      : { dx: (W - 390) / 2, dy: 0, gs: 1, msgT: 322, cntT: 426, plT: 540, stT: 528, ftB: 34 };
+    var t = tok(this.props.palette ?? "cloud");
+    var rare = s === "rare", sticker = s === "sticker";
+    var cols = [t.c1, t.c2, t.c4, t.c5, t.c3];
+    var angles = [-90, -52, -16, 22, 56, 124, 158, 196, 232];
+    var sizes = [26, 14, 22, 12, 18, 18, 12, 22, 14];
+    var burst = angles.map(function (a, i) {
+      var rad = a * Math.PI / 180, r = i % 2 ? 112 : 132;
+      if (a > 40 && a < 140) r = 118;
+      return { x: Math.round(195 + Math.cos(rad) * r - sizes[i] / 2), y: Math.round(236 + Math.sin(rad) * r - sizes[i] / 2), s: sizes[i], fill: cols[i % 5] };
+    });
+    var digits = "$474.50".split("").map(function (ch, i) {
+      return { ch: ch, w: ch === "." ? 22 : 36, bg: (i === 2 || i === 3) ? t.c1 : t.surface };
+    });
+    return {
+      t: t, burst: burst, digits: digits, r: r, W: W, H: H,
+      isPlain: s === "plain", hasSticker: sticker || rare, isSticker: sticker, isRare: rare,
+      winTitle: rare ? "RARE DROP!!" : "NEW STICKER!",
+      barBg: rare ? "linear-gradient(90deg, #FFC4E6, #BDEBFF, #DCCBFF, #BFF5D8, #FFEFA8)" : "repeating-conic-gradient(" + t.c2 + " 0 25%, " + t.c1 + " 0 50%)",
+      barSize: rare ? "100% 100%" : "12px 12px",
+      tag: rare ? "RARE · HOLO" : "COMMON",
+      tagBg: rare ? t.text : t.c4,
+      tagText: rare ? t.surface : t.text,
+      stickerName: rare ? "holo mixtape CD" : "lil cloud",
+      stickerSub: rare ? "1 of 4 rares. it’s in ur album, ready for a diary page ♡" : "added to ur album. stick it on a diary page anytime"
+    };
+  }
+}
+</script>
+</body>
+</html>

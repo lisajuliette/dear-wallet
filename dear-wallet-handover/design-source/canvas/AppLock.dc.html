@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>App lock</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<main style="width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: radial-gradient(circle at 50% 20%, {{t.surface}} 0, {{t.clear}} 46%), linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 100% 100%, 22px 22px, 22px 22px, 100% 100%">
+  <div style="position: absolute; left: 0; right: 0; top: {{headTop}}px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center">
+    <svg width="{{logo}}" height="{{logo}}" viewBox="90 100 860 840" aria-hidden="true">
+      <circle cx="512" cy="430" r="250" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="22"></circle>
+      <g transform="translate(393 296) scale(17)" shape-rendering="crispEdges"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1.2"></path></g>
+      <path d="M250 900C160 900 120 830 150 770C100 720 140 630 230 640C240 560 340 520 410 570C450 500 580 490 620 570C680 520 790 545 800 630C890 620 940 720 880 780C920 840 860 900 780 900Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="22" stroke-linejoin="round"></path>
+    </svg>
+    <h1 style="margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: 32px; line-height: 1.35">Dear Wallet</h1>
+    <p style="margin: 0; font-size: 15px; font-weight: 800">{{lockLine}}</p>
+  </div>
+
+  <sc-if value="{{isFace}}" hint-placeholder-val="{{true}}">
+    <div style="position: absolute; left: 0; right: 0; top: {{faceT}}px; display: flex; flex-direction: column; align-items: center; gap: 16px">
+      <div style="width: 150px; height: 150px; box-sizing: border-box; border-radius: 34px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center">
+        <svg width="96" height="96" viewBox="0 0 48 48" fill="none" stroke="{{t.outline}}" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Scanning face">
+          <path d="M4 14V8a4 4 0 0 1 4-4h6M34 4h6a4 4 0 0 1 4 4v6M44 34v6a4 4 0 0 1-4 4h-6M14 44H8a4 4 0 0 1-4-4v-6"></path>
+          <path d="M17 18v4M31 18v4M24 20v8h-2M18 33c3.5 3 8.5 3 12 0"></path>
+        </svg>
+      </div>
+      <span style="font-size: 16px; font-weight: 900">looking for u…</span>
+      <span style="font-size: 13px; font-weight: 700">face ID opens it on its own</span>
+    </div>
+    <div style="position: absolute; left: 24px; right: 24px; bottom: 46px">
+      <a href="AppLock_Passcode.dc.html" style="height: 56px; box-sizing: border-box; border-radius: 28px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 4px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; text-decoration: none">use passcode instead</a>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isCode}}" hint-placeholder-val="{{false}}">
+    <span aria-live="polite" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">2 of 6 digits entered</span>
+    <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: {{dotsT}}px; display: flex; justify-content: center; gap: 14px">
+      <sc-for list="{{dots}}" as="d" hint-placeholder-count="6">
+        <span style="width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{d}}"></span>
+      </sc-for>
+    </div>
+    <div style="position: absolute; left: 48px; right: 48px; top: {{kpT}}px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: {{kg}}px 18px; justify-items: center">
+      <sc-for list="{{keys}}" as="k" hint-placeholder-count="12">
+        <sc-if value="{{k.digit}}" hint-placeholder-val="{{true}}">
+          <button type="button" aria-label="{{k.v}}" style="width: {{kp}}px; height: {{kp}}px; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 4px 0 {{t.shadow}}; font-family: 'Pixelify Sans', sans-serif; font-size: 30px; font-weight: 600; cursor: pointer">{{k.v}}</button>
+        </sc-if>
+        <sc-if value="{{k.face}}" hint-placeholder-val="{{false}}">
+          <a href="AppLock.dc.html" aria-label="Use face ID" style="width: {{kp}}px; height: {{kp}}px; box-sizing: border-box; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: {{t.text}}">
+            <svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14V8a4 4 0 0 1 4-4h6M34 4h6a4 4 0 0 1 4 4v6M44 34v6a4 4 0 0 1-4 4h-6M14 44H8a4 4 0 0 1-4-4v-6M17 18v4M31 18v4M18 33c3.5 3 8.5 3 12 0"></path></svg>
+          </a>
+        </sc-if>
+        <sc-if value="{{k.back}}" hint-placeholder-val="{{false}}">
+          <button type="button" aria-label="Delete" style="width: {{kp}}px; height: {{kp}}px; border-radius: 50%; border: 0; background: transparent; color: {{t.text}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+            <svg width="34" height="34" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M5.5 3.5h7v7h-7v-1h-1v-1h-1v-1h-1v-1h1v-1h1v-1h1z" fill="{{t.surface}}"></path><path d="M7.5 5.5l3 3M10.5 5.5l-3 3"></path></svg>
+          </button>
+        </sc-if>
+      </sc-for>
+    </div>
+    <div style="position: absolute; left: 0; right: 0; bottom: {{linkB}}px; display: flex; justify-content: center">
+      <button type="button" style="height: 44px; padding: 0 16px; border: 0; background: transparent; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; text-decoration: underline; cursor: pointer">forgot passcode? reset with ur account</button>
+    </div>
+  </sc-if>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"state":{"editor":"enum","options":["faceid","passcode"],"default":"faceid","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+class Component extends DCLogic {
+  renderVals() {
+    var code = (this.props.state ?? "faceid") === "passcode";
+    var W = Number(this.props.w ?? 390), H = Number(this.props.h ?? 844), compact = H < 740;
+    var t = tok(this.props.palette ?? "cloud");
+    var dots = [0, 1, 2, 3, 4, 5].map(function (i) { return i < 2 ? t.btn : t.surface; });
+    var keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "face", "0", "back"].map(function (v) {
+      return { v: v, digit: v !== "face" && v !== "back", face: v === "face", back: v === "back" };
+    });
+    return {
+      t: t, isFace: !code, isCode: code, dots: dots, keys: keys,
+      W: W, H: H,
+      headTop: compact ? (code ? 36 : 64) : (code ? 92 : 150),
+      logo: compact ? (code ? 56 : 90) : (code ? 76 : 120),
+      faceT: compact ? 300 : 400, dotsT: compact ? 196 : 282, kpT: compact ? 236 : 336,
+      kp: compact ? 64 : 74, kg: compact ? 10 : 14, linkB: compact ? 16 : 40,
+      lockLine: code ? "enter ur passcode" : "ur diary is locked ♡"
+    };
+  }
+}
+</script>
+</body>
+</html>

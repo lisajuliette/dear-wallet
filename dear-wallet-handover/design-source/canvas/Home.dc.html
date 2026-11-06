@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<main style="width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 22px 22px, 22px 22px, 100% 100%">
+
+  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="position: absolute; left: 200px; top: 62px"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="1.6"></path></svg>
+  <svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" style="position: absolute; left: 228px; top: 92px"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+  <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" style="position: absolute; left: 186px; top: 104px"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c5}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+
+  <header style="position: absolute; left: 16px; right: 16px; top: 54px; display: flex; align-items: center; gap: 8px">
+    <div style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">{{greeting}}</span>
+      <h1 style="margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: 30px; line-height: 1.3">Dear Wallet</h1>
+    </div>
+    <span style="height: 36px; box-sizing: border-box; padding: 0 12px 0 8px; border-radius: 18px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; gap: 5px">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 16px; font-weight: 600">{{stars}}</span>
+      <span style="font-size: 12px; font-weight: 800">stars</span>
+    </span>
+    <a href="Settings.dc.html" aria-label="Settings" style="width: 44px; height: 44px; flex: none; box-sizing: border-box; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center">
+      <svg width="26" height="26" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M5.5 3.5h3v1h1v1h1v3h-1v1h-1v1h-3v-1h-1v-1h-1v-3h1v-1h1z" fill="{{t.c2}}"></path><path d="M6.5 1.5v1M7.5 1.5v1M6.5 11.5v1M7.5 11.5v1M1.5 6.5h1M1.5 7.5h1M11.5 6.5h1M11.5 7.5h1"></path><path d="M6.5 6.5h1v1h-1z" fill="{{t.surface}}"></path></svg>
+    </a>
+  </header>
+
+  <div style="position: absolute; left: 16px; right: 16px; top: 132px; bottom: 88px; overflow-y: auto; padding-bottom: 8px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+
+    <section aria-label="Kept" style="border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+        <span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 7px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path></svg></span>
+        <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">KEPT TODAY</span>
+        <span style="flex: 1"></span>
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+      </div>
+      <div style="padding: 10px 16px 12px; display: flex; flex-direction: column; gap: 2px">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+          <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 48px; font-weight: 600; line-height: 1.05">{{today}}</span>
+          <svg width="40" height="40" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M5.5 1.5h3v1h2v1h1v2h1v4h-1v2h-1v1h-2v1h-3v-1h-2v-1h-1v-2h-1v-4h1v-2h1v-1h2z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="1"></path><path d="M6.5 4.5h1v6h-1z" fill="{{t.outline}}"></path><path d="M4 5h1v2H4z" fill="{{t.surface}}"></path></svg>
+        </div>
+        <span style="font-size: 15px; font-weight: 700">{{todayCaption}}</span>
+        <div style="margin-top: 8px; padding-top: 8px; border-top: 2px dashed {{t.outline}}; display: flex; align-items: center; justify-content: space-between">
+          <span style="font-size: 14px; font-weight: 800">this month</span>
+          <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 24px; font-weight: 600">{{month}}</span>
+        </div>
+      </div>
+    </section>
+
+    <div style="position: relative; height: 104px">
+      <svg aria-hidden="true" width="{{cw}}" height="108" viewBox="0 0 {{cw}} 108" style="position: absolute; left: 0; top: 0; overflow: visible"><path d="{{cQuest}}" fill="{{t.shadow}}" transform="translate(0 4)"></path><path d="{{cQuest}}" fill="{{questFill}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+      <div style="position: absolute; left: 14px; right: 14px; top: 26px; bottom: 10px; display: flex; align-items: center; gap: 12px">
+        <span style="width: 48px; height: 48px; flex: none; box-sizing: border-box; border-radius: 15px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center">
+          <sc-if value="{{questOpen}}" hint-placeholder-val="{{true}}"><svg width="28" height="28" viewBox="0 0 14 14" shape-rendering="crispEdges" fill="none" stroke="{{t.outline}}" stroke-width="1" stroke-linecap="square" aria-hidden="true"><path d="M3.5 1.5h8v11h-8z" fill="{{t.c1}}"></path><path d="M5.5 1.5v11M7.5 4.5h2M7.5 6.5h2"></path></svg></sc-if>
+          <sc-if value="{{questDone}}" hint-placeholder-val="{{false}}"><svg width="28" height="28" viewBox="0 0 14 14" fill="none" stroke="{{t.outline}}" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M2.5 7.5l3 3 6-6.5"></path></svg></sc-if>
+        </span>
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+          <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">{{questTag}}</span>
+          <span style="font-size: 16px; font-weight: 900; line-height: 1.3">{{questText}}</span>
+          <span style="font-size: 13px; font-weight: 700">{{questSub}}</span>
+        </div>
+        <sc-if value="{{questOpen}}" hint-placeholder-val="{{true}}">
+          <button type="button" style="height: 44px; padding: 0 18px; flex: none; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 3px 0 {{t.shadow}}; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 900; cursor: pointer">go</button>
+        </sc-if>
+        <sc-if value="{{questDone}}" hint-placeholder-val="{{false}}">
+          <span style="height: 36px; padding: 0 12px; flex: none; border-radius: 18px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; gap: 4px; font-family: 'Pixelify Sans', sans-serif; font-size: 15px; font-weight: 600"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>+1</span>
+        </sc-if>
+      </div>
+    </div>
+
+    <sc-if value="{{hasGoal}}" hint-placeholder-val="{{true}}">
+      <div style="position: relative; height: 112px">
+        <svg aria-hidden="true" width="{{cw}}" height="116" viewBox="0 0 {{cw}} 116" style="position: absolute; left: 0; top: 0; overflow: visible"><path d="{{cGoal}}" fill="{{t.shadow}}" transform="translate(0 4)"></path><path d="{{cGoal}}" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+        <div style="position: absolute; left: 16px; right: 16px; top: 28px; bottom: 14px; display: flex; flex-direction: column; justify-content: space-between">
+          <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 8px">
+            <div style="display: flex; flex-direction: column">
+              <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">KEEPING MONEY FOR</span>
+              <span style="font-size: 17px; font-weight: 900">concert tickets</span>
+            </div>
+            <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 17px; font-weight: 600; white-space: nowrap">{{goalAmt}}</span>
+          </div>
+          <div style="display: flex; gap: 4px">
+            <sc-for list="{{segs}}" as="g" hint-placeholder-count="12">
+              <span style="flex: 1; height: 16px; box-sizing: border-box; border-radius: 4px; border: 2px solid {{t.outline}}; background: {{g.bg}}"></span>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{isFirst}}" hint-placeholder-val="{{false}}">
+      <div style="height: 112px; box-sizing: border-box; border-radius: 22px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; padding: 14px 16px; display: flex; align-items: center; gap: 12px">
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">ONE GOAL · OPTIONAL</span>
+          <span style="font-size: 17px; font-weight: 900">i’m keeping money for ___</span>
+          <span style="font-size: 13px; font-weight: 700">add one whenever u feel like it</span>
+        </div>
+        <button type="button" style="height: 44px; padding: 0 16px; flex: none; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.c3}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 900; cursor: pointer">pick one</button>
+      </div>
+    </sc-if>
+
+    <section aria-label="Today" style="border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c4}}; background-image: repeating-conic-gradient({{t.c5}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+        <span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 7px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1"></path></svg></span>
+        <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">TODAY’S NVMS</span>
+        <span style="flex: 1"></span>
+        <span style="min-width: 24px; height: 24px; box-sizing: border-box; padding: 0 6px; border-radius: 12px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{count}}</span>
+      </div>
+      <sc-if value="{{hasItems}}" hint-placeholder-val="{{true}}">
+        <div style="padding: 8px; display: flex; flex-direction: column; gap: 6px">
+          <sc-for list="{{items}}" as="it" hint-placeholder-count="2">
+            <button type="button" style="width: 100%; min-height: 46px; box-sizing: border-box; padding: 0 12px; border-radius: 15px; border: 2px solid {{t.outline}}; background: {{it.fill}}; color: {{t.text}}; display: flex; align-items: center; gap: 10px; font-family: Nunito, sans-serif; cursor: pointer">
+              <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" style="flex: none"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+              <span style="flex: 1; text-align: left; font-size: 15px; font-weight: 800">{{it.name}}</span>
+              <span style="font-size: 12px; font-weight: 700">{{it.time}}</span>
+              <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 18px; font-weight: 600; min-width: 62px; text-align: right">{{it.amt}}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{noItems}}" hint-placeholder-val="{{false}}">
+        <div style="height: 108px; box-sizing: border-box; padding: 12px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center">
+          <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="1.8"></path></svg>
+          <span style="font-size: 16px; font-weight: 900">{{emptyTitle}}</span>
+          <span style="font-size: 13px; font-weight: 700">{{emptySub}}</span>
+        </div>
+      </sc-if>
+    </section>
+  </div>
+
+  <div style="position: absolute; left: 0; bottom: 0; width: {{W}}px; height: 96px">
+    <dc-import name="Taskbar" palette="{{palette}}" active="home" w="{{W}}" hint-size="390px,96px"></dc-import>
+  </div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"state":{"editor":"enum","options":["first","empty","active","quest"],"default":"active","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+function cloud(w,h){var T=18,r=22,W=w-1,H=h-1;return "M"+(r+1)+" "+T+" L28 "+T+" A16 16 0 0 1 60 "+T+" L64 "+T+" A11 11 0 0 1 86 "+T+" L"+(W-r)+" "+T+" A"+r+" "+r+" 0 0 1 "+W+" "+(T+r)+" L"+W+" "+(H-r)+" A"+r+" "+r+" 0 0 1 "+(W-r)+" "+H+" L"+(r+1)+" "+H+" A"+r+" "+r+" 0 0 1 1 "+(H-r)+" L1 "+(T+r)+" A"+r+" "+r+" 0 0 1 "+(r+1)+" "+T+" Z";}
+class Component extends DCLogic {
+  renderVals() {
+    var palette = this.props.palette ?? "cloud";
+    var W = Number(this.props.w ?? 390), H = Number(this.props.h ?? 844);
+    var s = this.props.state ?? "active";
+    var t = tok(palette);
+    var first = s === "first", empty = s === "empty", quest = s === "quest";
+    var active = s === "active" || quest;
+    var filled = first ? 0 : (active ? 9 : 8);
+    var segs = [];
+    for (var i = 0; i < 12; i++) segs.push({ bg: i < filled ? t.btn : t.surface });
+    return {
+      t: t, palette: palette,
+      greeting: first ? "HI JAZMINE ♡ DAY ONE" : "HI JAZMINE ♡",
+      stars: first ? "0" : (quest ? "13" : "12"),
+      today: active ? "$38.50" : "$0.00",
+      month: first ? "$0.00" : (active ? "$450.50" : "$412.00"),
+      todayCaption: first ? "ur kept total starts here ♡" : (active ? "2 things u didn’t buy ♡" : "nothing yet, and that’s totally fine"),
+      W: W, H: H, cw: W - 32,
+      cQuest: cloud(W - 32, 104), cGoal: cloud(W - 32, 112),
+      questOpen: !quest, questDone: quest,
+      questFill: quest ? t.c4 : t.c2,
+      questTag: quest ? "QUEST DONE" : "DAILY QUEST",
+      questText: quest ? "u wrote a diary line!" : (first ? "write ur first diary line" : "write one line in ur diary"),
+      questSub: quest ? "+1 star on ur calendar, forever" : "tiny + optional, no temptation needed",
+      hasGoal: !first, isFirst: first,
+      goalAmt: active ? "$450 of $600" : "$412 of $600",
+      segs: segs,
+      count: active ? "2" : "0",
+      hasItems: active, noItems: !active,
+      emptyTitle: first ? "ur first nvm lands here" : "no temptations today? iconic.",
+      emptySub: first ? "tap + whenever something tempts u" : "ur month is still glowing ♡",
+      items: [
+        { name: "bubble tea", time: "3:12 pm", amt: "$6.50", fill: t.c1 },
+        { name: "phone case", time: "11:40 am", amt: "$32.00", fill: t.c5 }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

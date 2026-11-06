@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Recap card</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1080px; height: 1920px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: radial-gradient(circle at 50% 30%, {{t.surface}} 0, {{t.clear}} 55%), linear-gradient({{t.grid}} 3px, transparent 3px), linear-gradient(90deg, {{t.grid}} 3px, transparent 3px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 100% 100%, 60px 60px, 60px 60px, 100% 100%">
+
+  <div style="position: absolute; left: 80px; right: 80px; top: 80px; display: flex; align-items: center; justify-content: space-between">
+    <span style="font-family: Pacifico, cursive; font-size: 56px; line-height: 1.3">Dear Wallet</span>
+    <span style="padding: 6px 26px; border-radius: 999px; border: 6px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 36px; font-weight: 500; letter-spacing: 0.06em">{{dateLabel}}</span>
+  </div>
+  <h1 style="position: absolute; left: 80px; right: 80px; top: 196px; margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: {{titleSize}}px; line-height: 1.3">{{title}}</h1>
+
+  <sc-if value="{{isMonth}}" hint-placeholder-val="{{true}}">
+    <div aria-hidden="true" style="position: absolute; left: 360px; top: 450px; width: 640px; height: 640px; box-sizing: border-box; border-radius: 50%; border: 6px solid {{t.outline}}; background: radial-gradient(circle, transparent 0 66px, rgba(255,255,255,0.55) 110px 116px, transparent 116px 196px, rgba(255,255,255,0.45) 196px 201px, transparent 201px 262px, rgba(255,255,255,0.35) 262px 266px, transparent 266px), conic-gradient(from 20deg, #FFC4E6, #BDEBFF, #DCCBFF, #BFF5D8, #FFEFA8, #FFC4E6); box-shadow: 0 18px 0 {{t.shadow}}">
+      <div style="position: absolute; left: 192px; top: 192px; width: 244px; height: 244px; box-sizing: border-box; border-radius: 50%; border: 6px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center">
+        <div style="width: 72px; height: 72px; box-sizing: border-box; border-radius: 50%; border: 6px solid {{t.outline}}; background: {{t.bg1}}"></div>
+      </div>
+    </div>
+    <div aria-hidden="true" style="position: absolute; left: 80px; top: 420px; width: 680px; height: 680px; box-sizing: border-box; border-radius: 30px; border: 6px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 18px 0 {{t.shadow}}; overflow: hidden">
+      <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 56px; box-sizing: border-box; border-right: 6px solid {{t.outline}}; background-color: {{t.c2}}; background-image: repeating-linear-gradient(transparent 0 70px, {{t.outline}} 70px 76px)"></div>
+      <div style="position: absolute; left: 82px; top: 26px; right: 26px; bottom: 26px; border-radius: 18px; border: 5px solid {{t.outline}}; background-image: linear-gradient({{t.grid}} 3px, transparent 3px), linear-gradient(90deg, {{t.grid}} 3px, transparent 3px), linear-gradient(160deg, {{coverA}}, {{coverB}}); background-size: 48px 48px, 48px 48px, 100% 100%; overflow: hidden">
+        <span style="position: absolute; left: 34px; top: 14px; font-family: Pacifico, cursive; font-size: 150px; line-height: 1.3">nov</span>
+        <span style="position: absolute; left: 40px; top: 230px; padding: 4px 18px; border-radius: 999px; border: 5px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 30px; font-weight: 500; letter-spacing: 0.06em">{{coverTag}}</span>
+        <svg width="210" height="210" viewBox="0 0 14 14" shape-rendering="crispEdges" style="position: absolute; right: 30px; bottom: 26px"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="0.6"></path><path d="M4 4h1v1H4z" fill="{{t.c1}}"></path></svg>
+        <svg width="70" height="70" viewBox="0 0 24 24" style="position: absolute; left: 60px; bottom: 80px"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="1.4"></path></svg>
+        <svg width="40" height="40" viewBox="0 0 24 24" style="position: absolute; left: 170px; bottom: 170px"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="1.8"></path></svg>
+      </div>
+      <div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: linear-gradient(125deg, transparent 38%, rgba(255,255,255,0.4) 44%, transparent 54%)"></div>
+    </div>
+    <div style="position: absolute; left: 880px; top: 1030px; transform: rotate(14deg)">
+      <dc-import name="Sticker" kind="{{monthSticker}}" size="160" hint-size="160px,160px"></dc-import>
+    </div>
+
+    <section aria-label="Track list" style="position: absolute; left: 80px; right: 80px; top: 1140px; border-radius: 40px; border: 6px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 16px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 92px; box-sizing: border-box; display: flex; align-items: center; gap: 18px; padding: 0 24px; border-bottom: 6px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 34px 34px">
+        <span style="padding: 2px 22px; border-radius: 999px; border: 5px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 34px; font-weight: 500; letter-spacing: 0.06em">{{listTitle}}</span>
+        <span style="flex: 1"></span>
+        <span style="padding: 2px 22px; border-radius: 999px; border: 5px solid {{t.outline}}; background: {{t.c3}}; font-family: 'Pixelify Sans', sans-serif; font-size: 34px; font-weight: 600">{{totalChip}}</span>
+      </div>
+      <div style="padding: 24px 40px 26px; display: flex; flex-direction: column; gap: 2px">
+        <sc-for list="{{tracks}}" as="tr" hint-placeholder-count="10">
+          <div style="height: 46px; display: flex; align-items: baseline; gap: 22px">
+            <span style="width: 58px; flex: none; font-family: 'Pixelify Sans', sans-serif; font-size: 34px; font-weight: 600">{{tr.n}}</span>
+            <span style="font-size: 36px; font-weight: 800; white-space: nowrap">{{tr.name}}</span>
+            <span style="flex: 1; min-width: 20px; border-bottom: 5px dotted {{t.ring}}; transform: translateY(-10px)"></span>
+            <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 36px; font-weight: 600; white-space: nowrap">{{tr.right}}</span>
+          </div>
+        </sc-for>
+        <sc-if value="{{hasMore}}" hint-placeholder-val="{{false}}">
+          <span style="margin-top: 6px; padding-left: 80px; font-size: 32px; font-weight: 800">{{moreLine}}</span>
+        </sc-if>
+        <sc-if value="{{quiet}}" hint-placeholder-val="{{false}}">
+          <div style="margin-top: 26px; padding: 34px 0 10px; border-top: 5px dashed {{t.ring}}; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+            <span style="font-family: Pacifico, cursive; font-size: 72px; line-height: 1.35">a quiet month is still a hit</span>
+            <span style="font-size: 34px; font-weight: 800">fewer temptations, same cute me ♡</span>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{isWeek}}" hint-placeholder-val="{{false}}">
+    <div style="position: absolute; left: 820px; top: 120px; transform: rotate(12deg)">
+      <dc-import name="Sticker" kind="fly" size="190" hint-size="190px,190px"></dc-import>
+    </div>
+    <section aria-label="Week list" style="position: absolute; left: 80px; right: 80px; top: 470px; border-radius: 44px; border: 6px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 18px 0 {{t.shadow}}; overflow: hidden">
+      <div style="height: 100px; box-sizing: border-box; display: flex; align-items: center; gap: 20px; padding: 0 26px; border-bottom: 6px solid {{t.outline}}; background-color: {{t.c4}}; background-image: repeating-conic-gradient({{t.c5}} 0 25%, transparent 0 50%); background-size: 36px 36px">
+        <span style="width: 64px; height: 64px; box-sizing: border-box; border-radius: 18px; border: 5px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="38" height="38" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="0.9"></path></svg></span>
+        <span style="padding: 2px 24px; border-radius: 999px; border: 5px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 36px; font-weight: 500; letter-spacing: 0.06em">WEEK_45.EXE</span>
+      </div>
+      <div style="padding: 36px 36px 40px; display: flex; flex-direction: column; gap: 22px">
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
+          <div style="height: 128px; box-sizing: border-box; border-radius: 40px; border: 6px solid {{t.outline}}; background: {{r.fill}}; padding: 0 36px; display: flex; align-items: center; gap: 28px">
+            <svg aria-hidden="true" width="62" height="62" viewBox="0 0 24 24" style="flex: none"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="1.8"></path></svg>
+            <span style="flex: 1; font-size: 46px; font-weight: 900">{{r.name}}</span>
+            <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 50px; font-weight: 600">{{r.right}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <div style="position: absolute; left: 80px; right: 80px; top: {{weekFootTop}}px; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 38px; font-weight: 500; letter-spacing: 0.08em">{{weekFootLabel}}</span>
+      <sc-if value="{{wanted}}" hint-placeholder-val="{{true}}">
+        <div style="display: flex; gap: 14px">
+          <sc-for list="{{digits}}" as="d" hint-placeholder-count="7">
+            <span style="width: {{d.w}}px; height: 150px; box-sizing: border-box; border-radius: 26px; border: 6px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 10px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; font-family: 'Pixelify Sans', sans-serif; font-size: 92px; font-weight: 600">{{d.ch}}</span>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{loved}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; gap: 30px">
+          <dc-import name="Sticker" kind="heart" size="150" hint-size="150px,150px"></dc-import>
+          <dc-import name="Sticker" kind="tea" size="150" hint-size="150px,150px"></dc-import>
+          <dc-import name="Sticker" kind="bubble" size="150" hint-size="150px,150px"></dc-import>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <span style="position: absolute; left: 0; right: 0; bottom: 56px; text-align: center; font-family: 'Pixelify Sans', sans-serif; font-size: 30px; font-weight: 500; letter-spacing: 0.08em">MADE WITH DEAR WALLET ♡</span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"period":{"editor":"enum","options":["month","week"],"default":"month","section":"Card"},"kind":{"editor":"enum","options":["wanted","loved"],"default":"wanted","section":"Card"},"size":{"editor":"enum","options":["big","quiet"],"default":"big","section":"Card"},"$preview":{"width":1080,"height":1920}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+var MONTH_WANTED = [["mini bag", "$64"], ["concert merch", "$45"], ["phone case", "$32"], ["desk lamp", "$29"], ["platform sneakers", "$24"], ["vintage tee", "$22"], ["lip liner set", "$18"], ["nail kit", "$15"], ["matcha whisk", "$12"], ["bubble tea", "$6.50"]];
+var MONTH_LOVED = [["lavender cardigan", "nov 2"], ["concert w/ my girls", "nov 4"], ["cherry lip gloss", "nov 5"], ["sunday matcha run", "nov 6"], ["film roll", "nov 8"], ["new fave song", "nov 9"]];
+var QUIET = [["phone case", "$24"], ["bubble tea", "$6.50"]];
+var WEEK_WANTED = [["mini bag", "$64"], ["phone case", "$32"], ["platform sneakers", "$24"], ["bubble tea", "$6.50"]];
+var WEEK_LOVED = [["cherry lip gloss", "nov 5"], ["sunday matcha run", "nov 6"], ["film roll", "nov 8"]];
+class Component extends DCLogic {
+  renderVals() {
+    var t = tok(this.props.palette ?? "cloud");
+    var month = (this.props.period ?? "month") === "month";
+    var wanted = (this.props.kind ?? "wanted") === "wanted";
+    var quiet = month && wanted && (this.props.size ?? "big") === "quiet";
+    var src = month ? (wanted ? (quiet ? QUIET : MONTH_WANTED) : MONTH_LOVED) : (wanted ? WEEK_WANTED : WEEK_LOVED);
+    var tracks = src.map(function (r, i) { return { n: (i < 9 ? "0" : "") + (i + 1), name: r[0], right: r[1] }; });
+    var cols = [t.c1, t.c5, t.c3, t.c4];
+    var rows = src.map(function (r, i) { return { name: r[0], right: r[1], fill: cols[i % 4] }; });
+    var digits = "$126.50".split("").map(function (ch) { return { ch: ch, w: ch === "." ? 56 : 100 }; });
+    var title = month ? (wanted ? "wanted but didn’t" : "loved this month") : (wanted ? "this week i said nvm to" : "loved this week");
+    return {
+      t: t, isMonth: month, isWeek: !month, wanted: wanted, loved: !wanted, quiet: quiet,
+      dateLabel: month ? "NOVEMBER 2026" : "WEEK OF NOV 2",
+      title: title, titleSize: month ? 88 : 92,
+      coverA: wanted ? t.c1 : t.c2, coverB: wanted ? t.c5 : t.c1,
+      coverTag: wanted ? "A DEAR WALLET MIXTAPE" : "THE LOVED EDITION",
+      monthSticker: wanted ? "holoStar" : "holoFly",
+      listTitle: quiet ? "TRACK LIST · 2" : (wanted ? "TRACK LIST · 14" : "TRACK LIST · 6"),
+      totalChip: wanted ? (quiet ? "$30.50 KEPT" : "$474.50 KEPT") : "6 LOVED",
+      tracks: tracks,
+      hasMore: month && wanted && !quiet, moreLine: "+ 4 more tiny wins",
+      rows: rows,
+      weekFootTop: wanted ? 1290 : 1140,
+      weekFootLabel: wanted ? "KEPT THIS WEEK" : "3 THINGS THAT MADE MY WEEK",
+      digits: digits
+    };
+  }
+}
+</script>
+</body>
+</html>

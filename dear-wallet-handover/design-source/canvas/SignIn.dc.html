@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sign in</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<main style="width: {{W}}px; height: {{H}}px; position: relative; overflow: hidden; box-sizing: border-box; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: radial-gradient(circle at 50% 12%, {{t.surface}} 0, {{t.clear}} 40%), linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(180deg, {{t.bg1}}, {{t.bg2}}); background-size: 100% 100%, 22px 22px, 22px 22px, 100% 100%">
+  <div style="position: absolute; left: 0; right: 0; top: {{headT}}px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center">
+    <svg width="{{logoS}}" height="{{logoS}}" viewBox="90 100 860 840" aria-hidden="true">
+      <circle cx="512" cy="430" r="250" fill="{{t.c3}}" stroke="{{t.outline}}" stroke-width="26"></circle>
+      <g transform="translate(393 296) scale(17)" shape-rendering="crispEdges"><path d="M3.5 2.5h2v1h1v1h1v-1h1v-1h2v1h1v3h-1v1h-1v1h-1v1h-1v1h-1v-1h-1v-1h-1v-1h-1v-1h-1v-3h1z" fill="{{t.c1}}" stroke="{{t.outline}}" stroke-width="1.4"></path></g>
+      <path d="M250 900C160 900 120 830 150 770C100 720 140 630 230 640C240 560 340 520 410 570C450 500 580 490 620 570C680 520 790 545 800 630C890 620 940 720 880 780C920 840 860 900 780 900Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="26" stroke-linejoin="round"></path>
+    </svg>
+    <h1 style="margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: 34px; line-height: 1.35">Dear Wallet</h1>
+    <p style="margin: 0; font-size: 15px; font-weight: 800">back up ur tally + diary, and pick up on any phone</p>
+  </div>
+
+  <section aria-label="Sign in" aria-busy="{{loading}}" style="position: absolute; left: 16px; right: 16px; top: {{winT}}px; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; overflow: hidden">
+    <div style="height: 36px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 2px solid {{t.outline}}; background-color: {{t.c1}}; background-image: repeating-conic-gradient({{t.c2}} 0 25%, transparent 0 50%); background-size: 12px 12px">
+      <span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 7px; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="{{t.outline}}" stroke-width="1.8" aria-hidden="true"><path d="M3.5 6.5h7v6h-7z" fill="{{t.c2}}"></path><path d="M5 6.5V4.5a2 2 0 0 1 4 0v2"></path></svg></span>
+      <span style="padding: 1px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.06em">SIGN_IN.EXE</span>
+    </div>
+    <div style="padding: 16px; display: flex; flex-direction: column; gap: {{gap}}px; opacity: {{fade}}">
+      <button type="button" disabled="{{loading}}" style="height: 52px; border-radius: 26px; border: 2px solid {{t.outline}}; background: {{t.text}}; color: {{t.surface}}; font-family: Nunito, sans-serif; font-size: 16px; font-weight: 900; cursor: pointer">continue with Apple</button>
+      <div style="display: flex; align-items: center; gap: 10px" aria-hidden="true">
+        <span style="flex: 1; border-bottom: 2px dashed {{t.ring}}"></span>
+        <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">OR</span>
+        <span style="flex: 1; border-bottom: 2px dashed {{t.ring}}"></span>
+      </div>
+      <label style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">EMAIL</span>
+        <input type="email" value="jazmine@example.com" disabled="{{loading}}" style="height: 48px; box-sizing: border-box; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; padding: 0 14px; font-family: Nunito, sans-serif; font-size: 16px; font-weight: 800">
+      </label>
+      <label style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">PASSWORD</span>
+        <input type="password" value="sparkles123" aria-invalid="{{error}}" disabled="{{loading}}" style="height: 48px; box-sizing: border-box; border-radius: 16px; border: {{pwBorder}} solid {{t.outline}}; background: {{pwBg}}; color: {{t.text}}; padding: 0 14px; font-family: Nunito, sans-serif; font-size: 16px; font-weight: 800">
+      </label>
+      <sc-if value="{{error}}" hint-placeholder-val="{{false}}">
+        <div role="alert" style="border-radius: 14px; border: 2px solid {{t.outline}}; background: {{t.c1}}; padding: 10px 12px; display: flex; align-items: flex-start; gap: 10px">
+          <span style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center; font-family: 'Pixelify Sans', sans-serif; font-size: 14px; font-weight: 600">!</span>
+          <span style="font-size: 14px; font-weight: 800; line-height: 1.4">hmm, that password didn’t match. try again, or reset it below. nothing’s lost ♡</span>
+        </div>
+      </sc-if>
+    </div>
+    <div style="padding: 0 16px 16px; display: flex; flex-direction: column; gap: 4px">
+      <sc-if value="{{notLoading}}" hint-placeholder-val="{{true}}">
+        <button type="button" style="height: 56px; border-radius: 28px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; box-shadow: 0 4px 0 {{t.shadow}}; font-family: Nunito, sans-serif; font-size: 17px; font-weight: 900; cursor: pointer">{{btnLabel}}</button>
+      </sc-if>
+      <sc-if value="{{loading}}" hint-placeholder-val="{{false}}">
+        <button type="button" disabled style="height: 56px; border-radius: 28px; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; display: flex; align-items: center; justify-content: center; gap: 12px; font-family: Nunito, sans-serif; font-size: 17px; font-weight: 900">
+          signing u in
+          <span aria-hidden="true" style="display: flex; gap: 5px">
+            <span style="width: 8px; height: 8px; background: {{t.btnText}}"></span>
+            <span style="width: 8px; height: 8px; background: {{t.btnText}}; opacity: 0.6"></span>
+            <span style="width: 8px; height: 8px; background: {{t.btnText}}; opacity: 0.3"></span>
+          </span>
+        </button>
+      </sc-if>
+      <button type="button" style="height: 44px; border: 0; background: transparent; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800; text-decoration: underline; cursor: pointer">forgot password?</button>
+    </div>
+  </section>
+
+  <div style="position: absolute; left: 24px; right: 24px; bottom: {{footB}}px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+    <span style="font-size: 14px; font-weight: 800">new here? <span style="text-decoration: underline">make an account</span></span>
+    <span style="display: {{privacy}}; align-items: center; gap: 6px; font-size: 12px; font-weight: 800"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3.5 6.5h7v6h-7z"></path><path d="M5 6.5V4.5a2 2 0 0 1 4 0v2"></path></svg>ur diary stays private. we never sell ur data.</span>
+  </div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"state":{"editor":"enum","options":["default","error","loading"],"default":"default","section":"State"},"$preview":{"width":390,"height":844}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+class Component extends DCLogic {
+  renderVals() {
+    var s = this.props.state ?? "default";
+    var W = Number(this.props.w ?? 390), H = Number(this.props.h ?? 844), compact = H < 740;
+    var t = tok(this.props.palette ?? "cloud");
+    var error = s === "error", loading = s === "loading";
+    return {
+      W: W, H: H,
+      headT: compact ? 36 : 64, logoS: compact ? 0 : 74, winT: compact ? 128 : 236, gap: compact ? 8 : 12,
+      footB: compact ? 16 : 30, privacy: compact ? "none" : "flex",
+      t: t, error: error, loading: loading, notLoading: !loading,
+      fade: loading ? 0.6 : 1,
+      pwBorder: error ? "3px" : "2px",
+      pwBg: error ? t.c1 : t.surface,
+      btnLabel: error ? "try again" : "sign in"
+    };
+  }
+}
+</script>
+</body>
+</html>

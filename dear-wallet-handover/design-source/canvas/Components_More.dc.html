@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dear Wallet component set 2</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1280px; height: 1000px; box-sizing: border-box; padding: 48px 64px; font-family: Nunito, sans-serif; color: {{t.text}}; background-image: linear-gradient({{t.grid}} 1px, transparent 1px), linear-gradient(90deg, {{t.grid}} 1px, transparent 1px), linear-gradient(160deg, {{t.bg1}}, {{t.bg2}}); background-size: 22px 22px, 22px 22px, 100% 100%; display: flex; flex-direction: column; gap: 22px">
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 14px; letter-spacing: 0.08em">FOUNDATIONS · COMPONENT SET 2</span>
+      <h1 style="margin: 0; font-family: Pacifico, cursive; font-weight: 400; font-size: 40px; line-height: 1.3">more lil parts</h1>
+    </div>
+    <p style="margin: 0; max-width: 540px; font-size: 15px; line-height: 1.5; font-weight: 700">Added for Tally, Item detail, Diary, Diary entry and Decorate page. Same rules: tokens only, 2 px outlines, hard shadows. Sticker is a real shared component used by every screen that shows one.</p>
+  </div>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start">
+    <div style="width: 340px; display: flex; flex-direction: column; gap: 12px">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em">PERIOD SWITCHER</span>
+      <div style="display: flex; padding: 4px; gap: 4px; border-radius: 26px; border: 2px solid {{t.outline}}; background: {{t.surface}}">
+        <button type="button" aria-pressed="false" style="flex: 1; height: 40px; border-radius: 20px; border: 2px solid transparent; background: transparent; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 800">day</button>
+        <button type="button" aria-pressed="false" style="flex: 1; height: 40px; border-radius: 20px; border: 2px solid transparent; background: transparent; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 800">week</button>
+        <button type="button" aria-pressed="true" style="flex: 1; height: 40px; border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.c3}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 15px; font-weight: 900">month</button>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 8px">TAG CHIPS · OFF / ON</span>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap">
+        <button type="button" aria-pressed="false" style="height: 44px; padding: 0 14px; border-radius: 22px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 800">+ moved to savings</button>
+        <button type="button" aria-pressed="true" style="height: 44px; padding: 0 14px 0 10px; border-radius: 22px; border: 2px solid {{t.outline}}; background: {{t.c4}}; color: {{t.text}}; display: flex; align-items: center; gap: 6px; font-family: Nunito, sans-serif; font-size: 14px; font-weight: 900"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M2.5 7.5l3 3 6-6.5"></path></svg>paid off debt</button>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 8px">STATUS CHIPS</span>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap">
+        <span style="padding: 3px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.c4}}; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">KEPT ♡</span>
+        <span style="padding: 3px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.c2}}; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">BOUGHT AFTER ALL</span>
+        <span style="padding: 3px 10px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.surface}}; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em">SAVINGS</span>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 8px">ICON BUTTONS</span>
+      <div style="display: flex; gap: 10px">
+        <button type="button" aria-label="Back" style="width: 44px; height: 44px; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="22" height="22" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5L4.5 7 9 11.5"></path></svg></button>
+        <button type="button" aria-label="Edit" style="width: 44px; height: 44px; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="22" height="22" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 11.5l.8-3 6-6 2.2 2.2-6 6z" fill="{{t.c3}}"></path><path d="M8 3.8l2.2 2.2"></path></svg></button>
+        <button type="button" aria-label="Diary lock" style="width: 44px; height: 44px; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="22" height="22" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3.5 6.5h7v6h-7z" fill="{{t.c2}}"></path><path d="M5 6.5V4.5a2 2 0 0 1 4 0v2"></path></svg></button>
+        <button type="button" aria-label="New prompt" style="width: 44px; height: 44px; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="22" height="22" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.5 7A4.5 4.5 0 1 1 10 3.6"></path><path d="M10.5 1.5v2.5H8"></path></svg></button>
+        <button type="button" aria-label="Delete" style="width: 44px; height: 44px; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; box-shadow: 0 3px 0 {{t.shadow}}; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="22" height="22" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 4.5h7l-.8 8H4.3z" fill="{{t.c1}}"></path><path d="M2.5 4.5h9M5.5 4.5v-2h3v2"></path></svg></button>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 8px">KIND MESSAGE</span>
+      <div style="position: relative; height: 88px">
+        <svg aria-hidden="true" width="340" height="92" viewBox="0 0 340 92" style="position: absolute; left: 0; top: 0; overflow: visible"><path d="{{msgPath}}" fill="{{t.shadow}}" transform="translate(0 4)"></path><path d="{{msgPath}}" fill="{{t.c4}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+        <div style="position: absolute; left: 16px; right: 16px; top: 26px; bottom: 10px; display: flex; align-items: center; gap: 10px">
+          <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" style="flex: none"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="2"></path></svg>
+          <span style="font-size: 15px; font-weight: 900; line-height: 1.35">all good. u still paused, and that counts.</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="width: 340px; display: flex; flex-direction: column; gap: 12px">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em">BAR CHART · BARS CYCLE C1 TO C5</span>
+      <div style="height: 170px; box-sizing: border-box; border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; box-shadow: 0 5px 0 {{t.shadow}}; padding: 14px 16px 10px; display: flex; gap: 10px">
+        <sc-for list="{{bars}}" as="b" hint-placeholder-count="5">
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px">
+            <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 11px; font-weight: 600">{{b.amt}}</span>
+            <span style="width: 100%; height: {{b.h}}px; box-sizing: border-box; border-radius: 9px 9px 4px 4px; border: 2px {{b.bs}} {{t.outline}}; background: {{b.bg}}"></span>
+            <span style="font-size: 11px; font-weight: 800">{{b.label}}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 8px">CALENDAR CELLS</span>
+      <div style="display: flex; gap: 10px; align-items: flex-start">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px"><button type="button" style="width: 44px; height: 40px; border-radius: 12px; border: 2px solid transparent; background: transparent; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 13px; font-weight: 800">4</button><span style="font-size: 11px; font-weight: 800">day</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px"><button type="button" style="width: 44px; height: 40px; border-radius: 12px; border: 2px solid transparent; background: {{t.c3}}; color: {{t.text}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; font-family: Nunito, sans-serif; font-size: 12px; font-weight: 800; padding: 0">1<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24"><path d="M12 1C12.9 7.6 16.4 11.1 23 12C16.4 12.9 12.9 16.4 12 23C11.1 16.4 7.6 12.9 1 12C7.6 11.1 11.1 7.6 12 1Z" fill="{{t.surface}}" stroke="{{t.outline}}" stroke-width="2.4"></path></svg></button><span style="font-size: 11px; font-weight: 800">star</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px"><button type="button" style="width: 44px; height: 40px; border-radius: 12px; border: 2px solid transparent; background: transparent; color: {{t.text}}; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0; font-family: 'Pixelify Sans', sans-serif; font-size: 10px; font-weight: 600"><span style="line-height: 1">2</span><dc-import name="Sticker" kind="proud" size="24" hint-size="24px,24px"></dc-import></button><span style="font-size: 11px; font-weight: 800">mood</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px"><button type="button" aria-current="date" style="width: 44px; height: 40px; border-radius: 12px; border: 2px solid {{t.btn}}; background: {{t.surface}}; color: {{t.text}}; font-family: Nunito, sans-serif; font-size: 13px; font-weight: 900; box-shadow: 0 3px 0 {{t.shadow}}">6</button><span style="font-size: 11px; font-weight: 800">today</span></div>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 8px">LINED TEXT BOX</span>
+      <div style="border-radius: 18px; border: 2px solid {{t.outline}}; background: {{t.surface}}; padding: 10px 14px 8px">
+        <div style="font-family: Pacifico, cursive; font-size: 22px; line-height: 1.3">Dear Wallet,</div>
+        <div style="min-height: 93px; font-size: 15px; font-weight: 700; line-height: 31px; background-image: repeating-linear-gradient(transparent 0 29px, {{t.ring}} 29px 31px)">today i said nvm to a $24 thing and honestly? kinda proud.</div>
+        <div style="font-size: 12px; font-weight: 800; text-align: right">58 / 280</div>
+      </div>
+    </div>
+
+    <div style="width: 392px; display: flex; flex-direction: column; gap: 12px">
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em">STICKER · SHARED COMPONENT (KIND + SIZE)</span>
+      <div style="display: flex; gap: 14px; align-items: center; height: 84px">
+        <dc-import name="Sticker" kind="fly" size="72" hint-size="72px,72px"></dc-import>
+        <dc-import name="Sticker" kind="tea" size="72" hint-size="72px,72px"></dc-import>
+        <dc-import name="Sticker" kind="bubble" size="72" hint-size="72px,72px"></dc-import>
+        <dc-import name="Sticker" kind="holoCd" size="72" hint-size="72px,72px"></dc-import>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 8px">MOOD PICKER</span>
+      <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px">
+        <button type="button" aria-pressed="true" style="height: 74px; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.c1}}; color: {{t.text}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0; font-family: Nunito, sans-serif; font-size: 11px; font-weight: 900"><dc-import name="Sticker" kind="proud" size="44" hint-size="44px,44px"></dc-import>proud</button>
+        <button type="button" aria-pressed="false" style="height: 74px; border-radius: 16px; border: 2px solid transparent; background: transparent; color: {{t.text}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0; font-family: Nunito, sans-serif; font-size: 11px; font-weight: 800"><dc-import name="Sticker" kind="chill" size="44" hint-size="44px,44px"></dc-import>chill</button>
+        <button type="button" aria-pressed="false" style="height: 74px; border-radius: 16px; border: 2px solid transparent; background: transparent; color: {{t.text}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0; font-family: Nunito, sans-serif; font-size: 11px; font-weight: 800"><dc-import name="Sticker" kind="meh" size="44" hint-size="44px,44px"></dc-import>meh</button>
+        <button type="button" aria-pressed="false" style="height: 74px; border-radius: 16px; border: 2px solid transparent; background: transparent; color: {{t.text}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0; font-family: Nunito, sans-serif; font-size: 11px; font-weight: 800"><dc-import name="Sticker" kind="tempted" size="44" hint-size="44px,44px"></dc-import>tempted</button>
+        <button type="button" aria-pressed="false" style="height: 74px; border-radius: 16px; border: 2px solid transparent; background: transparent; color: {{t.text}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0; font-family: Nunito, sans-serif; font-size: 11px; font-weight: 800"><dc-import name="Sticker" kind="wobbly" size="44" hint-size="44px,44px"></dc-import>wobbly</button>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 8px">SELECTED STICKER · HANDLES</span>
+      <div style="height: 150px; border-radius: 20px; border: 2px solid {{t.outline}}; background: {{t.surface}}; position: relative">
+        <div style="position: absolute; left: 150px; top: 34px; width: 92px; height: 92px; transform: rotate(-6deg)">
+          <div style="position: absolute; left: -8px; top: -8px; right: -8px; bottom: -8px; border: 2px dashed {{t.btn}}; border-radius: 14px"></div>
+          <dc-import name="Sticker" kind="bubble" size="92" hint-size="92px,92px"></dc-import>
+          <button type="button" aria-label="Remove sticker" style="position: absolute; left: -24px; top: -24px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.surface}}; color: {{t.text}}; padding: 0; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" aria-hidden="true"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7"></path></svg></button>
+          <button type="button" aria-label="Rotate sticker" style="position: absolute; left: 30px; top: -44px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.c2}}; color: {{t.text}}; padding: 0; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.5 7A4.5 4.5 0 1 1 10 3.6"></path><path d="M10.5 1.5v2.5H8"></path></svg></button>
+          <button type="button" aria-label="Resize sticker" style="position: absolute; right: -24px; bottom: -24px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid {{t.outline}}; background: {{t.btn}}; color: {{t.btnText}}; padding: 0; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5l7-7M7 3.5h3.5V7M7 10.5H3.5V7"></path></svg></button>
+        </div>
+      </div>
+
+      <span style="font-family: 'Pixelify Sans', sans-serif; font-size: 13px; letter-spacing: 0.06em; margin-top: 8px">STICKER TRAY ITEM · COUNT BADGE</span>
+      <div style="display: flex; gap: 10px">
+        <button type="button" aria-label="lil cloud, 2 left" style="width: 76px; height: 84px; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.surface}}; position: relative; display: flex; align-items: center; justify-content: center; padding: 0"><dc-import name="Sticker" kind="cloud" size="58" hint-size="58px,58px"></dc-import><span style="position: absolute; right: -6px; top: -8px; padding: 0 6px; border-radius: 999px; border: 2px solid {{t.outline}}; background: {{t.c3}}; color: {{t.text}}; font-family: 'Pixelify Sans', sans-serif; font-size: 12px; font-weight: 600">x2</span></button>
+        <button type="button" aria-label="holo star, rare, 1 left" style="width: 76px; height: 84px; border-radius: 16px; border: 2px solid {{t.outline}}; background: {{t.text}}; position: relative; display: flex; align-items: center; justify-content: center; padding: 0"><dc-import name="Sticker" kind="holoStar" size="58" hint-size="58px,58px"></dc-import></button>
+        <button type="button" aria-label="butterfly, placed" style="width: 76px; height: 84px; border-radius: 16px; border: 2px dashed {{t.outline}}; background: {{t.surface}}; display: flex; align-items: center; justify-content: center; padding: 0; opacity: 0.6"><dc-import name="Sticker" kind="fly" size="58" hint-size="58px,58px"></dc-import></button>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"palette":{"editor":"enum","options":["cloud","lilac","peachfuzz","peachsoda","orchid","midnight"],"default":"cloud","section":"Theme"},"$preview":{"width":1280,"height":1000}}'>
+var PAL={cloud:{g:["#F6CDEB","#C6EFDD"],c:["#FDD2EE","#E1D5FD","#FDEFC0","#B4F2DD","#ADD9FE"],s:"#FFFFFF",o:"#4A72A8",t:"#2E2F73",b:"#4A72A8",bt:"#FFFFFF"},lilac:{g:["#E1CBF2","#B9E6EC"],c:["#FAD6EE","#DBCEF8","#CBC3F6","#88C8F6","#DBCEF8"],s:"#FFFFFF",o:"#5F52B8",t:"#3A2A66",b:"#6F60C8",bt:"#FFFFFF"},peachfuzz:{g:["#B8B8FF","#FFD8BE"],c:["#FFD8BE","#B8B8FF","#FFEEDD","#FFD8BE","#B8B8FF"],s:"#F8F7FF",o:"#5F4FD6",t:"#3A2A66",b:"#6F5CE8",bt:"#FFFFFF"},peachsoda:{g:["#F9D2CC","#FAC7C3"],c:["#FAC7C3","#E4D6F2","#FFEEDD","#E4D6F2","#FAC7C3"],s:"#FFF6F2",o:"#835AA5",t:"#4B2A7B",b:"#835AA5",bt:"#FFFFFF"},orchid:{g:["#FFEAFC","#BEDA62"],c:["#FFEAFC","#9D96FF","#FAC75A","#BEDA62","#9D96FF"],s:"#FFFFFF",o:"#8E1E78",t:"#5B1E58",b:"#C936AE",bt:"#FFFFFF"},midnight:{g:["#1C1838","#2A2350"],c:["#332B60","#3F3574","#332B60","#3F3574","#332B60"],s:"#2A2350",o:"#B8B8FF",t:"#F8F7FF",b:"#FFD8BE",bt:"#1C1838"}};
+function tok(k){var p=PAL[k]||PAL.cloud;return {bg1:p.g[0],bg2:p.g[1],c1:p.c[0],c2:p.c[1],c3:p.c[2],c4:p.c[3],c5:p.c[4],surface:p.s,outline:p.o,text:p.t,btn:p.b,btnText:p.bt,grid:p.o+"1F",shadow:p.o+"4D",ring:p.o+"59",scrim:p.g[0]+"B3",soft:p.t+"BF",clear:p.s+"00"};}
+function cloud(w,h){var T=18,r=22,W=w-1,H=h-1;return "M"+(r+1)+" "+T+" L28 "+T+" A16 16 0 0 1 60 "+T+" L64 "+T+" A11 11 0 0 1 86 "+T+" L"+(W-r)+" "+T+" A"+r+" "+r+" 0 0 1 "+W+" "+(T+r)+" L"+W+" "+(H-r)+" A"+r+" "+r+" 0 0 1 "+(W-r)+" "+H+" L"+(r+1)+" "+H+" A"+r+" "+r+" 0 0 1 1 "+(H-r)+" L1 "+(T+r)+" A"+r+" "+r+" 0 0 1 "+(r+1)+" "+T+" Z";}
+class Component extends DCLogic {
+  renderVals() {
+    var t = tok(this.props.palette ?? "cloud");
+    var cols = [t.c1, t.c2, t.c3, t.c4, t.c5];
+    var bars = [["wk 1", "$86", 56], ["wk 2", "$143", 92], ["wk 3", "$64", 42], ["wk 4", "$120", 78], ["wk 5", "", 6]].map(function (b, i) {
+      return { label: b[0], amt: b[1], h: b[2], bg: b[2] < 10 ? "transparent" : cols[i], bs: b[2] < 10 ? "dashed" : "solid" };
+    });
+    return { t: t, bars: bars, msgPath: cloud(340, 88) };
+  }
+}
+</script>
+</body>
+</html>
