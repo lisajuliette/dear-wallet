@@ -5,11 +5,47 @@ jest.mock('nativewind', () => ({
 }));
 
 jest.mock('react-native-reanimated', () => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports -- reanimated mock must be required
-  const Reanimated = require('react-native-reanimated/mock');
-  Reanimated.default.call = () => {};
-  return Reanimated;
+  // eslint-disable-next-line @typescript-eslint/no-require-imports -- RN View for Animated.View
+  const { View } = require('react-native');
+  const shared = (value: unknown) => ({ value });
+  const passthrough = (value: unknown) => value;
+  const AnimatedView = View;
+  return {
+    __esModule: true,
+    default: {
+      View: AnimatedView,
+      Text: View,
+      Image: View,
+      ScrollView: View,
+      createAnimatedComponent: (Component: unknown) => Component,
+      call: () => {},
+      addWhitelistedNativeProps: () => {},
+      addWhitelistedUIProps: () => {},
+    },
+    useSharedValue: shared,
+    useAnimatedStyle: () => ({}),
+    useDerivedValue: (fn: () => unknown) => shared(fn()),
+    useAnimatedRef: () => ({ current: null }),
+    withTiming: passthrough,
+    withSpring: passthrough,
+    withDelay: (_d: number, v: unknown) => v,
+    withSequence: (...vals: unknown[]) => vals[0],
+    withRepeat: (v: unknown) => v,
+    Easing: { linear: (t: number) => t, ease: (t: number) => t, bezier: () => (t: number) => t },
+    interpolate: () => 0,
+    Extrapolation: { CLAMP: 'clamp' },
+    runOnJS: (fn: (...args: unknown[]) => unknown) => fn,
+    runOnUI: (fn: (...args: unknown[]) => unknown) => fn,
+    FadeIn: {},
+    FadeOut: {},
+  };
 });
+
+jest.mock('react-native-worklets', () => ({
+  __esModule: true,
+  createSerializable: (v: unknown) => v,
+  isWorkletFunction: () => false,
+}));
 
 jest.mock(
   'expo-haptics',
@@ -53,6 +89,27 @@ jest.mock(
 
 jest.mock('expo-crypto', () => ({
   randomUUID: () => globalThis.crypto.randomUUID(),
+}));
+
+jest.mock('@react-native-community/netinfo', () => ({
+  addEventListener: jest.fn(() => jest.fn()),
+  fetch: jest.fn(async () => ({ isConnected: true, isInternetReachable: true })),
+}));
+
+jest.mock('expo-router', () => ({
+  router: {
+    push: jest.fn(),
+    replace: jest.fn(),
+    back: jest.fn(),
+  },
+  useFocusEffect: jest.fn(),
+  useLocalSearchParams: jest.fn(() => ({})),
+  Redirect: ({ href }: { href: string }) => href,
+  Link: ({ children }: { children: unknown }) => children,
+  Stack: {
+    Screen: () => null,
+  },
+  Tabs: Object.assign(() => null, { Screen: () => null }),
 }));
 
 jest.mock('expo-sqlite', () => ({

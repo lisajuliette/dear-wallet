@@ -41,6 +41,15 @@ export default function RootLayout() {
       <StatusBar style="dark" />
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="log"
+          options={{ presentation: 'transparentModal', animation: 'slide_from_bottom' }}
+        />
+        <Stack.Screen
+          name="reward"
+          options={{ presentation: 'transparentModal', animation: 'fade' }}
+        />
         <Stack.Screen name="dev/theme" options={{ headerShown: true, title: 'Theme' }} />
         <Stack.Screen name="dev/components" options={{ headerShown: true, title: 'Components' }} />
       </Stack>

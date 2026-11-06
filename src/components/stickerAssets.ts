@@ -18,6 +18,7 @@ import MoodWobbly from '@/assets/stickers/svg/mood-wobbly.svg';
 import RareHoloButterfly from '@/assets/stickers/svg/rare-holo-butterfly.svg';
 import RareHoloCd from '@/assets/stickers/svg/rare-holo-cd.svg';
 import RareHoloStar from '@/assets/stickers/svg/rare-holo-star.svg';
+import { resolveSvg } from '@/components/resolveSvg';
 
 import type { FC } from 'react';
 import type { SvgProps } from 'react-native-svg';
@@ -45,26 +46,26 @@ export type StickerId =
   | 'rare-holo-star';
 
 export const STICKER_ASSETS: Record<StickerId, FC<SvgProps>> = {
-  'common-butterfly': CommonButterfly,
-  'common-dear-wallet-letter': CommonDearWalletLetter,
-  'common-flip-phone': CommonFlipPhone,
-  'common-gold-star': CommonGoldStar,
-  'common-kept-stack': CommonKeptStack,
-  'common-lil-cloud': CommonLilCloud,
-  'common-lip-gloss': CommonLipGloss,
-  'common-mixtape': CommonMixtape,
-  'common-nvm-bubble': CommonNvmBubble,
-  'common-nvmd-boba': CommonNvmdBoba,
-  'common-pixel-heart': CommonPixelHeart,
-  'common-sparkle-trio': CommonSparkleTrio,
-  'mood-chill': MoodChill,
-  'mood-meh': MoodMeh,
-  'mood-proud': MoodProud,
-  'mood-tempted': MoodTempted,
-  'mood-wobbly': MoodWobbly,
-  'rare-holo-butterfly': RareHoloButterfly,
-  'rare-holo-cd': RareHoloCd,
-  'rare-holo-star': RareHoloStar,
+  'common-butterfly': resolveSvg(CommonButterfly),
+  'common-dear-wallet-letter': resolveSvg(CommonDearWalletLetter),
+  'common-flip-phone': resolveSvg(CommonFlipPhone),
+  'common-gold-star': resolveSvg(CommonGoldStar),
+  'common-kept-stack': resolveSvg(CommonKeptStack),
+  'common-lil-cloud': resolveSvg(CommonLilCloud),
+  'common-lip-gloss': resolveSvg(CommonLipGloss),
+  'common-mixtape': resolveSvg(CommonMixtape),
+  'common-nvm-bubble': resolveSvg(CommonNvmBubble),
+  'common-nvmd-boba': resolveSvg(CommonNvmdBoba),
+  'common-pixel-heart': resolveSvg(CommonPixelHeart),
+  'common-sparkle-trio': resolveSvg(CommonSparkleTrio),
+  'mood-chill': resolveSvg(MoodChill),
+  'mood-meh': resolveSvg(MoodMeh),
+  'mood-proud': resolveSvg(MoodProud),
+  'mood-tempted': resolveSvg(MoodTempted),
+  'mood-wobbly': resolveSvg(MoodWobbly),
+  'rare-holo-butterfly': resolveSvg(RareHoloButterfly),
+  'rare-holo-cd': resolveSvg(RareHoloCd),
+  'rare-holo-star': resolveSvg(RareHoloStar),
 };
 
 export function isRareSticker(id: StickerId): boolean {
