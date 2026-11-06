@@ -9,10 +9,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        bg1: token('bg1'), bg2: token('bg2'),
-        c1: token('c1'), c2: token('c2'), c3: token('c3'), c4: token('c4'), c5: token('c5'),
-        surface: token('surface'), outline: token('outline'), ink: token('text'),
-        btn: token('btn'), 'btn-text': token('btnText'),
+        bg1: token('bg1'),
+        bg2: token('bg2'),
+        c1: token('c1'),
+        c2: token('c2'),
+        c3: token('c3'),
+        c4: token('c4'),
+        c5: token('c5'),
+        surface: token('surface'),
+        outline: token('outline'),
+        ink: token('text'),
+        btn: token('btn'),
+        'btn-text': token('btnText'),
       },
       fontFamily: {
         script: ['Pacifico_400Regular'],

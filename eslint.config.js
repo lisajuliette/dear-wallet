@@ -15,7 +15,6 @@ module.exports = defineConfig([
       '.expo/*',
       'design-source/**',
       'supabase/**',
-      'dear-wallet-handover/**',
     ],
   },
   {

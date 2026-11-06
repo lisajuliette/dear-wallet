@@ -1,5 +1,9 @@
 import '@testing-library/react-native/matchers';
 
+jest.mock('nativewind', () => ({
+  vars: (value: Record<string, string>) => value,
+}));
+
 jest.mock('react-native-reanimated', () => {
   // eslint-disable-next-line @typescript-eslint/no-require-imports -- reanimated mock must be required
   const Reanimated = require('react-native-reanimated/mock');
