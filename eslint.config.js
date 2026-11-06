@@ -15,6 +15,7 @@ module.exports = defineConfig([
       '.expo/*',
       'design-source/**',
       'supabase/**',
+      'drizzle/**',
     ],
   },
   {

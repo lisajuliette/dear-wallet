@@ -51,27 +51,31 @@ jest.mock(
   { virtual: true },
 );
 
-jest.mock(
-  'expo-sqlite',
-  () => ({
-    openDatabaseSync: jest.fn(() => ({
-      execSync: jest.fn(),
-      getAllSync: jest.fn(() => []),
-      getFirstSync: jest.fn(() => null),
-      runSync: jest.fn(),
-      prepareSync: jest.fn(() => ({
-        executeSync: jest.fn(),
-        finalizeSync: jest.fn(),
-      })),
-      closeSync: jest.fn(),
+jest.mock('expo-crypto', () => ({
+  randomUUID: () => globalThis.crypto.randomUUID(),
+}));
+
+jest.mock('expo-sqlite', () => ({
+  openDatabaseSync: jest.fn(() => ({
+    execSync: jest.fn(),
+    getAllSync: jest.fn(() => []),
+    getFirstSync: jest.fn(() => null),
+    runSync: jest.fn(),
+    prepareSync: jest.fn(() => ({
+      executeSync: jest.fn(),
+      finalizeSync: jest.fn(),
     })),
-    openDatabaseAsync: jest.fn(async () => ({
-      execAsync: jest.fn(async () => undefined),
-      getAllAsync: jest.fn(async () => []),
-      getFirstAsync: jest.fn(async () => null),
-      runAsync: jest.fn(async () => ({ changes: 0, lastInsertRowId: 0 })),
-      closeAsync: jest.fn(async () => undefined),
-    })),
-  }),
-  { virtual: true },
-);
+    closeSync: jest.fn(),
+  })),
+  openDatabaseAsync: jest.fn(async () => ({
+    execAsync: jest.fn(async () => undefined),
+    getAllAsync: jest.fn(async () => []),
+    getFirstAsync: jest.fn(async () => null),
+    runAsync: jest.fn(async () => ({ changes: 0, lastInsertRowId: 0 })),
+    closeAsync: jest.fn(async () => undefined),
+  })),
+}));
+
+jest.mock('drizzle-orm/expo-sqlite/migrator', () => ({
+  useMigrations: () => ({ success: true, error: null }),
+}));
