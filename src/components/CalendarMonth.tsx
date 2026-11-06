@@ -1,7 +1,17 @@
 import { Pressable, Text, View } from 'react-native';
 
 import type { Mood } from '@/components/MoodPicker';
+import { Sticker } from '@/components/Sticker';
+import type { StickerId } from '@/components/stickerAssets';
 import { useTokens } from '@/theme';
+
+const MOOD_STICKER: Record<Mood, StickerId> = {
+  proud: 'mood-proud',
+  chill: 'mood-chill',
+  meh: 'mood-meh',
+  tempted: 'mood-tempted',
+  wobbly: 'mood-wobbly',
+};
 
 export type CalendarDay = {
   date: string;
@@ -79,24 +89,60 @@ export function CalendarMonth({
                   borderRadius: 10,
                   borderWidth: day.today ? 2 : empty ? 0 : 1,
                   borderColor: day.today ? t.outline : t.ring,
-                  backgroundColor: empty ? 'transparent' : day.today ? t.c1 : t.surface,
+                  backgroundColor: empty
+                    ? 'transparent'
+                    : day.today
+                      ? t.c1
+                      : day.star
+                        ? t.c3
+                        : t.surface,
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: 1,
                 }}
               >
-                <Text
-                  style={{
-                    fontFamily: 'Nunito_700Bold',
-                    fontSize: 12,
-                    color: t.text,
-                  }}
-                >
-                  {dayNum}
-                </Text>
-                {day.star ? (
+                {day.mood ? (
+                  <Sticker id={MOOD_STICKER[day.mood]} size={22} />
+                ) : (
+                  <Text
+                    style={{
+                      fontFamily: 'Nunito_700Bold',
+                      fontSize: 12,
+                      color: t.text,
+                    }}
+                  >
+                    {dayNum}
+                  </Text>
+                )}
+                {day.mood ? (
+                  <Text
+                    style={{
+                      fontFamily: 'Nunito_800ExtraBold',
+                      fontSize: 9,
+                      color: t.text,
+                    }}
+                  >
+                    {dayNum}
+                  </Text>
+                ) : null}
+                {day.star && !day.mood ? (
                   <View
                     style={{
+                      width: 5,
+                      height: 5,
+                      borderRadius: 2.5,
+                      backgroundColor: t.c3,
+                      borderWidth: 1,
+                      borderColor: t.outline,
+                    }}
+                  />
+                ) : null}
+                {day.star && day.mood ? (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      right: 3,
+                      top: 3,
                       width: 5,
                       height: 5,
                       borderRadius: 2.5,
