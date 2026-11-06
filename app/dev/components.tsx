@@ -11,6 +11,7 @@ import {
   PillToggle,
   RetroWindow,
   Screen,
+  ScriptText,
   Segmented,
 } from '@/components';
 
@@ -32,7 +33,9 @@ export default function DevComponentsScreen() {
           <Text className="font-pixel text-sm uppercase tracking-tag text-ink">
             foundations · component set
           </Text>
-          <Text className="font-script text-3xl text-ink">the lil parts</Text>
+          <ScriptText size={30} className="text-ink">
+            the lil parts
+          </ScriptText>
         </View>
 
         <Text className="font-pixel text-sm uppercase tracking-tag text-ink">window</Text>

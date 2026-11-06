@@ -7,4 +7,5 @@ export { PillButton } from '@/components/PillButton';
 export { PillToggle } from '@/components/PillToggle';
 export { RetroWindow } from '@/components/RetroWindow';
 export { Screen } from '@/components/Screen';
+export { ScriptText } from '@/components/ScriptText';
 export { Segmented } from '@/components/Segmented';

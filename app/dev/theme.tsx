@@ -1,6 +1,7 @@
 import { Redirect } from 'expo-router';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 
+import { ScriptText } from '@/components';
 import { useThemeStore } from '@/theme';
 import { palettes, tokens, type PaletteKey, type TokenName } from '@/theme/theme';
 
@@ -33,7 +34,9 @@ export default function DevThemeScreen() {
   return (
     <ScrollView className="flex-1 bg-bg1" contentContainerClassName="gap-6 px-gutter py-6">
       <View className="gap-2">
-        <Text className="font-script text-3xl text-ink">theme lab</Text>
+        <ScriptText size={30} className="text-ink">
+          theme lab
+        </ScriptText>
         <Text className="font-sans text-base text-ink">
           switch palettes and check token swatches + type
         </Text>
@@ -83,7 +86,9 @@ export default function DevThemeScreen() {
 
       <View className="gap-3 rounded-card border-2 border-outline bg-surface p-4">
         <Text className="font-pixel-semibold text-sm uppercase tracking-tag text-ink">type</Text>
-        <Text className="font-script text-3xl text-ink">Pacifico title</Text>
+        <ScriptText size={30} className="text-ink">
+          Pacifico title
+        </ScriptText>
         <Text className="font-sans-semibold text-base text-ink">Nunito 600 body</Text>
         <Text className="font-sans text-base text-ink">Nunito 700 body</Text>
         <Text className="font-sans-extrabold text-base text-ink">Nunito 800 emphasis</Text>

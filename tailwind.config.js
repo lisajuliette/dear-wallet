@@ -23,7 +23,6 @@ module.exports = {
         'btn-text': token('btnText'),
       },
       fontFamily: {
-        script: ['Pacifico_400Regular'],
         sans: ['Nunito_700Bold'],
         'sans-semibold': ['Nunito_600SemiBold'],
         'sans-extrabold': ['Nunito_800ExtraBold'],
@@ -37,7 +36,18 @@ module.exports = {
       spacing: { gutter: '16px', tap: '44px', titlebar: '36px' },
     },
   },
-  plugins: [],
+  plugins: [
+    // Pacifico ascenders clip under RN's default line box; bake in extra leading + top pad.
+    function pacificoScript({ addUtilities }) {
+      addUtilities({
+        '.font-script': {
+          fontFamily: 'Pacifico_400Regular',
+          lineHeight: 1.55,
+          paddingTop: 6,
+        },
+      });
+    },
+  ],
 };
 // Usage: text-ink, bg-surface, border-outline, bg-btn text-btn-text, bg-outline/30 (shadow), font-pixel uppercase tracking-tag.
 // Hard shadows (0 5 0) are not a Tailwind default in RN: use the <HardShadow> wrapper from the component spec.
