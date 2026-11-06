@@ -1,0 +1,11 @@
+node_modules
+.expo
+dist
+coverage
+ios
+android
+design-source
+supabase
+dear-wallet-handover
+package-lock.json
+assets/expo.icon
