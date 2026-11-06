@@ -55,6 +55,27 @@ jest.mock('expo-crypto', () => ({
   randomUUID: () => globalThis.crypto.randomUUID(),
 }));
 
+jest.mock('@react-native-community/netinfo', () => ({
+  addEventListener: jest.fn(() => jest.fn()),
+  fetch: jest.fn(async () => ({ isConnected: true, isInternetReachable: true })),
+}));
+
+jest.mock('expo-router', () => ({
+  router: {
+    push: jest.fn(),
+    replace: jest.fn(),
+    back: jest.fn(),
+  },
+  useFocusEffect: jest.fn(),
+  useLocalSearchParams: jest.fn(() => ({})),
+  Redirect: ({ href }: { href: string }) => href,
+  Link: ({ children }: { children: unknown }) => children,
+  Stack: {
+    Screen: () => null,
+  },
+  Tabs: Object.assign(() => null, { Screen: () => null }),
+}));
+
 jest.mock('expo-sqlite', () => ({
   openDatabaseSync: jest.fn(() => ({
     execSync: jest.fn(),

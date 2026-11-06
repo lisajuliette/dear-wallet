@@ -7,3 +7,4 @@ function SvgMock(props) {
 
 module.exports = SvgMock;
 module.exports.default = SvgMock;
+module.exports.__esModule = true;

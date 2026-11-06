@@ -23,6 +23,7 @@ import Shuffle from '@/assets/icons/shuffle.svg';
 import Sparkle from '@/assets/icons/sparkle.svg';
 import Tally from '@/assets/icons/tally.svg';
 import Trash from '@/assets/icons/trash.svg';
+import { resolveSvg } from '@/components/resolveSvg';
 
 import type { FC } from 'react';
 import type { SvgProps } from 'react-native-svg';
@@ -55,29 +56,29 @@ export type PixelIconName =
   | 'trash';
 
 export const PIXEL_ICONS: Record<PixelIconName, FC<SvgProps>> = {
-  back: Back,
-  category: Category,
-  check: Check,
-  close: Close,
-  coin: Coin,
-  collection: Collection,
-  'delete-key': DeleteKey,
-  diary: Diary,
-  download: Download,
-  edit: Edit,
-  forward: Forward,
-  heart: Heart,
-  home: Home,
-  lock: Lock,
-  note: Note,
-  offline: Offline,
-  photo: Photo,
-  plus: Plus,
-  resize: Resize,
-  settings: Settings,
-  share: Share,
-  shuffle: Shuffle,
-  sparkle: Sparkle,
-  tally: Tally,
-  trash: Trash,
+  back: resolveSvg(Back),
+  category: resolveSvg(Category),
+  check: resolveSvg(Check),
+  close: resolveSvg(Close),
+  coin: resolveSvg(Coin),
+  collection: resolveSvg(Collection),
+  'delete-key': resolveSvg(DeleteKey),
+  diary: resolveSvg(Diary),
+  download: resolveSvg(Download),
+  edit: resolveSvg(Edit),
+  forward: resolveSvg(Forward),
+  heart: resolveSvg(Heart),
+  home: resolveSvg(Home),
+  lock: resolveSvg(Lock),
+  note: resolveSvg(Note),
+  offline: resolveSvg(Offline),
+  photo: resolveSvg(Photo),
+  plus: resolveSvg(Plus),
+  resize: resolveSvg(Resize),
+  settings: resolveSvg(Settings),
+  share: resolveSvg(Share),
+  shuffle: resolveSvg(Shuffle),
+  sparkle: resolveSvg(Sparkle),
+  tally: resolveSvg(Tally),
+  trash: resolveSvg(Trash),
 };
