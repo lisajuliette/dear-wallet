@@ -14,7 +14,7 @@ import {
   type DiaryEntryViewModel,
 } from '@/features/diary';
 import { dayKey } from '@/lib/dates';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 function titleFor(dateKey: string, isNew: boolean): string {
   const [y, m, d] = dateKey.split('-').map(Number);
@@ -37,7 +37,7 @@ export default function DiaryEntryRoute() {
   useEffect(() => {
     let cancelled = false;
     void (async () => {
-      const history = await listPromptHistory(db, LOCAL_USER_ID);
+      const history = await listPromptHistory(db, getLocalUserId());
       if (isNew) {
         const prompt = pickPrompt(history);
         if (cancelled) return;
@@ -53,7 +53,7 @@ export default function DiaryEntryRoute() {
         return;
       }
 
-      const entry = await getDiaryEntry(db, LOCAL_USER_ID, id);
+      const entry = await getDiaryEntry(db, getLocalUserId(), id);
       if (cancelled) return;
       if (!entry) {
         router.back();
@@ -88,7 +88,7 @@ export default function DiaryEntryRoute() {
       vm={vm}
       onClose={() => router.back()}
       onShufflePrompt={() => {
-        void listPromptHistory(db, LOCAL_USER_ID).then((history) => {
+        void listPromptHistory(db, getLocalUserId()).then((history) => {
           const next = pickPrompt(history, new Date(), Math.random, promptId);
           setPromptId(next.id);
           setVm((prev) => (prev ? { ...prev, promptText: next.text } : prev));

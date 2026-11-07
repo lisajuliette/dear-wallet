@@ -4,12 +4,12 @@ import * as Sharing from 'expo-sharing';
 
 import { diaryEntries, items } from '@/db/schema';
 import type { ItemsDb } from '@/db/transaction';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 /** Build a JSON dump of items + diary for Settings › export my data. */
 export async function buildExportJson(
   db: ItemsDb,
-  userId: string = LOCAL_USER_ID,
+  userId: string = getLocalUserId(),
 ): Promise<object> {
   const itemRows = await db
     .select()

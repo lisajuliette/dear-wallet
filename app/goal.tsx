@@ -13,7 +13,7 @@ import {
   progressForGoal,
   updateGoalTarget,
 } from '@/features/goals/repository';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 type Mode = 'none' | 'name' | 'amount' | 'progress' | 'reached';
 
@@ -27,7 +27,7 @@ export default function GoalRoute() {
   const [goalId, setGoalId] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
-    const goal = await getActiveGoal(db, LOCAL_USER_ID);
+    const goal = await getActiveGoal(db, getLocalUserId());
     if (!goal) {
       setMode('none');
       setGoalId(null);
@@ -36,14 +36,14 @@ export default function GoalRoute() {
       setProgressCents(0);
       return;
     }
-    const progress = await progressForGoal(db, LOCAL_USER_ID, goal);
+    const progress = await progressForGoal(db, getLocalUserId(), goal);
     const started = new Date(goal.startedAt);
     const nvm = db
       .select({ n: count() })
       .from(items)
       .where(
         and(
-          eq(items.userId, LOCAL_USER_ID),
+          eq(items.userId, getLocalUserId()),
           eq(items.kind, 'kept'),
           isNull(items.deletedAt),
           gte(items.happenedAt, goal.startedAt),
@@ -86,32 +86,32 @@ export default function GoalRoute() {
       onNextAmount={() => setMode('amount')}
       onConfirmAmount={async (cents) => {
         if (goalId && mode === 'amount' && name) {
-          const existing = await getActiveGoal(db, LOCAL_USER_ID);
+          const existing = await getActiveGoal(db, getLocalUserId());
           if (existing && existing.name === name) {
-            await updateGoalTarget(db, LOCAL_USER_ID, existing.id, cents);
+            await updateGoalTarget(db, getLocalUserId(), existing.id, cents);
             await refresh();
             return;
           }
         }
-        await createGoal(db, LOCAL_USER_ID, name, cents);
+        await createGoal(db, getLocalUserId(), name, cents);
         await refresh();
       }}
       onEdit={() => setMode('amount')}
       onSwap={async () => {
-        if (goalId) await archiveGoal(db, LOCAL_USER_ID, goalId);
+        if (goalId) await archiveGoal(db, getLocalUserId(), goalId);
         setName('');
         setMode('none');
         setGoalId(null);
       }}
       onPickNew={async () => {
-        if (goalId) await archiveGoal(db, LOCAL_USER_ID, goalId);
+        if (goalId) await archiveGoal(db, getLocalUserId(), goalId);
         setName('');
         setMode('none');
         setGoalId(null);
       }}
       onKeepCounting={async () => {
         if (!goalId) return;
-        await keepCountingGoal(db, LOCAL_USER_ID, goalId);
+        await keepCountingGoal(db, getLocalUserId(), goalId);
         await refresh();
       }}
     />

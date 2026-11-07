@@ -6,7 +6,7 @@ import { Screen } from '@/components';
 import { db } from '@/db/client';
 import { listLovedByMonth } from '@/features/items/repository';
 import { LovedListScreen, type LovedListViewModel } from '@/features/loved/LovedListScreen';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 function shiftMonth(base: Date, delta: number): Date {
   return new Date(base.getFullYear(), base.getMonth() + delta, 1);
@@ -32,7 +32,7 @@ export default function LovedRoute() {
   const at = useMemo(() => new Date(cursor.getFullYear(), cursor.getMonth(), 1), [cursor]);
 
   const refresh = useCallback(async () => {
-    const items = await listLovedByMonth(db, LOCAL_USER_ID, at);
+    const items = await listLovedByMonth(db, getLocalUserId(), at);
     setVm(buildVm(at, items));
   }, [at]);
 

@@ -4,7 +4,7 @@ import { db } from '@/db/client';
 import { keptTotalCents, listKeptByRange } from '@/features/items/repository';
 import type { TallyRange, TallyViewModel } from '@/features/tally/TallyScreen';
 import { dayRange, monthRange, weekRange } from '@/lib/dates';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 function boundsFor(range: TallyRange, at: Date) {
   if (range === 'day') return dayRange(at);
@@ -18,11 +18,11 @@ export function useTallyData(range: TallyRange, at: Date = new Date()) {
   const refresh = useCallback(async () => {
     const bounds = boundsFor(range, at);
     const [items, keptCents, savingsCents, debtCents, allTimeCents] = await Promise.all([
-      listKeptByRange(db, LOCAL_USER_ID, range, at),
-      keptTotalCents(db, LOCAL_USER_ID, bounds),
-      keptTotalCents(db, LOCAL_USER_ID, bounds, 'savings'),
-      keptTotalCents(db, LOCAL_USER_ID, bounds, 'debt'),
-      keptTotalCents(db, LOCAL_USER_ID, null),
+      listKeptByRange(db, getLocalUserId(), range, at),
+      keptTotalCents(db, getLocalUserId(), bounds),
+      keptTotalCents(db, getLocalUserId(), bounds, 'savings'),
+      keptTotalCents(db, getLocalUserId(), bounds, 'debt'),
+      keptTotalCents(db, getLocalUserId(), null),
     ]);
 
     setVm({

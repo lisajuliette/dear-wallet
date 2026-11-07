@@ -14,7 +14,7 @@ import {
   replacePageStickers,
   type CanvasSticker,
 } from '@/features/diary';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 export default function DecorateRoute() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -26,8 +26,8 @@ export default function DecorateRoute() {
 
   const refreshTray = useCallback(async (pageStickers: CanvasSticker[]) => {
     const [awards, allPlaced] = await Promise.all([
-      listStickerAwards(db, LOCAL_USER_ID),
-      listAllPageStickers(db, LOCAL_USER_ID),
+      listStickerAwards(db, getLocalUserId()),
+      listAllPageStickers(db, getLocalUserId()),
     ]);
     setTray(
       buildTrayCounts(
@@ -41,7 +41,7 @@ export default function DecorateRoute() {
   useEffect(() => {
     let cancelled = false;
     void (async () => {
-      const entry = await getDiaryEntry(db, LOCAL_USER_ID, id);
+      const entry = await getDiaryEntry(db, getLocalUserId(), id);
       if (!entry || cancelled) {
         if (!entry) router.back();
         return;
@@ -54,7 +54,7 @@ export default function DecorateRoute() {
               .toUpperCase()
           : entry.entryDate;
       setTitle(`${label} · DECORATE`);
-      const rows = await listPageStickers(db, LOCAL_USER_ID, id);
+      const rows = await listPageStickers(db, getLocalUserId(), id);
       const mapped: CanvasSticker[] = rows.map((row) => ({
         id: row.id,
         stickerId: row.stickerId as CanvasSticker['stickerId'],
@@ -78,7 +78,7 @@ export default function DecorateRoute() {
     setStickers(next);
     await replacePageStickers(
       db,
-      LOCAL_USER_ID,
+      getLocalUserId(),
       id,
       next.map((s) => ({
         id: s.id,

@@ -9,7 +9,7 @@ import {
   type Item,
 } from '@/features/items/repository';
 import { dayRange, monthRange, weekRange } from '@/lib/dates';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 export type ItemsRange = 'day' | 'week' | 'month';
 
@@ -21,9 +21,9 @@ type KeptTotals = {
 };
 
 async function loadItems(range: ItemsRange, at: Date): Promise<Item[]> {
-  if (range === 'day') return listByDay(db, LOCAL_USER_ID, at);
-  if (range === 'week') return listByWeek(db, LOCAL_USER_ID, at);
-  return listByMonth(db, LOCAL_USER_ID, at);
+  if (range === 'day') return listByDay(db, getLocalUserId(), at);
+  if (range === 'week') return listByWeek(db, getLocalUserId(), at);
+  return listByMonth(db, getLocalUserId(), at);
 }
 
 function rangeFor(range: ItemsRange, at: Date) {
@@ -35,10 +35,10 @@ function rangeFor(range: ItemsRange, at: Date) {
 async function loadTotals(range: ItemsRange, at: Date): Promise<KeptTotals> {
   const bounds = rangeFor(range, at);
   const [keptCents, savingsCents, debtCents, allTimeCents] = await Promise.all([
-    keptTotalCents(db, LOCAL_USER_ID, bounds),
-    keptTotalCents(db, LOCAL_USER_ID, bounds, 'savings'),
-    keptTotalCents(db, LOCAL_USER_ID, bounds, 'debt'),
-    keptTotalCents(db, LOCAL_USER_ID, null),
+    keptTotalCents(db, getLocalUserId(), bounds),
+    keptTotalCents(db, getLocalUserId(), bounds, 'savings'),
+    keptTotalCents(db, getLocalUserId(), bounds, 'debt'),
+    keptTotalCents(db, getLocalUserId(), null),
   ]);
   return { keptCents, savingsCents, debtCents, allTimeCents };
 }

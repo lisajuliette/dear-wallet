@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { Screen } from '@/components';
 import { db } from '@/db/client';
 import { DiaryScreen, getDiaryByDate, useDiaryData } from '@/features/diary';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 export default function DiaryRoute() {
   const [cursor, setCursor] = useState(() => new Date());
@@ -33,7 +33,7 @@ export default function DiaryRoute() {
       onWrite={() => router.push({ pathname: '/diary/entry/[id]', params: { id: 'new' } })}
       onOpenEntry={(id) => router.push({ pathname: '/diary/entry/[id]', params: { id } })}
       onDayPress={(date) => {
-        void getDiaryByDate(db, LOCAL_USER_ID, date).then((entry) => {
+        void getDiaryByDate(db, getLocalUserId(), date).then((entry) => {
           if (entry) {
             router.push({ pathname: '/diary/entry/[id]', params: { id: entry.id } });
           } else {

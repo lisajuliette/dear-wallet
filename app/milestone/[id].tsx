@@ -8,7 +8,7 @@ import { listAchievedMilestoneIds, markMilestoneSeen } from '@/features/rewards/
 import { milestoneById } from '@/features/rewards/milestonesCatalog';
 import { MilestoneScreen } from '@/features/rewards/MilestoneScreen';
 import { useRewardQueueStore } from '@/features/rewards/rewardQueue';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 export default function MilestoneRoute() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -16,7 +16,7 @@ export default function MilestoneRoute() {
   const [achievedIds, setAchievedIds] = useState<string[]>([]);
 
   useEffect(() => {
-    void listAchievedMilestoneIds(db, LOCAL_USER_ID).then(setAchievedIds);
+    void listAchievedMilestoneIds(db, getLocalUserId()).then(setAchievedIds);
   }, []);
 
   if (!def) {
@@ -28,7 +28,7 @@ export default function MilestoneRoute() {
   }
 
   const advance = () => {
-    markMilestoneSeen(db, LOCAL_USER_ID, def.id);
+    markMilestoneSeen(db, getLocalUserId(), def.id);
     useRewardQueueStore.getState().shift();
     const next = useRewardQueueStore.getState().peek();
     if (next) {
@@ -47,7 +47,7 @@ export default function MilestoneRoute() {
         // TODO(step-10): export milestone share card
       }}
       onOpenCollection={() => {
-        markMilestoneSeen(db, LOCAL_USER_ID, def.id);
+        markMilestoneSeen(db, getLocalUserId(), def.id);
         useRewardQueueStore.getState().clear();
         router.replace('/(tabs)/collection');
       }}
