@@ -233,7 +233,11 @@ export function RecapScreen({
           </View>
           {busy ? <ActivityIndicator color={t.btn} /> : null}
           {message ? (
-            <Pressable accessibilityRole="button" onPress={() => setMessage(null)}>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Dismiss message"
+              onPress={() => setMessage(null)}
+            >
               <Text
                 style={{
                   fontFamily: 'Nunito_700Bold',
