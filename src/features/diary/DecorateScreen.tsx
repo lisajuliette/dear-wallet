@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { Text, View, useWindowDimensions } from 'react-native';
 
 import { BottomSheet, IconButton, PixelIcon, PillButton, Screen, StickerTray } from '@/components';
 import type { StickerId } from '@/components/stickerAssets';
+import { AccessibleStickerControls } from '@/features/diary/AccessibleStickerControls';
+import { clampStickerScale } from '@/features/diary/pageCoords';
 import {
   StickerCanvas,
   defaultDropFraction,
@@ -41,6 +44,13 @@ export function DecorateScreen({
   const compact = height < 740;
   const blank = stickers.length === 0;
   const trayEmpty = tray.length === 0 || tray.every((item) => item.count <= 0);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected = stickers.find((s) => s.id === selectedId) ?? null;
+
+  const patchSelected = (patch: Partial<CanvasSticker>) => {
+    if (!selected) return;
+    onChangeStickers(stickers.map((s) => (s.id === selected.id ? { ...s, ...patch } : s)));
+  };
 
   const place = (id: StickerId) => {
     const drop = defaultDropFraction();
@@ -97,7 +107,13 @@ export function DecorateScreen({
 
         <View style={{ flex: 1, alignItems: 'center' }}>
           <View>
-            <StickerCanvas page={page} stickers={stickers} onChange={onChangeStickers} />
+            <StickerCanvas
+              page={page}
+              stickers={stickers}
+              onChange={onChangeStickers}
+              selectedId={selectedId}
+              onSelectedIdChange={setSelectedId}
+            />
             {blank ? (
               <View
                 pointerEvents="none"
@@ -138,22 +154,45 @@ export function DecorateScreen({
           </View>
         </View>
 
-        <View
-          style={{
-            alignSelf: 'center',
-            paddingHorizontal: 14,
-            height: 32,
-            borderRadius: 16,
-            borderWidth: 2,
-            borderColor: t.outline,
-            backgroundColor: t.c3,
-            justifyContent: 'center',
-          }}
-        >
-          <Text style={{ fontFamily: 'Nunito_800ExtraBold', fontSize: 12, color: t.text }}>
-            {blank ? 'drag up · drop anywhere' : 'drag · pinch to resize · twist to rotate'}
-          </Text>
-        </View>
+        {selected ? (
+          <AccessibleStickerControls
+            onNudge={(dx, dy) => {
+              patchSelected({
+                x: Math.min(1, Math.max(0, selected.x + dx)),
+                y: Math.min(1, Math.max(0, selected.y + dy)),
+              });
+            }}
+            onScale={(delta) => {
+              patchSelected({ scale: clampStickerScale(selected.scale + delta) });
+            }}
+            onRotate={(delta) => {
+              patchSelected({ rotation: selected.rotation + delta });
+            }}
+            onRemove={() => {
+              setSelectedId(null);
+              onChangeStickers(stickers.filter((s) => s.id !== selected.id));
+            }}
+          />
+        ) : (
+          <View
+            style={{
+              alignSelf: 'center',
+              paddingHorizontal: 14,
+              height: 32,
+              borderRadius: 16,
+              borderWidth: 2,
+              borderColor: t.outline,
+              backgroundColor: t.c3,
+              justifyContent: 'center',
+            }}
+          >
+            <Text style={{ fontFamily: 'Nunito_800ExtraBold', fontSize: 12, color: t.text }}>
+              {blank
+                ? 'drag up · drop anywhere · or use tray'
+                : 'drag · or tap a sticker for move buttons'}
+            </Text>
+          </View>
+        )}
 
         <PillButton
           label="sticker tray"

@@ -69,7 +69,12 @@ export function DiaryScreen({
   return (
     <Screen accessibilityLabel="Diary">
       <ScrollView
-        contentContainerStyle={{ gap: 12, paddingHorizontal: 16, paddingTop: 8, paddingBottom: 16 }}
+        contentContainerStyle={{
+          gap: 12,
+          paddingHorizontal: 16,
+          paddingTop: 8,
+          paddingBottom: 100,
+        }}
       >
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <View style={{ flex: 1 }}>

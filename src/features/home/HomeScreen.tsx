@@ -26,7 +26,12 @@ export function HomeScreen({ vm }: HomeScreenProps) {
   return (
     <Screen accessibilityLabel="Home">
       <ScrollView
-        contentContainerStyle={{ gap: 14, paddingHorizontal: 16, paddingTop: 8, paddingBottom: 16 }}
+        contentContainerStyle={{
+          gap: 14,
+          paddingHorizontal: 16,
+          paddingTop: 8,
+          paddingBottom: 100, // taskbar clearance (375×667)
+        }}
       >
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <View style={{ flex: 1 }}>

@@ -29,6 +29,9 @@ type StickerCanvasProps = {
   stickers: CanvasSticker[];
   onChange: (next: CanvasSticker[]) => void;
   accessibilityLabel?: string;
+  /** When set, parent can render AccessibleStickerControls for the selection. */
+  selectedId?: string | null;
+  onSelectedIdChange?: (id: string | null) => void;
 };
 
 const BASE = 72;
@@ -38,9 +41,16 @@ export function StickerCanvas({
   stickers,
   onChange,
   accessibilityLabel = 'sticker canvas',
+  selectedId: selectedIdProp,
+  onSelectedIdChange,
 }: StickerCanvasProps) {
   const t = useTokens();
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [internalSelected, setInternalSelected] = useState<string | null>(null);
+  const selectedId = selectedIdProp !== undefined ? selectedIdProp : internalSelected;
+  const setSelectedId = (id: string | null) => {
+    onSelectedIdChange?.(id);
+    if (selectedIdProp === undefined) setInternalSelected(id);
+  };
   const sorted = useMemo(() => [...stickers].sort((a, b) => a.z - b.z), [stickers]);
 
   const update = (id: string, patch: Partial<CanvasSticker>) => {
