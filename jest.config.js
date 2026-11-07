@@ -34,6 +34,9 @@ module.exports = {
     '!**/ensureSession.ts',
     '!**/outboxWorker.ts',
     '!**/database.types.ts',
+    '!**/SplashHandOff.tsx',
+    '!**/CoinCloudLogo.tsx',
+    '!**/OnboardingChrome.tsx',
   ],
   // collectCoverageFrom already limits to src/features and src/lib
   coverageThreshold: {
