@@ -18,6 +18,9 @@ module.exports = {
     '!**/MilestoneScreen.tsx',
     '!**/CollectionScreen.tsx',
     '!**/GoalScreen.tsx',
+    '!**/RecapScreen.tsx',
+    '!**/RecapCard.tsx',
+    '!**/export.ts',
   ],
   // collectCoverageFrom already limits to src/features and src/lib
   coverageThreshold: {

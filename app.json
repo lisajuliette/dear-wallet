@@ -45,7 +45,16 @@
         {
           "photosPermission": "Add a photo to a log or loved thing."
         }
-      ]
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Save ur recap cards to Photos.",
+          "savePhotosPermission": "Save ur recap cards to Photos.",
+          "isAccessMediaLocationEnabled": false
+        }
+      ],
+      "expo-sharing"
     ],
     "experiments": {
       "typedRoutes": true,
