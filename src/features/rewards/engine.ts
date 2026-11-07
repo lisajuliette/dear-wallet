@@ -1,4 +1,5 @@
 import type { StickerId } from '@/components/stickerAssets';
+import { STARTER_COMMON, STARTER_RARE } from '@/features/rewards/packs';
 import { dayKey } from '@/lib/dates';
 
 export type RandomSource = () => number;
@@ -23,22 +24,7 @@ const ROTATING_QUESTS: QuestId[] = [
   'pick_mood',
 ];
 
-export const STARTER_COMMON: StickerId[] = [
-  'common-butterfly',
-  'common-dear-wallet-letter',
-  'common-flip-phone',
-  'common-gold-star',
-  'common-kept-stack',
-  'common-lil-cloud',
-  'common-lip-gloss',
-  'common-mixtape',
-  'common-nvm-bubble',
-  'common-nvmd-boba',
-  'common-pixel-heart',
-  'common-sparkle-trio',
-];
-
-export const STARTER_RARE: StickerId[] = ['rare-holo-butterfly', 'rare-holo-cd', 'rare-holo-star'];
+export { STARTER_COMMON, STARTER_RARE };
 
 /** One star per local calendar day. Pure: returns whether a new star should be awarded. */
 export function shouldAwardStar(existingDayKeys: string[], at: Date = new Date()): boolean {

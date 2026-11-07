@@ -57,6 +57,11 @@ export default function RootLayout() {
           <Stack.Screen name="recap" />
           <Stack.Screen name="diary/entry/[id]" />
           <Stack.Screen name="diary/decorate/[id]" />
+          <Stack.Screen
+            name="milestone/[id]"
+            options={{ presentation: 'transparentModal', animation: 'fade' }}
+          />
+          <Stack.Screen name="goal" />
           <Stack.Screen name="dev/theme" options={{ headerShown: true, title: 'Theme' }} />
           <Stack.Screen
             name="dev/components"

@@ -271,3 +271,43 @@ export async function keptTotalCents(
 
   return Number(row?.total ?? 0);
 }
+
+/**
+ * Goal progress: kept amounts since start, not deleted.
+ * Includes bought-after-all so progress never drops on that path (COPY.md).
+ */
+export async function goalProgressCents(
+  db: ItemsDb,
+  userId: string,
+  startedAt: Date,
+  at: Date = new Date(),
+): Promise<number> {
+  const { startIso, endIso } = rangeIsoBounds({ start: startedAt, end: at });
+  const row = db
+    .select({
+      total: sql<number>`coalesce(sum(${items.amountCents}), 0)`,
+    })
+    .from(items)
+    .where(
+      and(
+        eq(items.userId, userId),
+        eq(items.kind, 'kept'),
+        isNull(items.deletedAt),
+        gte(items.happenedAt, startIso),
+        lte(items.happenedAt, endIso),
+      ),
+    )
+    .get();
+
+  return Number(row?.total ?? 0);
+}
+
+/** Count of kept logs (not deleted). Bought-after-all still counts toward log milestones. */
+export async function keptLogCount(db: ItemsDb, userId: string): Promise<number> {
+  const row = db
+    .select({ n: sql<number>`count(*)` })
+    .from(items)
+    .where(and(eq(items.userId, userId), eq(items.kind, 'kept'), isNull(items.deletedAt)))
+    .get();
+  return Number(row?.n ?? 0);
+}

@@ -15,6 +15,9 @@ module.exports = {
     '!**/DiaryScreen.tsx',
     '!**/completeDiarySave.ts',
     '!**/useDiaryData.ts',
+    '!**/MilestoneScreen.tsx',
+    '!**/CollectionScreen.tsx',
+    '!**/GoalScreen.tsx',
   ],
   // collectCoverageFrom already limits to src/features and src/lib
   coverageThreshold: {

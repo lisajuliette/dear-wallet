@@ -75,15 +75,15 @@ export default function DevComponentsScreen() {
           </RetroWindow>
 
           <Text className="font-pixel text-sm uppercase tracking-tag text-ink">buttons</Text>
-          <PillButton label="nvm!" />
+          <PillButton label="nvm!" fullWidth={false} />
           <View className="flex-row gap-2.5">
             <View className="flex-1">
               <PillButton label="secondary" variant="secondary" size="md" />
             </View>
-            <PillButton label="go" size="md" />
-            <PillButton label="not yet" size="md" disabled />
+            <PillButton label="go" size="md" fullWidth={false} />
+            <PillButton label="not yet" size="md" disabled fullWidth={false} />
           </View>
-          <PillButton label="skip for now" variant="link" size="md" />
+          <PillButton label="skip for now" variant="link" size="md" fullWidth={false} />
 
           <Text className="font-pixel text-sm uppercase tracking-tag text-ink">
             pill toggle + segmented

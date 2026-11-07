@@ -3,10 +3,20 @@ import { router, useLocalSearchParams } from 'expo-router';
 import type { StickerId } from '@/components/stickerAssets';
 import { STICKER_ASSETS } from '@/components/stickerAssets';
 import { RewardMoment } from '@/features/reward/RewardMoment';
+import { useRewardQueueStore } from '@/features/rewards/rewardQueue';
 
 function parseSticker(id: string | undefined): StickerId | null {
   if (!id) return null;
   return id in STICKER_ASSETS ? (id as StickerId) : null;
+}
+
+function leaveReward() {
+  const next = useRewardQueueStore.getState().peek();
+  if (next) {
+    router.replace(`/milestone/${next}`);
+    return;
+  }
+  router.replace('/(tabs)');
 }
 
 export default function RewardRoute() {
@@ -30,7 +40,7 @@ export default function RewardRoute() {
       starCount={Number.parseInt(params.starCount ?? '0', 10) || 0}
       stickerId={parseSticker(params.stickerId)}
       rare={params.rare === '1'}
-      onClose={() => router.replace('/(tabs)')}
+      onClose={leaveReward}
     />
   );
 }
