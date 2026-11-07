@@ -12,6 +12,7 @@ type ScreenProps = {
   palette?: PaletteKey;
   compact?: boolean;
   accessibilityLabel?: string;
+  testID?: string;
 };
 
 /** Full-screen gradient + grid paper + safe area shell. */
@@ -20,6 +21,7 @@ export function Screen({
   palette,
   compact: compactProp,
   accessibilityLabel = 'screen',
+  testID,
 }: ScreenProps) {
   const { height } = useWindowDimensions();
   const active = useActivePalette();
@@ -32,7 +34,7 @@ export function Screen({
       style={[{ flex: 1 }, palette ? paletteVars(palette) : null]}
       className="flex-1"
       accessibilityLabel={accessibilityLabel}
-      testID={compact ? 'screen-compact' : 'screen-regular'}
+      testID={testID ?? (compact ? 'screen-compact' : 'screen-regular')}
     >
       <LinearGradient
         colors={[colors.bg1, colors.bg2]}

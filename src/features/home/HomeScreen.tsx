@@ -24,8 +24,9 @@ export function HomeScreen({ vm }: HomeScreenProps) {
   const t = useTokens();
 
   return (
-    <Screen accessibilityLabel="Home">
+    <Screen accessibilityLabel="Home" testID="screen-home">
       <ScrollView
+        testID="home-scroll"
         contentContainerStyle={{
           gap: 14,
           paddingHorizontal: 16,
@@ -70,6 +71,7 @@ export function HomeScreen({ vm }: HomeScreenProps) {
             </Text>
           </View>
           <IconButton
+            testID="home-settings"
             accessibilityLabel="Settings"
             icon={<PixelIcon name="settings" size={22} />}
             onPress={() => router.push('/settings')}
@@ -77,7 +79,7 @@ export function HomeScreen({ vm }: HomeScreenProps) {
         </View>
 
         <RetroWindow title="KEPT TODAY">
-          <View style={{ gap: 2 }}>
+          <View style={{ gap: 2 }} testID="home-kept-today">
             <View
               style={{
                 flexDirection: 'row',
@@ -85,7 +87,10 @@ export function HomeScreen({ vm }: HomeScreenProps) {
                 justifyContent: 'space-between',
               }}
             >
-              <Text style={{ fontFamily: 'PixelifySans_600SemiBold', fontSize: 48, color: t.text }}>
+              <Text
+                testID="home-today-total"
+                style={{ fontFamily: 'PixelifySans_600SemiBold', fontSize: 48, color: t.text }}
+              >
                 {formatKept(vm.todayCents)}
               </Text>
               <PixelIcon name="coin" size={36} />
@@ -108,7 +113,10 @@ export function HomeScreen({ vm }: HomeScreenProps) {
               <Text style={{ fontFamily: 'Nunito_800ExtraBold', fontSize: 14, color: t.text }}>
                 this month
               </Text>
-              <Text style={{ fontFamily: 'PixelifySans_600SemiBold', fontSize: 24, color: t.text }}>
+              <Text
+                testID="home-month-total"
+                style={{ fontFamily: 'PixelifySans_600SemiBold', fontSize: 24, color: t.text }}
+              >
                 {formatKept(vm.monthCents)}
               </Text>
             </View>

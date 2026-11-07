@@ -202,6 +202,7 @@ export function ItemDetailScreen({
 
         {bought ? (
           <PillButton
+            testID="item-undo-bought"
             label="undo, i didn't buy it"
             variant="surface"
             onPress={onUndoBought}
@@ -209,6 +210,7 @@ export function ItemDetailScreen({
           />
         ) : (
           <PillButton
+            testID="item-bought-after-all"
             label="i bought it after all"
             variant="secondary"
             onPress={onBoughtAfterAll}

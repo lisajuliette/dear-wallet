@@ -37,6 +37,7 @@ export function Taskbar({
     return (
       <Pressable
         key={tab.id}
+        testID={`tab-${tab.id}`}
         accessibilityRole="tab"
         accessibilityLabel={tab.label}
         accessibilityState={{ selected }}
@@ -107,6 +108,7 @@ export function Taskbar({
       </View>
 
       <Pressable
+        testID="tab-log"
         accessibilityRole="button"
         accessibilityLabel="Quick log"
         onPress={onLogPress}

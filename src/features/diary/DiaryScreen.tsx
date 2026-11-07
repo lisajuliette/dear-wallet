@@ -131,6 +131,7 @@ export function DiaryScreen({
                 {vm.promptText}
               </Text>
               <Pressable
+                testID="diary-write"
                 accessibilityRole="button"
                 accessibilityLabel="write"
                 onPress={onWrite}

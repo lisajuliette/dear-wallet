@@ -105,6 +105,7 @@ export default function FirstLogScreen() {
                 WHAT WAS IT?
               </Text>
               <TextInput
+                testID="first-log-name"
                 accessibilityLabel="What was it"
                 value={name}
                 onChangeText={setName}
@@ -133,6 +134,7 @@ export default function FirstLogScreen() {
                 HOW MUCH?
               </Text>
               <TextInput
+                testID="first-log-amount"
                 accessibilityLabel="How much"
                 value={amountText}
                 onChangeText={setAmountText}
@@ -197,8 +199,14 @@ export default function FirstLogScreen() {
 
         <View style={{ flex: 1 }} />
         <View style={{ gap: 4, marginBottom: 20 }}>
-          <PillButton label="nvm!" disabled={!canSave} onPress={() => void save()} />
+          <PillButton
+            testID="first-log-nvm"
+            label="nvm!"
+            disabled={!canSave}
+            onPress={() => void save()}
+          />
           <Pressable
+            testID="first-log-later"
             accessibilityRole="button"
             accessibilityLabel="I'll log later"
             onPress={() => void finishHome()}

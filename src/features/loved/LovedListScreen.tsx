@@ -246,6 +246,7 @@ export function LovedListScreen({ vm, onPrevMonth, onNextMonth, onAdd }: LovedLi
             </ScrollView>
             <View style={{ position: 'absolute', left: 16, right: 16, bottom: 16 }}>
               <PillButton
+                testID="loved-make-recap"
                 label={`make my ${vm.monthName} recap`}
                 variant="secondary"
                 onPress={() =>

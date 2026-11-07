@@ -191,6 +191,7 @@ export function DiaryEntryScreen({
               {!vm.isNew ? (
                 <View style={{ flex: 1 }}>
                   <PillButton
+                    testID="diary-decorate"
                     label="decorate"
                     variant="surface"
                     onPress={onDecorate}
@@ -200,6 +201,7 @@ export function DiaryEntryScreen({
               ) : null}
               <View style={{ flex: 1 }}>
                 <PillButton
+                  testID="diary-save"
                   label="save ♡"
                   disabled={!enabled}
                   onPress={onSave}

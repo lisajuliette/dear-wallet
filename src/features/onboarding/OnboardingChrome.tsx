@@ -51,6 +51,7 @@ export function OnboardingChrome({
             ))}
           </View>
           <Pressable
+            testID="onboarding-skip"
             accessibilityRole="button"
             accessibilityLabel="Skip onboarding"
             onPress={onSkip}

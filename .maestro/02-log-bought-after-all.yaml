@@ -1,0 +1,41 @@
+appId: com.pixelwitch.dearwallet
+---
+- clearState
+- launchApp
+- runFlow: helpers/skip-onboarding.yaml
+# Offline banner when airplane mode is available (iOS Simulator may no-op).
+- setAirplaneMode: enabled
+- tapOn:
+    id: 'tab-log'
+- extendedWaitUntil:
+    visible:
+      id: 'quick-log'
+    timeout: 8000
+- tapOn:
+    id: 'pad-key-1'
+- tapOn:
+    id: 'pad-key-2'
+- tapOn:
+    id: 'quick-log-name'
+- inputText: 'shoes'
+- tapOn:
+    id: 'quick-log-save'
+- extendedWaitUntil:
+    visible:
+      id: 'reward-close'
+    timeout: 10000
+- tapOn:
+    id: 'reward-close'
+- setAirplaneMode: disabled
+- tapOn:
+    id: 'tab-tally'
+- extendedWaitUntil:
+    visible: 'shoes'
+    timeout: 8000
+- tapOn: 'shoes'
+- tapOn:
+    id: 'item-bought-after-all'
+- assertVisible: 'BOUGHT AFTER ALL|bought'
+- tapOn:
+    id: 'item-undo-bought'
+- assertVisible: 'KEPT|kept|i bought it after all'

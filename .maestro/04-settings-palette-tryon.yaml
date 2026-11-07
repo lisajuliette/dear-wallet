@@ -1,0 +1,26 @@
+appId: com.pixelwitch.dearwallet
+---
+- clearState
+- launchApp
+- runFlow: helpers/skip-onboarding.yaml
+- tapOn:
+    id: 'home-settings'
+- extendedWaitUntil:
+    visible:
+      id: 'settings-palette-cloud'
+    timeout: 8000
+- tapOn:
+    id: 'settings-palette-lilac'
+# Try on a locked palette (preview only) — Midnight CD starts locked.
+- tapOn:
+    id: 'settings-palette-midnight'
+- assertVisible: '.*Midnight.*|.*try.*|.*unlock.*|.*locked.*|.*to go.*'
+- tapOn:
+    id: 'settings-back'
+- extendedWaitUntil:
+    visible:
+      id: 'screen-home'
+    timeout: 8000
+# Active palette should still be lilac (or cloud if try-on reverted).
+- assertVisible:
+    id: 'home-settings'

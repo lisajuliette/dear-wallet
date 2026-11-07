@@ -8,6 +8,22 @@ Everything needed to build version 1 of Dear Wallet in Cursor with React Native,
 2. Copy `.cursor/rules/dear-wallet.mdc` into the repo so Cursor follows the project rules in every chat.
 3. Keep `docs/BUILD_SPEC.md` and `docs/SCREENS.md` open as context while building.
 
+## End-to-end tests (Maestro)
+
+Flows live in `.maestro/` and target the iOS Simulator (`com.pixelwitch.dearwallet`). They are **not** part of `pre-push` / `npm run check` — run them before a release.
+
+1. Install the [Maestro CLI](https://docs.maestro.dev/getting-started/installing-maestro).
+2. Boot a simulator and install a debug build: `npx expo run:ios`.
+3. Start Metro if needed (`npx expo start`), then:
+
+```bash
+npm run e2e
+# or one flow:
+maestro test .maestro/01-first-launch.yaml
+```
+
+`clearState` wipes the app between flows so onboarding runs fresh. Airplane mode in `02-log-bought-after-all` may be a no-op on some Simulator versions; the log + bought-after-all path still exercises.
+
 ## Folder map
 
 | Path                                | What it is                                                                                                                                                        |

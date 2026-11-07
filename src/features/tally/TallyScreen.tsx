@@ -77,6 +77,7 @@ export function TallyScreen({ vm, onRangeChange }: TallyScreenProps) {
           </View>
           <Pressable
             accessibilityRole="button"
+            testID="tally-loved-list"
             accessibilityLabel="loved list"
             onPress={() => router.push('/loved')}
             style={{

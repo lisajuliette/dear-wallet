@@ -1,0 +1,55 @@
+appId: com.pixelwitch.dearwallet
+---
+- clearState
+- launchApp
+- runFlow: helpers/skip-onboarding.yaml
+# Seed stickers with a log (drop is random — tray may still be empty; flow still opens decorate).
+- tapOn:
+    id: 'tab-log'
+- tapOn:
+    id: 'pad-key-5'
+- tapOn:
+    id: 'quick-log-name'
+- inputText: 'seed for sticker'
+- tapOn:
+    id: 'quick-log-save'
+- extendedWaitUntil:
+    visible:
+      id: 'reward-close'
+    timeout: 10000
+- tapOn:
+    id: 'reward-close'
+- tapOn:
+    id: 'tab-diary'
+- tapOn:
+    id: 'diary-write'
+- tapOn:
+    id: 'mood-chill'
+- inputText: 'a soft day'
+- tapOn:
+    id: 'diary-save'
+- extendedWaitUntil:
+    visible:
+      id: 'reward-close'
+    timeout: 10000
+- tapOn:
+    id: 'reward-close'
+# Entry should now exist with decorate.
+- tapOn:
+    id: 'tab-diary'
+- tapOn: 'a soft day'
+- extendedWaitUntil:
+    visible:
+      id: 'diary-decorate'
+    timeout: 8000
+- tapOn:
+    id: 'diary-decorate'
+- tapOn:
+    id: 'decorate-tray'
+- tapOn:
+    id: 'tray-sticker-.*'
+    optional: true
+- tapOn:
+    id: 'decorate-done'
+- assertVisible:
+    id: 'diary-decorate'

@@ -1,0 +1,35 @@
+appId: com.pixelwitch.dearwallet
+---
+- clearState
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: 'onboarding-lets-go'
+    timeout: 20000
+- tapOn:
+    id: 'onboarding-lets-go'
+- tapOn:
+    id: 'palette-lilac'
+- tapOn:
+    id: 'onboarding-this-one'
+- tapOn:
+    id: 'first-log-name'
+- inputText: 'bubble tea'
+- tapOn:
+    id: 'first-log-amount'
+- inputText: '6'
+- tapOn:
+    id: 'first-log-nvm'
+- extendedWaitUntil:
+    visible:
+      id: 'reward-close'
+    timeout: 10000
+- tapOn:
+    id: 'reward-close'
+- extendedWaitUntil:
+    visible:
+      id: 'home-today-total'
+    timeout: 10000
+- assertVisible:
+    id: 'home-today-total'
+- assertVisible: '.*\\$.*'
