@@ -19,6 +19,7 @@ export type CreateItemInput = {
   currency?: string;
   category?: string | null;
   note?: string | null;
+  link?: string | null;
   tag?: ItemTag | null;
   happenedAt?: Date;
 };
@@ -28,6 +29,7 @@ export type UpdateItemInput = Partial<{
   amountCents: number | null;
   category: string | null;
   note: string | null;
+  link: string | null;
   photoPath: string | null;
   tag: ItemTag | null;
   happenedAt: Date;
@@ -58,6 +60,7 @@ export async function createItem(db: ItemsDb, input: CreateItemInput): Promise<I
     currency: input.currency ?? 'USD',
     category: input.category ?? null,
     note: input.note ?? null,
+    link: input.link ?? null,
     tag: input.tag ?? null,
     happenedAt,
     createdAt: updatedAt,
@@ -96,6 +99,7 @@ export async function updateItem(
         amountCents: nextAmount,
         category: patch.category !== undefined ? patch.category : existing.category,
         note: patch.note !== undefined ? patch.note : existing.note,
+        link: patch.link !== undefined ? patch.link : existing.link,
         photoPath: patch.photoPath !== undefined ? patch.photoPath : existing.photoPath,
         tag: patch.tag !== undefined ? patch.tag : existing.tag,
         happenedAt: patch.happenedAt ? patch.happenedAt.toISOString() : existing.happenedAt,

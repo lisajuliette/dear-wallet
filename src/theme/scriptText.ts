@@ -1,13 +1,16 @@
 import type { TextStyle } from 'react-native';
 
-/** Extra top room Pacifico needs so ascenders (P, f, i-dots) are not clipped. */
+/** Room above and below Pacifico so ascenders and descenders (y, g) stay visible. */
 export function scriptTextStyle(fontSize: number): TextStyle {
   return {
     fontFamily: 'Pacifico_400Regular',
     fontSize,
-    // Script metrics sit high in the em box; default RN line boxes crop them.
-    lineHeight: Math.ceil(fontSize * 1.55),
-    paddingTop: Math.ceil(fontSize * 0.2),
+    // Script metrics spill past the em box; the line box has to be taller than the size.
+    // Pacifico draws the tail of y below a normal em box. The line has to be
+    // tall enough that iOS keeps that tail inside the text, not under the next view.
+    lineHeight: Math.ceil(fontSize * 2.15),
+    paddingTop: Math.ceil(fontSize * 0.08),
+    paddingBottom: Math.ceil(fontSize * 0.5),
     includeFontPadding: false,
   };
 }

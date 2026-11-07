@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export type DiaryPrompt = {
   id: string;
   text: string;
@@ -52,4 +54,31 @@ export function pickPrompt(
 export function getPromptById(id: string | null | undefined): DiaryPrompt | null {
   if (!id) return null;
   return DIARY_PROMPTS.find((p) => p.id === id) ?? null;
+}
+
+const SHUFFLE_KEY = 'dear-wallet.prompt-shuffles';
+
+export async function loadShuffleHistory(): Promise<PromptHistory> {
+  const raw = await AsyncStorage.getItem(SHUFFLE_KEY);
+  if (!raw) return [];
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(
+      (row): row is PromptHistory[number] =>
+        !!row &&
+        typeof row === 'object' &&
+        typeof (row as { promptId?: unknown }).promptId === 'string' &&
+        typeof (row as { usedAt?: unknown }).usedAt === 'string',
+    );
+  } catch {
+    return [];
+  }
+}
+
+/** Remember a prompt that was shown, so the next shuffle skips it for 7 days. */
+export async function rememberPrompt(id: string, at: Date = new Date()): Promise<void> {
+  const history = await loadShuffleHistory();
+  const next = [...history, { promptId: id, usedAt: at.toISOString() }].slice(-40);
+  await AsyncStorage.setItem(SHUFFLE_KEY, JSON.stringify(next));
 }

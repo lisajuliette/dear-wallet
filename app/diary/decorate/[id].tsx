@@ -1,8 +1,8 @@
-import { router, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 
-import { Screen } from '@/components';
+import { Screen, type Mood } from '@/components';
 import { db } from '@/db/client';
 import {
   DecorateScreen,
@@ -14,14 +14,17 @@ import {
   replacePageStickers,
   type CanvasSticker,
 } from '@/features/diary';
+import { goBack } from '@/lib/goBack';
 import { getLocalUserId } from '@/lib/localUser';
 
 export default function DecorateRoute() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const [title, setTitle] = useState('DECORATE');
+  const [dateLabel, setDateLabel] = useState('');
+  const [mood, setMood] = useState<Mood | null>(null);
+  const [body, setBody] = useState('');
   const [stickers, setStickers] = useState<CanvasSticker[]>([]);
   const [tray, setTray] = useState<ReturnType<typeof buildTrayCounts>>([]);
-  const [trayOpen, setTrayOpen] = useState(true);
   const [ready, setReady] = useState(false);
 
   const refreshTray = useCallback(async (pageStickers: CanvasSticker[]) => {
@@ -43,17 +46,30 @@ export default function DecorateRoute() {
     void (async () => {
       const entry = await getDiaryEntry(db, getLocalUserId(), id);
       if (!entry || cancelled) {
-        if (!entry) router.back();
+        if (!entry) goBack('/(tabs)/diary');
         return;
       }
-      const [y, m, d] = entry.entryDate.split('-').map(Number);
-      const label =
-        y && m && d
-          ? new Date(y, m - 1, d)
-              .toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
-              .toUpperCase()
-          : entry.entryDate;
-      setTitle(`${label} · DECORATE`);
+      const [, m, d] = entry.entryDate.split('-').map(Number);
+      const months = [
+        'jan',
+        'feb',
+        'mar',
+        'apr',
+        'may',
+        'jun',
+        'jul',
+        'aug',
+        'sep',
+        'oct',
+        'nov',
+        'dec',
+      ];
+      const month = m ? months[m - 1] : '';
+      const label = month && d ? `${month} ${d}` : entry.entryDate;
+      setTitle(`${label.toUpperCase()} · DECORATE`);
+      setDateLabel(label);
+      setMood(entry.mood);
+      setBody(entry.body);
       const rows = await listPageStickers(db, getLocalUserId(), id);
       const mapped: CanvasSticker[] = rows.map((row) => ({
         id: row.id,
@@ -104,16 +120,16 @@ export default function DecorateRoute() {
   return (
     <DecorateScreen
       title={title}
+      dateLabel={dateLabel}
+      mood={mood}
+      body={body}
       stickers={stickers}
       tray={tray}
-      trayOpen={trayOpen}
       onChangeStickers={(next) => {
         void persist(next);
       }}
-      onBack={() => router.back()}
-      onDone={() => router.back()}
-      onOpenTray={() => setTrayOpen(true)}
-      onCloseTray={() => setTrayOpen(false)}
+      onBack={() => goBack({ pathname: '/diary/entry/[id]', params: { id } })}
+      onDone={() => goBack({ pathname: '/diary/entry/[id]', params: { id } })}
     />
   );
 }

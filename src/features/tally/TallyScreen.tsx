@@ -21,6 +21,7 @@ import {
   type TallyRange,
 } from '@/features/tally/buildTallyBars';
 import { formatCents } from '@/lib/money';
+import { TASKBAR_SCROLL_PAD } from '@/lib/taskbarPad';
 import { useTokens, type TokenName } from '@/theme';
 
 export type { TallyRange };
@@ -64,11 +65,12 @@ export function TallyScreen({ vm, onRangeChange }: TallyScreenProps) {
   return (
     <Screen accessibilityLabel="Tally">
       <ScrollView
+        style={{ flex: 1, marginBottom: TASKBAR_SCROLL_PAD }}
         contentContainerStyle={{
           gap: 12,
           paddingHorizontal: 16,
           paddingTop: 8,
-          paddingBottom: 100,
+          paddingBottom: 16,
         }}
       >
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
@@ -109,6 +111,7 @@ export function TallyScreen({ vm, onRangeChange }: TallyScreenProps) {
           value={vm.range}
           onChange={(value) => onRangeChange(value as TallyRange)}
           accessibilityLabel="Tally range"
+          selectedFill="c3"
         />
 
         <RetroWindow title={tallyWindowTitle(vm.range)} titleBar="butter">

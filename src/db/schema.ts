@@ -35,6 +35,7 @@ export const items = sqliteTable('items', {
   currency: text('currency').notNull().default('USD'),
   category: text('category'),
   note: text('note'),
+  link: text('link'),
   photoPath: text('photo_path'),
   tag: text('tag', { enum: ['savings', 'debt'] }),
   boughtAfterAllAt: text('bought_after_all_at'),

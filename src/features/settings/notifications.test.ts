@@ -1,7 +1,9 @@
 import {
   CHECKIN_NOTIFICATION_ID,
+  fromCheckinParts,
   parseCheckinTime,
   syncWeeklyCheckin,
+  toCheckinParts,
   toExpoWeekday,
 } from '@/features/settings/notifications';
 
@@ -14,6 +16,16 @@ describe('notifications helpers', () => {
   it('parses check-in time', () => {
     expect(parseCheckinTime('19:00')).toEqual({ hour: 19, minute: 0 });
     expect(parseCheckinTime('9:30')).toEqual({ hour: 9, minute: 30 });
+    expect(parseCheckinTime('00:15')).toEqual({ hour: 0, minute: 15 });
+  });
+
+  it('converts between storage time and a 12-hour picker', () => {
+    expect(toCheckinParts('19:00')).toEqual({ hour12: 7, minute: 0, period: 'pm' });
+    expect(toCheckinParts('00:15')).toEqual({ hour12: 12, minute: 15, period: 'am' });
+    expect(toCheckinParts('12:00')).toEqual({ hour12: 12, minute: 0, period: 'pm' });
+    expect(fromCheckinParts(7, 0, 'pm')).toBe('19:00');
+    expect(fromCheckinParts(12, 15, 'am')).toBe('00:15');
+    expect(fromCheckinParts(12, 0, 'pm')).toBe('12:00');
   });
 
   it('cancels without scheduling when disabled', async () => {

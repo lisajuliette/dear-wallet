@@ -10,7 +10,11 @@ type HardShadowProps = ViewProps & {
   accessibilityLabel?: string;
 };
 
-/** Offset sibling shadow with no blur (outline colour at 30%). */
+/**
+ * Offset sibling shadow with no blur (outline colour at 30%).
+ * Does not clip its child. A rounded border has to live on the child itself;
+ * clipping that view cuts the stroke off at the corners.
+ */
 export function HardShadow({
   children,
   offset = 5,
@@ -37,7 +41,7 @@ export function HardShadow({
           backgroundColor: t.shadow,
         }}
       />
-      <View style={{ borderRadius: radius, overflow: 'hidden' }}>{children}</View>
+      <View style={{ borderRadius: radius }}>{children}</View>
     </View>
   );
 }

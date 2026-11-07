@@ -12,7 +12,6 @@
       "supportsTablet": false,
       "bundleIdentifier": "com.pixelwitch.dearwallet",
       "appleTeamId": "U4A2939AHC",
-      "icon": "./assets/expo.icon",
       "usesAppleSignIn": true,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,

@@ -1,10 +1,12 @@
 import { router } from 'expo-router';
-import { Text, useWindowDimensions, View } from 'react-native';
+import { useState } from 'react';
+import { Text, TextInput, useWindowDimensions, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { PillButton } from '@/components';
 import { db } from '@/db/client';
 import { CoinCloudLogo, OnboardingChrome, markOnboarded } from '@/features/onboarding';
+import { saveChosenDisplayName } from '@/features/settings/displayName';
 import { useTokens } from '@/theme';
 
 const PROMISES = [
@@ -17,8 +19,12 @@ export default function WelcomeScreen() {
   const t = useTokens();
   const { height } = useWindowDimensions();
   const compact = height < 740;
+  const [name, setName] = useState('');
+
+  const keepName = () => saveChosenDisplayName(db, name);
 
   const skip = async () => {
+    await keepName();
     await markOnboarded(db);
     router.replace('/(tabs)');
   };
@@ -99,11 +105,37 @@ export default function WelcomeScreen() {
           ))}
         </View>
 
-        <View style={{ flex: 1 }} />
+        <View style={{ flex: 1, minHeight: 12 }} />
+        <TextInput
+          testID="onboarding-name"
+          accessibilityLabel="Your name"
+          value={name}
+          onChangeText={setName}
+          placeholder="what should i call u?"
+          placeholderTextColor={t.text}
+          autoCapitalize="words"
+          autoCorrect={false}
+          returnKeyType="done"
+          maxLength={24}
+          style={{
+            height: 48,
+            marginBottom: 12,
+            borderRadius: 16,
+            borderWidth: 2,
+            borderColor: t.outline,
+            backgroundColor: t.surface,
+            paddingHorizontal: 16,
+            fontFamily: 'Nunito_800ExtraBold',
+            fontSize: 16,
+            color: t.text,
+          }}
+        />
         <PillButton
           testID="onboarding-lets-go"
           label="let's go ♡"
-          onPress={() => router.push('/(onboarding)/palette')}
+          onPress={() => {
+            void keepName().then(() => router.push('/(onboarding)/palette'));
+          }}
           style={{ marginBottom: 24 }}
         />
       </View>

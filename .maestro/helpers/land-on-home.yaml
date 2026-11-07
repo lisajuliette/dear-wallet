@@ -1,0 +1,11 @@
+appId: com.pixelwitch.dearwallet
+---
+# Dismiss the iOS "Open in Dear Wallet?" prompt, then the dev client, then onboarding.
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+      - waitForAnimationToEnd
+- runFlow: connect-dev-client.yaml
+- runFlow: skip-onboarding.yaml

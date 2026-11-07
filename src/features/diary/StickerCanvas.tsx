@@ -1,8 +1,11 @@
 import { useMemo, useState } from 'react';
-import { View, useWindowDimensions } from 'react-native';
+import { Text, View, useWindowDimensions } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Svg, { Defs, Pattern, Path, Rect } from 'react-native-svg';
 
+import type { Mood } from '@/components/MoodPicker';
+import { PixelIcon } from '@/components/PixelIcon';
 import { Sticker } from '@/components/Sticker';
 import type { StickerId } from '@/components/stickerAssets';
 import {
@@ -29,6 +32,13 @@ type StickerCanvasProps = {
   stickers: CanvasSticker[];
   onChange: (next: CanvasSticker[]) => void;
   accessibilityLabel?: string;
+  /** Short date in the page voice, like "nov 5". */
+  dateLabel?: string;
+  mood?: Mood | null;
+  /** Diary entry written under "Dear Wallet,", under the stickers. */
+  body?: string;
+  /** No stickers yet: show the dashed drop area. */
+  blank?: boolean;
   /** When set, parent can render AccessibleStickerControls for the selection. */
   selectedId?: string | null;
   onSelectedIdChange?: (id: string | null) => void;
@@ -36,11 +46,23 @@ type StickerCanvasProps = {
 
 const BASE = 72;
 
+const MOOD_STICKER: Record<Mood, StickerId> = {
+  proud: 'mood-proud',
+  chill: 'mood-chill',
+  meh: 'mood-meh',
+  tempted: 'mood-tempted',
+  wobbly: 'mood-wobbly',
+};
+
 export function StickerCanvas({
   page,
   stickers,
   onChange,
   accessibilityLabel = 'sticker canvas',
+  dateLabel = '',
+  mood = null,
+  body = '',
+  blank = false,
   selectedId: selectedIdProp,
   onSelectedIdChange,
 }: StickerCanvasProps) {
@@ -75,31 +97,111 @@ export function StickerCanvas({
         overflow: 'hidden',
       }}
     >
+      <Svg
+        pointerEvents="none"
+        width={page.width}
+        height={page.height}
+        style={{ position: 'absolute', left: 0, top: 0 }}
+      >
+        <Defs>
+          <Pattern id="decorateGrid" width={18} height={18} patternUnits="userSpaceOnUse">
+            <Path d="M 18 0 L 0 0 0 18" fill="none" stroke={t.grid} strokeWidth={1} />
+          </Pattern>
+        </Defs>
+        <Rect width="100%" height="100%" fill="url(#decorateGrid)" />
+      </Svg>
       <View
         pointerEvents="none"
         style={{
           position: 'absolute',
-          left: 28,
+          left: 36,
           top: 0,
           bottom: 0,
-          width: 2,
+          width: 3,
           backgroundColor: t.c1,
         }}
       />
-      {Array.from({ length: Math.floor(page.height / 28) }).map((_, i) => (
+
+      <View pointerEvents="none" style={{ position: 'absolute', left: 52, right: 18, top: 16 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Text
+            style={{
+              fontFamily: 'Pacifico_400Regular',
+              fontSize: 28,
+              lineHeight: 38,
+              color: t.text,
+            }}
+          >
+            {dateLabel}
+          </Text>
+          {mood ? <Sticker id={MOOD_STICKER[mood]} size={36} /> : null}
+        </View>
+        <Text
+          style={{
+            fontFamily: 'Pacifico_400Regular',
+            fontSize: 20,
+            lineHeight: 28,
+            color: t.text,
+          }}
+        >
+          Dear Wallet,
+        </Text>
+        {body ? (
+          <Text
+            style={{
+              fontFamily: 'Nunito_700Bold',
+              fontSize: 15,
+              lineHeight: 30,
+              color: t.text,
+            }}
+          >
+            {body}
+          </Text>
+        ) : null}
+      </View>
+
+      {blank ? (
         <View
-          key={i}
           pointerEvents="none"
           style={{
             position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 36 + i * 28,
-            height: 1,
-            backgroundColor: t.ring,
+            left: 52,
+            right: 18,
+            top: '54%',
+            bottom: 16,
+            borderRadius: 18,
+            borderWidth: 2,
+            borderStyle: 'dashed',
+            borderColor: t.ring,
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            paddingHorizontal: 18,
           }}
-        />
-      ))}
+        >
+          <PixelIcon name="sparkle" size={34} color={t.c3} />
+          <Text
+            style={{
+              fontFamily: 'Nunito_900Black',
+              fontSize: 16,
+              color: t.text,
+              textAlign: 'center',
+            }}
+          >
+            this page is all urs
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'Nunito_700Bold',
+              fontSize: 13,
+              color: t.text,
+              textAlign: 'center',
+            }}
+          >
+            drag a sticker up from the tray, anywhere u like
+          </Text>
+        </View>
+      ) : null}
 
       {sorted.map((sticker) => (
         <PlacedSticker

@@ -11,6 +11,7 @@ import {
   type Mood,
 } from '@/components';
 import { canSaveEntry } from '@/features/diary/canSaveEntry';
+import { useSettingsStore } from '@/features/rewards/settingsStore';
 import { useTokens } from '@/theme';
 
 const MAX = 280;
@@ -44,6 +45,7 @@ export function DiaryEntryScreen({
   onDecorate,
 }: DiaryEntryScreenProps) {
   const t = useTokens();
+  const promptsOn = useSettingsStore((s) => s.prompts);
   const enabled = canSaveEntry(vm.mood, vm.body);
 
   return (
@@ -62,49 +64,51 @@ export function DiaryEntryScreen({
           }
         >
           <View style={{ gap: 12 }}>
-            <View
-              style={{
-                borderRadius: 16,
-                borderWidth: 2,
-                borderColor: t.outline,
-                backgroundColor: t.c2,
-                padding: 12,
-                gap: 8,
-              }}
-            >
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                <Text
-                  style={{
-                    fontFamily: 'PixelifySans_500Medium',
-                    fontSize: 12,
-                    letterSpacing: 0.72,
-                    color: t.text,
-                  }}
-                >
-                  PROMPT
-                </Text>
-                <Text style={{ fontFamily: 'Nunito_700Bold', fontSize: 11, color: t.text }}>
-                  OPTIONAL
-                </Text>
-                <View style={{ flex: 1 }} />
-                <IconButton
-                  size={36}
-                  accessibilityLabel="Shuffle prompt"
-                  icon={<PixelIcon name="shuffle" size={18} />}
-                  onPress={onShufflePrompt}
-                />
-              </View>
-              <Text
+            {promptsOn ? (
+              <View
                 style={{
-                  fontFamily: 'Nunito_800ExtraBold',
-                  fontSize: 15,
-                  color: t.text,
-                  lineHeight: 21,
+                  borderRadius: 16,
+                  borderWidth: 2,
+                  borderColor: t.outline,
+                  backgroundColor: t.c2,
+                  padding: 12,
+                  gap: 8,
                 }}
               >
-                {vm.promptText}
-              </Text>
-            </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                  <Text
+                    style={{
+                      fontFamily: 'PixelifySans_500Medium',
+                      fontSize: 12,
+                      letterSpacing: 0.72,
+                      color: t.text,
+                    }}
+                  >
+                    PROMPT
+                  </Text>
+                  <Text style={{ fontFamily: 'Nunito_700Bold', fontSize: 11, color: t.text }}>
+                    OPTIONAL
+                  </Text>
+                  <View style={{ flex: 1 }} />
+                  <IconButton
+                    size={36}
+                    accessibilityLabel="Shuffle prompt"
+                    icon={<PixelIcon name="shuffle" size={18} />}
+                    onPress={onShufflePrompt}
+                  />
+                </View>
+                <Text
+                  style={{
+                    fontFamily: 'Nunito_800ExtraBold',
+                    fontSize: 15,
+                    color: t.text,
+                    lineHeight: 21,
+                  }}
+                >
+                  {vm.promptText}
+                </Text>
+              </View>
+            ) : null}
 
             <View style={{ gap: 6 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
@@ -137,6 +141,7 @@ export function DiaryEntryScreen({
               }}
             >
               <TextInput
+                testID="diary-body"
                 accessibilityLabel="Diary text"
                 value={vm.body}
                 onChangeText={(text) => onChangeBody(text.slice(0, MAX))}
@@ -174,7 +179,7 @@ export function DiaryEntryScreen({
               </View>
             </View>
 
-            {vm.isNew ? (
+            {!enabled ? (
               <Text
                 style={{
                   fontFamily: 'Nunito_800ExtraBold',
@@ -188,12 +193,13 @@ export function DiaryEntryScreen({
             ) : null}
 
             <View style={{ flexDirection: 'row', gap: 8 }}>
-              {!vm.isNew ? (
+              {enabled ? (
                 <View style={{ flex: 1 }}>
                   <PillButton
                     testID="diary-decorate"
                     label="decorate"
-                    variant="surface"
+                    variant="secondary"
+                    size="md"
                     onPress={onDecorate}
                     accessibilityLabel="decorate"
                   />
@@ -203,6 +209,7 @@ export function DiaryEntryScreen({
                 <PillButton
                   testID="diary-save"
                   label="save ♡"
+                  size="md"
                   disabled={!enabled}
                   onPress={onSave}
                   accessibilityLabel="save"

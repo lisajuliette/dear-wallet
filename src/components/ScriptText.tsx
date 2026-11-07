@@ -1,6 +1,6 @@
 import { Text, type TextProps } from 'react-native';
 
-import { scriptTextStyle } from '@/theme/scriptText';
+import { scriptTextStyle, useTokens } from '@/theme';
 
 type ScriptTextProps = TextProps & {
   size?: number;
@@ -14,10 +14,11 @@ type ScriptTextProps = TextProps & {
 const TITLE_MAX_SCALE = 1.35;
 
 export function ScriptText({ size = 30, style, maxFontSizeMultiplier, ...rest }: ScriptTextProps) {
+  const t = useTokens();
   return (
     <Text
       maxFontSizeMultiplier={maxFontSizeMultiplier ?? TITLE_MAX_SCALE}
-      style={[scriptTextStyle(size), style]}
+      style={[scriptTextStyle(size), { color: t.text }, style]}
       {...rest}
     />
   );

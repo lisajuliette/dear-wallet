@@ -1,5 +1,6 @@
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Svg, { Path } from 'react-native-svg';
 
 import { PixelIcon } from '@/components/PixelIcon';
 import { useTokens } from '@/theme';
@@ -12,6 +13,23 @@ type TaskbarProps = {
   onLogPress: () => void;
   accessibilityLabel?: string;
 };
+
+const BAR_HEIGHT = 80;
+const BAR_RADIUS = 26;
+const BAR_STROKE = 2;
+
+/** Top edge plus both corners. Side edges stay open, matching the canvas bar. */
+function barPaths(width: number): { outline: string; fill: string } {
+  const r = BAR_RADIUS;
+  const s = BAR_STROKE;
+  const ir = r - s;
+  const h = BAR_HEIGHT;
+  // Sweep 1 is clockwise. The left corner must bulge out to (0, 0).
+  // Sweep 0 bites a semicircle out of the bar and shows the paper through it.
+  const outline = `M0 ${r} A ${r} ${r} 0 0 1 ${r} 0 H ${width - r} A ${r} ${r} 0 0 1 ${width} ${r} V ${h} H 0 Z`;
+  const fill = `M0 ${r} L ${s} ${r} A ${ir} ${ir} 0 0 1 ${r} ${s} H ${width - r} A ${ir} ${ir} 0 0 1 ${width - s} ${r} L ${width} ${r} V ${h} H 0 Z`;
+  return { outline, fill };
+}
 
 const TABS: { id: TaskbarTab; label: string; icon: 'home' | 'tally' | 'diary' | 'collection' }[] = [
   { id: 'home', label: 'home', icon: 'home' },
@@ -29,6 +47,8 @@ export function Taskbar({
 }: TaskbarProps) {
   const t = useTokens();
   const insets = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
+  const bar = barPaths(width);
   const left = TABS.slice(0, 2);
   const right = TABS.slice(2);
 
@@ -81,7 +101,8 @@ export function Taskbar({
     <View
       accessibilityRole="tablist"
       accessibilityLabel={accessibilityLabel}
-      style={{ height: 96 + insets.bottom, position: 'relative' }}
+      pointerEvents="box-none"
+      style={{ height: 96, position: 'relative' }}
     >
       <View
         style={{
@@ -89,22 +110,27 @@ export function Taskbar({
           left: 0,
           right: 0,
           bottom: 0,
-          height: 80 + insets.bottom,
-          paddingBottom: insets.bottom,
-          backgroundColor: t.surface,
-          borderTopWidth: 2,
-          borderColor: t.outline,
-          borderTopLeftRadius: 26,
-          borderTopRightRadius: 26,
-          paddingTop: 6,
-          paddingHorizontal: 6,
-          flexDirection: 'row',
-          alignItems: 'flex-start',
+          height: BAR_HEIGHT,
         }}
       >
-        {left.map(renderTab)}
-        <View style={{ flex: 1 }} accessibilityElementsHidden />
-        {right.map(renderTab)}
+        <Svg width={width} height={BAR_HEIGHT} style={{ position: 'absolute', left: 0, top: 0 }}>
+          <Path d={bar.outline} fill={t.outline} />
+          <Path d={bar.fill} fill={t.surface} />
+        </Svg>
+        <View
+          style={{
+            flex: 1,
+            paddingBottom: insets.bottom > 0 ? 12 : 4,
+            paddingTop: 6,
+            paddingHorizontal: 6,
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+          }}
+        >
+          {left.map(renderTab)}
+          <View style={{ flex: 1 }} accessibilityElementsHidden />
+          {right.map(renderTab)}
+        </View>
       </View>
 
       <Pressable

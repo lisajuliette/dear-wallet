@@ -6,8 +6,10 @@ import { db } from '@/db/client';
 import { stickerAwards } from '@/db/schema';
 import {
   buildAlbumSlots,
+  buildAllMilestones,
   buildMilestoneBadges,
   buildPackCards,
+  type MilestoneRow,
   type PackCard,
 } from '@/features/collection/collectionModel';
 import { CollectionScreen } from '@/features/collection/CollectionScreen';
@@ -26,6 +28,9 @@ export default function CollectionRoute() {
   const [stars, setStars] = useState(0);
   const [mileCount, setMileCount] = useState(0);
   const [badges, setBadges] = useState(buildMilestoneBadges(new Set(), emptyStats));
+  const [allMilestones, setAllMilestones] = useState<MilestoneRow[]>(
+    buildAllMilestones(new Set(), emptyStats),
+  );
   const [album, setAlbum] = useState(buildAlbumSlots([]));
   const [packs, setPacks] = useState(buildPackCards([], emptyStats));
   const [lockedPack, setLockedPack] = useState<PackCard | null>(null);
@@ -48,6 +53,7 @@ export default function CollectionRoute() {
     setStars(starCount);
     setMileCount(Math.min(MILESTONES.length, achieved.length));
     setBadges(buildMilestoneBadges(achievedSet, stats));
+    setAllMilestones(buildAllMilestones(achievedSet, stats));
     setAlbum(buildAlbumSlots(awards.map((a) => a.stickerId)));
     setPacks(buildPackCards(unlocks, stats));
   }, []);
@@ -63,6 +69,7 @@ export default function CollectionRoute() {
       stars={stars}
       mileCount={mileCount}
       badges={badges}
+      milestones={allMilestones}
       album={album}
       packs={packs}
       lockedPack={lockedPack}

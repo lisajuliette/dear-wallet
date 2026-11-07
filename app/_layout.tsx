@@ -14,6 +14,7 @@ import { LockScreen, useAppLock } from '@/features/lock';
 import { hydratePrefs } from '@/features/settings/hydratePrefs';
 import { ensureSession } from '@/features/sync/ensureSession';
 import { runSync } from '@/features/sync/runSync';
+import { isOffline } from '@/lib/network';
 import { ThemeProvider, useAppFonts } from '@/theme';
 
 import migrations from '../drizzle/migrations';
@@ -24,15 +25,22 @@ function AppShell() {
   const { locked, unlock } = useAppLock();
 
   useEffect(() => {
-    void runSync(db);
+    void NetInfo.fetch().then((state) => {
+      if (!isOffline(state)) void runSync(db);
+    });
     const interval = setInterval(() => {
-      void runSync(db);
+      void NetInfo.fetch().then((state) => {
+        if (!isOffline(state)) void runSync(db);
+      });
     }, 60_000);
     const appSub = AppState.addEventListener('change', (state) => {
-      if (state === 'active') void runSync(db);
+      if (state !== 'active') return;
+      void NetInfo.fetch().then((net) => {
+        if (!isOffline(net)) void runSync(db);
+      });
     });
     const netSub = NetInfo.addEventListener((state) => {
-      if (state.isConnected) void runSync(db);
+      if (!isOffline(state)) void runSync(db);
     });
     return () => {
       clearInterval(interval);
@@ -70,6 +78,7 @@ function AppShell() {
         <Stack.Screen name="sign-in" options={{ presentation: 'modal' }} />
         <Stack.Screen name="dev/theme" options={{ headerShown: true, title: 'Theme' }} />
         <Stack.Screen name="dev/components" options={{ headerShown: true, title: 'Components' }} />
+        <Stack.Screen name="dev/seed" options={{ headerShown: true, title: 'Seed' }} />
       </Stack>
       {locked ? <LockScreen onUnlocked={unlock} /> : null}
     </>

@@ -202,6 +202,7 @@ export default function FirstLogScreen() {
           <PillButton
             testID="first-log-nvm"
             label="nvm!"
+            size="md"
             disabled={!canSave}
             onPress={() => void save()}
           />

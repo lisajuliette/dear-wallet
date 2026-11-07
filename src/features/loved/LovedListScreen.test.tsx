@@ -47,6 +47,7 @@ describe('LovedListScreen', () => {
               currency: 'USD',
               category: null,
               note: null,
+              link: null,
               photoPath: null,
               tag: null,
               happenedAt: new Date(2026, 10, 2).toISOString(),

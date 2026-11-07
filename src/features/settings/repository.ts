@@ -6,7 +6,7 @@ import type { AppLockMode, ProfilePrefs } from '@/features/settings/types';
 import { getLocalUserId } from '@/lib/localUser';
 
 const DEFAULTS: ProfilePrefs = {
-  displayName: 'Jazmine',
+  displayName: 'You',
   palette: 'cloud',
   currency: 'USD',
   sounds: true,

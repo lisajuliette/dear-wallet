@@ -1,4 +1,4 @@
-import { Pressable, Text, type PressableProps } from 'react-native';
+import { Pressable, Text, View, type PressableProps } from 'react-native';
 
 import { useTokens } from '@/theme';
 
@@ -27,33 +27,36 @@ export function Chip({
       accessibilityLabel={accessibilityLabel ?? label}
       accessibilityState={{ selected, disabled: !!disabled }}
       disabled={disabled}
+      {...rest}
       style={(state) => [
-        {
+        { opacity: disabled ? 0.5 : state.pressed ? 0.92 : 1, alignSelf: 'flex-start' },
+        typeof style === 'function' ? style(state) : style,
+      ]}
+    >
+      <View
+        style={{
           minHeight: 44,
           paddingHorizontal: 14,
-          paddingVertical: 8,
           borderRadius: 999,
           borderWidth: 2,
           borderColor: t.outline,
-          borderStyle: dashed && !selected ? 'dashed' : 'solid',
+          // Dashed strokes do not paint on iOS, so hidden chips stay solid pills.
+          borderStyle: dashed ? 'solid' : 'solid',
           backgroundColor: selected ? t.btn : t.surface,
           alignItems: 'center',
           justifyContent: 'center',
-          opacity: disabled ? 0.5 : state.pressed ? 0.92 : 1,
-        },
-        typeof style === 'function' ? style(state) : style,
-      ]}
-      {...rest}
-    >
-      <Text
-        style={{
-          fontFamily: 'Nunito_800ExtraBold',
-          fontSize: 14,
-          color: selected ? t.btnText : t.text,
         }}
       >
-        {label}
-      </Text>
+        <Text
+          style={{
+            fontFamily: 'Nunito_800ExtraBold',
+            fontSize: 14,
+            color: selected ? t.btnText : t.text,
+          }}
+        >
+          {label}
+        </Text>
+      </View>
     </Pressable>
   );
 }

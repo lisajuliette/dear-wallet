@@ -11,6 +11,7 @@ export function buildCalendarDays(
   entries: EntryLike[],
   stars: StarLike[],
   today: Date = new Date(),
+  selected?: string,
 ): CalendarDay[] {
   const year = at.getFullYear();
   const month = at.getMonth();
@@ -29,11 +30,15 @@ export function buildCalendarDays(
   for (let d = 1; d <= daysInMonth; d += 1) {
     const key = dayKey(new Date(year, month, d));
     const entry = entryByDay.get(key);
+    const mood = entry?.mood ?? null;
+    const showedUp = starDays.has(key) && !mood;
     days.push({
       date: key,
-      star: starDays.has(key),
-      mood: entry?.mood ?? null,
+      star: showedUp,
+      mood,
       today: key === todayKey,
+      selected: key === selected,
+      future: key > todayKey,
     });
   }
   while (days.length % 7 !== 0 || days.length < 42) {

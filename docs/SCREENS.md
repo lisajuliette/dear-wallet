@@ -100,12 +100,14 @@ Shown once per milestone, after the normal reward.
 ## Recap cards  [Recap card · month · wanted · big / month · loved / month · quiet / week · wanted / week · loved]
 1080 × 1920 px. See BUILD_SPEC section 13.
 
-## Diary  [Diary · empty month / partly filled month]
-- Header: "Diary", stars chip, lock settings button.
-- Today's prompt cloud card with "write".
-- NOVEMBER 2026 window: month arrows (36 pt + hitSlop 4), weekday row (Monday first), day cells (40 pt): plain, star (c3 fill + small star), mood (mood sticker 22 pt + small date), today (btn border + shadow).
-- RECENT ENTRIES window: mood sticker, date, first line (tap to edit). Empty: chill sticker, "no entries yet. one line is plenty", "or just pick a mood, that counts too ♡".
-- Compact: scrolls above the taskbar.
+## Diary  [Diary · today with logs / today empty / a past day / last month]
+- Header: "Diary" in the text colour, stars chip ("1 star", "12 stars"), lock settings. The header sits on a solid background that fades out, so the page never shows above it.
+- TODAY'S PROMPT cloud. A 44 pt shuffle button swaps the prompt. No prompt repeats within 7 days. VoiceOver hears the new line. Hidden when daily prompts are off.
+- Month window: month arrows (36 pt, hit area 44). Next is off on the current month. Previous stops at the month of the first log or diary page. A "today" chip shows when another month is open.
+- Calendar, Monday first. 36 pt cells, 3 pt row gaps, 4 pt column gaps. Tapping a day selects it and scrolls that day's card into view. Future days are faded and do nothing. Selected = button fill and button text; today keeps a button-coloured outline. A mood sticker means a page. A butter tile with a star means showed up. Legend: "wrote a page", "showed up".
+- Day card: "FRI 6 NOV", a today chip, "+1 star" when that day earned one. Kept total in pixel type and a "{n} nvm · {n} loved" chip. Bought-after-all logs are left out. Loved logs show ♡. Tap a log for its detail. The page is a lined preview; tap it to open. Quiet today: "nothing logged today, and that's fine" / "one line or just a mood counts". Quiet past day: "a quiet day. that's allowed ♡" / "no nvms and no page on this day".
+- Write lives on the day card. No page: the filled button, pencil, "write today's page", and a heart icon. It opens a new page dated to that day, and sits under the total, or under the quiet line when the day is empty. A day that already has a page uses the ghost button: "open today's page" or "open this page".
+- Compact: scrolls above the taskbar. The today's-page button stays in the first screen on iPhone SE.
 
 ## Diary entry  [Diary entry · new / editing / saved reward]
 - Retro window filling the screen (12 pt side margins): title "NOV 6 · NEW ENTRY", close.

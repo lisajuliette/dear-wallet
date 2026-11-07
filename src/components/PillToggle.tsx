@@ -1,9 +1,12 @@
+import { type ReactNode } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { useTokens } from '@/theme';
 
 type PillToggleProps = {
   label: string;
+  hint?: string;
+  icon?: ReactNode;
   value: boolean;
   onChange: (value: boolean) => void;
   accessibilityLabel?: string;
@@ -13,6 +16,8 @@ type PillToggleProps = {
 /** Settings-style switch row. Track is btn when on, c2 when off. */
 export function PillToggle({
   label,
+  hint,
+  icon,
   value,
   onChange,
   accessibilityLabel,
@@ -28,23 +33,29 @@ export function PillToggle({
       disabled={disabled}
       onPress={() => onChange(!value)}
       style={{
-        height: 52,
-        minHeight: 52,
+        minHeight: hint ? 56 : 52,
+        paddingVertical: hint ? 8 : 0,
         borderRadius: 18,
         borderWidth: 2,
         borderColor: t.outline,
         backgroundColor: t.surface,
-        paddingLeft: 14,
+        paddingLeft: icon ? 10 : 14,
         paddingRight: 10,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        gap: 10,
         opacity: disabled ? 0.5 : 1,
       }}
     >
-      <Text style={{ fontFamily: 'Nunito_800ExtraBold', fontSize: 15, color: t.text }}>
-        {label}
-      </Text>
+      {icon}
+      <View style={{ flex: 1 }}>
+        <Text style={{ fontFamily: 'Nunito_800ExtraBold', fontSize: 15, color: t.text }}>
+          {label}
+        </Text>
+        {hint ? (
+          <Text style={{ fontFamily: 'Nunito_700Bold', fontSize: 11, color: t.text }}>{hint}</Text>
+        ) : null}
+      </View>
       <View
         style={{
           width: 52,

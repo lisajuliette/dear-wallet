@@ -23,6 +23,7 @@ function vm(partial: Partial<TallyViewModel> = {}): TallyViewModel {
         currency: 'USD',
         category: null,
         note: null,
+        link: null,
         photoPath: null,
         tag: null,
         happenedAt: new Date(2026, 10, 4, 15, 12).toISOString(),

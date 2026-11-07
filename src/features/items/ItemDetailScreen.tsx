@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Linking, Pressable, ScrollView, Text, View } from 'react-native';
 
 import {
   IconButton,
@@ -177,6 +177,19 @@ export function ItemDetailScreen({
               chip={!!item.category}
               last={false}
             />
+            <DetailRow
+              label="LINK"
+              value={item.link ?? '—'}
+              onPress={
+                item.link
+                  ? () => {
+                      const raw = item.link ?? '';
+                      const url = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+                      void Linking.openURL(url);
+                    }
+                  : undefined
+              }
+            />
             <DetailRow label="NOTE" value={item.note ?? '—'} last multiline />
           </View>
         </RetroWindow>
@@ -253,12 +266,14 @@ function DetailRow({
   chip,
   last,
   multiline,
+  onPress,
 }: {
   label: string;
   value: string;
   chip?: boolean;
   last?: boolean;
   multiline?: boolean;
+  onPress?: () => void;
 }) {
   const t = useTokens();
   return (
@@ -302,17 +317,25 @@ function DetailRow({
           </Text>
         </View>
       ) : (
-        <Text
-          style={{
-            flex: 1,
-            fontFamily: multiline ? 'Nunito_700Bold' : 'Nunito_800ExtraBold',
-            fontSize: 15,
-            color: t.text,
-            lineHeight: multiline ? 21 : undefined,
-          }}
+        <Pressable
+          accessibilityRole={onPress ? 'link' : undefined}
+          accessibilityLabel={onPress ? value : undefined}
+          disabled={!onPress}
+          onPress={onPress}
+          style={{ flex: 1 }}
         >
-          {value}
-        </Text>
+          <Text
+            style={{
+              fontFamily: multiline ? 'Nunito_700Bold' : 'Nunito_800ExtraBold',
+              fontSize: 15,
+              color: onPress ? t.btn : t.text,
+              lineHeight: multiline ? 21 : undefined,
+              textDecorationLine: onPress ? 'underline' : 'none',
+            }}
+          >
+            {value}
+          </Text>
+        </Pressable>
       )}
     </View>
   );

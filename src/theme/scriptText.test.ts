@@ -7,5 +7,6 @@ describe('scriptTextStyle', () => {
     expect(style.fontSize).toBe(30);
     expect(style.lineHeight).toBeGreaterThan(30);
     expect(style.paddingTop).toBeGreaterThan(0);
+    expect(style.paddingBottom).toBeGreaterThan(0);
   });
 });

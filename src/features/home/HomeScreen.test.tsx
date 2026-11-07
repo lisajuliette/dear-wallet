@@ -1,7 +1,14 @@
+import { router } from 'expo-router';
+
 import type { HomeViewModel } from '@/features/home/homeModel';
 import { HomeScreen } from '@/features/home/HomeScreen';
+import { useSettingsStore } from '@/features/rewards/settingsStore';
 
-import { renderWithTheme } from '../../../test/render';
+import { fireEvent, renderWithTheme } from '../../../test/render';
+
+jest.mock('expo-router', () => ({
+  router: { push: jest.fn() },
+}));
 
 jest.mock('@/components/PixelIcon', () => ({
   PixelIcon: () => null,
@@ -85,10 +92,11 @@ describe('HomeScreen', () => {
               currency: 'USD',
               category: null,
               note: null,
+              link: null,
               photoPath: null,
               tag: null,
               boughtAfterAllAt: null,
-              happenedAt: new Date().toISOString(),
+              happenedAt: new Date(2026, 10, 7, 15, 12).toISOString(),
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString(),
               deletedAt: null,
@@ -100,5 +108,51 @@ describe('HomeScreen', () => {
       />,
     );
     expect(getByText('matcha latte')).toBeTruthy();
+    expect(getByText('3:12 pm')).toBeTruthy();
+  });
+
+  it('opens item detail from a today row', async () => {
+    const { getByTestId } = await renderWithTheme(
+      <HomeScreen
+        vm={vm({
+          state: 'active',
+          todayItems: [
+            {
+              id: 'item-1',
+              userId: 'u',
+              kind: 'kept',
+              name: 'matcha latte',
+              amountCents: 620,
+              currency: 'USD',
+              category: null,
+              note: null,
+              link: null,
+              photoPath: null,
+              tag: null,
+              boughtAfterAllAt: null,
+              happenedAt: new Date(2026, 10, 7, 15, 12).toISOString(),
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+              deletedAt: null,
+              dirty: true,
+              syncedAt: null,
+            },
+          ],
+        })}
+      />,
+    );
+    fireEvent.press(getByTestId('home-item-item-1'));
+    expect(router.push).toHaveBeenCalledWith({
+      pathname: '/item/[id]',
+      params: { id: 'item-1' },
+    });
+  });
+
+  it('hides the daily quest card when the setting is off', async () => {
+    useSettingsStore.setState({ dailyQuests: false });
+    const { queryByText } = await renderWithTheme(<HomeScreen vm={vm({ greeting: 'HI YOU ♡' })} />);
+    expect(queryByText('DAILY QUEST')).toBeNull();
+    expect(queryByText('write ur first diary line')).toBeNull();
+    useSettingsStore.setState({ dailyQuests: true });
   });
 });

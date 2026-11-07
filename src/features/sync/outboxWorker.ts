@@ -35,7 +35,7 @@ function camelToSnake(key: string): string {
 function rowToRemote(row: Record<string, unknown>): Record<string, unknown> {
   const out: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(row)) {
-    if (k === 'dirty' || k === 'syncedAt') continue;
+    if (k === 'dirty' || k === 'syncedAt' || k === 'link') continue;
     out[camelToSnake(k)] = v;
   }
   return out;

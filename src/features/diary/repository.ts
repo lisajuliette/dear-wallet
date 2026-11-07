@@ -1,16 +1,18 @@
-import { and, asc, desc, eq, gte, isNull, lte } from 'drizzle-orm';
+import { and, asc, desc, eq, gte, isNull, lte, sql } from 'drizzle-orm';
 
 import type { Mood } from '@/components/MoodPicker';
 import type { StickerId } from '@/components/stickerAssets';
 import { enqueueOutbox } from '@/db/outbox';
 import {
   diaryEntries,
+  items,
   pageStickers,
   stickerAwards,
   type DiaryEntry,
   type PageSticker,
 } from '@/db/schema';
 import { runTransaction, type ItemsDb } from '@/db/transaction';
+import { earliestMonth } from '@/features/diary/monthBounds';
 import { dayKey, monthRange, rangeIsoBounds } from '@/lib/dates';
 import { createId } from '@/lib/uuid';
 
@@ -128,6 +130,28 @@ export async function listPromptHistory(
   return rows
     .filter((r): r is { promptId: string; usedAt: string } => !!r.promptId)
     .map((r) => ({ promptId: r.promptId, usedAt: r.usedAt }));
+}
+
+/** First local day that has a kept/loved log or a diary page. */
+export function earliestActivityDay(db: ItemsDb, userId: string): string | null {
+  const entry = db
+    .select({ day: sql<string | null>`min(${diaryEntries.entryDate})` })
+    .from(diaryEntries)
+    .where(and(eq(diaryEntries.userId, userId), isNull(diaryEntries.deletedAt)))
+    .get();
+  const item = db
+    .select({ day: sql<string | null>`min(${items.happenedAt})` })
+    .from(items)
+    .where(and(eq(items.userId, userId), isNull(items.deletedAt)))
+    .get();
+  const month = earliestMonth([entry?.day, item?.day]);
+  if (!month) return null;
+  const days = [entry?.day, item?.day]
+    .filter((day): day is string => !!day)
+    .map((day) => day.slice(0, 10))
+    .filter((day) => day.startsWith(month));
+  days.sort();
+  return days[0] ?? null;
 }
 
 /** Create or update today's (or given) diary entry. */

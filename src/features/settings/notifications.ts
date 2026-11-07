@@ -16,10 +16,35 @@ export function toExpoWeekday(schemaWeekday: number): number {
   return clamped + 1;
 }
 
+export type CheckinPeriod = 'am' | 'pm';
+
+export type CheckinParts = {
+  hour12: number;
+  minute: number;
+  period: CheckinPeriod;
+};
+
+export function toCheckinParts(time: string): CheckinParts {
+  const { hour, minute } = parseCheckinTime(time);
+  return {
+    hour12: hour % 12 === 0 ? 12 : hour % 12,
+    minute,
+    period: hour >= 12 ? 'pm' : 'am',
+  };
+}
+
+export function fromCheckinParts(hour12: number, minute: number, period: CheckinPeriod): string {
+  const base = hour12 % 12;
+  const hour = period === 'pm' ? base + 12 : base;
+  return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+}
+
 export function parseCheckinTime(time: string): { hour: number; minute: number } {
   const [h = '19', m = '00'] = time.split(':');
-  const hour = Math.min(23, Math.max(0, Number.parseInt(h, 10) || 19));
-  const minute = Math.min(59, Math.max(0, Number.parseInt(m, 10) || 0));
+  const parsedHour = Number.parseInt(h, 10);
+  const parsedMinute = Number.parseInt(m, 10);
+  const hour = Number.isFinite(parsedHour) ? Math.min(23, Math.max(0, parsedHour)) : 19;
+  const minute = Number.isFinite(parsedMinute) ? Math.min(59, Math.max(0, parsedMinute)) : 0;
   return { hour, minute };
 }
 

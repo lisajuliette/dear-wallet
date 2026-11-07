@@ -51,7 +51,6 @@ export function RecapScreen({
   const [message, setMessage] = useState<string | null>(null);
 
   const previewTracks = data.tracks.slice(0, compact ? 2 : 3);
-  const more = Math.max(0, data.tracks.length + data.moreCount - previewTracks.length);
 
   const runExport = async (mode: 'save' | 'share') => {
     setBusy(mode);
@@ -81,7 +80,30 @@ export function RecapScreen({
             icon={<PixelIcon name="back" size={22} />}
             onPress={onBack}
           />
-          <ScriptText size={compact ? 26 : 30}>Recap</ScriptText>
+          <View style={{ flex: 1 }}>
+            <ScriptText size={compact ? 26 : 30}>Recap</ScriptText>
+          </View>
+          <View
+            style={{
+              paddingHorizontal: 10,
+              paddingVertical: 2,
+              borderRadius: 999,
+              borderWidth: 2,
+              borderColor: t.outline,
+              backgroundColor: t.surface,
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: 'PixelifySans_500Medium',
+                fontSize: 12,
+                letterSpacing: 0.72,
+                color: t.text,
+              }}
+            >
+              {data.dateLabel}
+            </Text>
+          </View>
         </View>
 
         <View style={{ flexDirection: 'row', gap: 8 }}>
@@ -93,6 +115,7 @@ export function RecapScreen({
                 { label: 'week', value: 'week' },
                 { label: 'month', value: 'month' },
               ]}
+              selectedFill="c3"
             />
           </View>
           <View style={{ flex: 1 }}>
@@ -103,6 +126,7 @@ export function RecapScreen({
                 { label: 'wanted', value: 'wanted' },
                 { label: 'loved', value: 'loved' },
               ]}
+              selectedFill="c3"
             />
           </View>
         </View>
@@ -111,20 +135,28 @@ export function RecapScreen({
           contentContainerStyle={{ gap: 12, paddingBottom: 28, alignItems: 'center' }}
           showsVerticalScrollIndicator={false}
         >
-          <View style={{ alignItems: 'center', gap: 6 }}>
+          <View style={{ alignItems: 'center', width: previewW, marginBottom: 10 }}>
+            <View
+              pointerEvents="none"
+              style={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 6,
+                bottom: -6,
+                borderRadius: 16,
+                backgroundColor: t.shadow,
+              }}
+            />
             <View
               style={{
                 width: previewW,
                 height: previewH,
-                borderRadius: 12,
+                borderRadius: 16,
                 borderWidth: 2,
                 borderColor: t.outline,
                 overflow: 'hidden',
                 backgroundColor: t.surface,
-                shadowColor: t.shadow,
-                shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 1,
-                shadowRadius: 0,
               }}
             >
               <View
@@ -138,27 +170,33 @@ export function RecapScreen({
                 <RecapCard data={data} />
               </View>
             </View>
-            <Text
+            <View
               style={{
-                paddingHorizontal: 10,
-                paddingVertical: 2,
+                position: 'absolute',
+                right: 8,
+                bottom: -8,
+                paddingHorizontal: 8,
+                paddingVertical: 1,
                 borderRadius: 999,
                 borderWidth: 2,
                 borderColor: t.outline,
                 backgroundColor: t.surface,
-                fontFamily: 'PixelifySans_500Medium',
-                fontSize: 12,
-                letterSpacing: 0.6,
-                color: t.text,
-                overflow: 'hidden',
               }}
             >
-              9:16
-            </Text>
+              <Text
+                style={{
+                  fontFamily: 'PixelifySans_500Medium',
+                  fontSize: 11,
+                  color: t.text,
+                }}
+              >
+                9:16
+              </Text>
+            </View>
           </View>
 
           <View style={{ width: '100%' }}>
-            <RetroWindow title="TRACK LIST" titleBar="pink" right={data.totalChip}>
+            <RetroWindow title={data.listTitle} titleBar="pink" right={data.totalChip}>
               {previewTracks.map((tr) => (
                 <View
                   key={tr.n}
@@ -197,9 +235,9 @@ export function RecapScreen({
                   </Text>
                 </View>
               ))}
-              {more > 0 ? (
+              {data.moreLine ? (
                 <Text style={{ fontFamily: 'Nunito_800ExtraBold', fontSize: 13, color: t.text }}>
-                  + {more} more
+                  {data.moreLine}
                 </Text>
               ) : null}
               {data.empty ? (
@@ -210,29 +248,6 @@ export function RecapScreen({
             </RetroWindow>
           </View>
 
-          <View style={{ flexDirection: 'row', gap: 10, width: '100%' }}>
-            <View style={{ flex: 1 }}>
-              <PillButton
-                testID="recap-save"
-                label={busy === 'save' ? 'saving…' : 'save'}
-                disabled={!!busy}
-                onPress={() => {
-                  void runExport('save');
-                }}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <PillButton
-                label={busy === 'share' ? 'sharing…' : 'share'}
-                variant="secondary"
-                disabled={!!busy}
-                onPress={() => {
-                  void runExport('share');
-                }}
-              />
-            </View>
-          </View>
-          {busy ? <ActivityIndicator color={t.btn} /> : null}
           {message ? (
             <Pressable
               accessibilityRole="button"
@@ -252,6 +267,34 @@ export function RecapScreen({
             </Pressable>
           ) : null}
         </ScrollView>
+
+        <View style={{ flexDirection: 'row', gap: 10, paddingBottom: 12 }}>
+          <View style={{ flex: 1 }}>
+            <PillButton
+              testID="recap-save"
+              label={busy === 'save' ? 'saving…' : 'save'}
+              variant="surface"
+              size="lg"
+              disabled={!!busy}
+              icon={<PixelIcon name="download" size={18} />}
+              onPress={() => {
+                void runExport('save');
+              }}
+            />
+          </View>
+          <View style={{ flex: 1.3 }}>
+            <PillButton
+              label={busy === 'share' ? 'sharing…' : 'share'}
+              size="lg"
+              disabled={!!busy}
+              icon={<PixelIcon name="share" size={18} color={t.btnText} />}
+              onPress={() => {
+                void runExport('share');
+              }}
+            />
+          </View>
+        </View>
+        {busy ? <ActivityIndicator color={t.btn} /> : null}
       </View>
 
       {/* Off-screen full card for capture */}

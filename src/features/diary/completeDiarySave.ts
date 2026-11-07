@@ -12,7 +12,7 @@ import { useRewardQueueStore } from '@/features/rewards/rewardQueue';
 import { awardStar, countStars } from '@/features/rewards/stars';
 import { awardSticker } from '@/features/rewards/stickers';
 import { scheduleSync } from '@/features/sync/runSync';
-import { dayKey } from '@/lib/dates';
+import { dayKey, parseDayKey } from '@/lib/dates';
 import { getLocalUserId } from '@/lib/localUser';
 
 export type DiarySaveResult = {
@@ -31,16 +31,17 @@ export async function completeDiarySave(input: {
   mood: Mood | null;
   body: string;
 }): Promise<DiarySaveResult> {
+  const entryDate = input.entryDate ?? dayKey();
   const entry = await saveDiaryEntry(db, {
     userId: getLocalUserId(),
     id: input.id,
-    entryDate: input.entryDate ?? dayKey(),
+    entryDate,
     promptId: input.promptId,
     mood: input.mood,
     body: input.body,
   });
 
-  const starAwarded = awardStar(db, getLocalUserId(), 'diary');
+  const starAwarded = awardStar(db, getLocalUserId(), 'diary', parseDayKey(entryDate));
   const starCount = await countStars(db, getLocalUserId());
 
   const unlockIds = await listUnlockIds(db, getLocalUserId());

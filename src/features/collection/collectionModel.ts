@@ -15,6 +15,11 @@ export type MilestoneBadge = {
   pct: string;
 };
 
+export type MilestoneRow = MilestoneBadge & {
+  headline: string;
+  unit: string;
+};
+
 export type AlbumSlot = {
   id: string;
   owned: boolean;
@@ -29,6 +34,7 @@ export type PackCard = {
   progress: number;
   remainingLabel: string;
   silhouetteCount: number;
+  stickerIds: string[];
 };
 
 function thresholdProgress(def: MilestoneDef, stats: MilestoneStats): number {
@@ -92,6 +98,24 @@ export function buildMilestoneBadges(
   return badges.slice(0, 4);
 }
 
+/** Every milestone, in catalog order, for the collection list. */
+export function buildAllMilestones(achieved: Set<string>, stats: MilestoneStats): MilestoneRow[] {
+  const nextId = MILESTONES.find((m) => !achieved.has(m.id))?.id;
+  return MILESTONES.map((m) => {
+    const done = achieved.has(m.id);
+    const state: BadgeState = done ? 'done' : m.id === nextId ? 'next' : 'locked';
+    const pct = done ? '100%' : `${Math.round(thresholdProgress(m, stats) * 100)}%`;
+    return {
+      id: m.id,
+      label: shortLabel(m),
+      headline: m.headline,
+      unit: m.unit,
+      state,
+      pct,
+    };
+  });
+}
+
 export function buildAlbumSlots(ownedIds: Iterable<string>): AlbumSlot[] {
   const owned = new Set(ownedIds);
   return allAlbumStickerIds().map((id) => ({
@@ -142,6 +166,7 @@ export function buildPackCards(unlockIds: Iterable<string>, stats: MilestoneStat
       progress: rem.progress,
       remainingLabel: rem.label,
       silhouetteCount: pack.stickerIds.length,
+      stickerIds: [...pack.stickerIds],
     };
   });
 }

@@ -24,4 +24,16 @@ describe('PillToggle', () => {
       checked: false,
     });
   });
+
+  it('shows the helper line from settings copy', async () => {
+    const { getByText } = await renderWithTheme(
+      <PillToggle
+        label="sounds"
+        hint="chiptune blips + keypad tones"
+        value={true}
+        onChange={() => undefined}
+      />,
+    );
+    expect(getByText('chiptune blips + keypad tones')).toBeTruthy();
+  });
 });

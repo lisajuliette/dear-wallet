@@ -19,7 +19,8 @@ import {
 import { getLocalUserId } from '@/lib/localUser';
 
 export default function ItemDetailRoute() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const params = useLocalSearchParams<{ id: string | string[] }>();
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
   const [item, setItem] = useState<Item | null>(null);
   const [missing, setMissing] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -68,11 +69,13 @@ export default function ItemDetailRoute() {
       <ItemDetailScreen
         item={item}
         onAddPhoto={() => {
-          void pickAndStoreItemPhoto(item.id).then(async (path) => {
-            if (!path) return;
-            const next = await updateItem(db, getLocalUserId(), item.id, { photoPath: path });
-            setItem(next);
-          });
+          void pickAndStoreItemPhoto(item.id)
+            .then(async (path) => {
+              if (!path) return;
+              const next = await updateItem(db, getLocalUserId(), item.id, { photoPath: path });
+              setItem(next);
+            })
+            .catch(() => undefined);
         }}
         onToggleTag={(tag: ItemTag) => {
           void updateItem(db, getLocalUserId(), item.id, {

@@ -51,7 +51,32 @@ describe('DiaryEntryScreen save rules', () => {
       />,
     );
     expect(withMood.getByLabelText('save')).not.toBeDisabled();
+    expect(withMood.getByLabelText('decorate')).toBeTruthy();
     fireEvent.press(withMood.getByLabelText('save'));
     expect(onSave).toHaveBeenCalled();
+  });
+
+  it('opens decorate once there is a line to save', async () => {
+    const onDecorate = jest.fn();
+    const { getByLabelText } = await renderWithTheme(
+      <DiaryEntryScreen
+        vm={{
+          title: 'NOV 6 · NEW ENTRY',
+          promptText: 'how is ur wallet?',
+          mood: null,
+          body: 'Dear Wallet, hi',
+          isNew: true,
+          entryId: null,
+        }}
+        onClose={() => {}}
+        onShufflePrompt={() => {}}
+        onChangeMood={() => {}}
+        onChangeBody={() => {}}
+        onSave={() => {}}
+        onDecorate={onDecorate}
+      />,
+    );
+    fireEvent.press(getByLabelText('decorate'));
+    expect(onDecorate).toHaveBeenCalled();
   });
 });

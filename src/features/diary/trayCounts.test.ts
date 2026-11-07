@@ -1,7 +1,7 @@
 import { buildTrayCounts } from '@/features/diary/trayCounts';
 
 describe('buildTrayCounts', () => {
-  it('subtracts placed stickers from awards', () => {
+  it('keeps owned stickers available after they are placed', () => {
     const tray = buildTrayCounts(
       [
         { stickerId: 'common-gold-star' },
@@ -13,17 +13,17 @@ describe('buildTrayCounts', () => {
     );
 
     expect(tray).toEqual([
-      { id: 'common-gold-star', count: 1, placed: true },
+      { id: 'common-gold-star', count: 2, placed: true },
       { id: 'rare-holo-cd', count: 1, placed: false },
     ]);
   });
 
-  it('marks fully placed stickers as placed', () => {
+  it('still offers a sticker that is already on the page', () => {
     const tray = buildTrayCounts(
       [{ stickerId: 'common-lil-cloud' }],
       [{ stickerId: 'common-lil-cloud' }],
       [{ stickerId: 'common-lil-cloud' }],
     );
-    expect(tray[0]).toEqual({ id: 'common-lil-cloud', count: 0, placed: true });
+    expect(tray[0]).toEqual({ id: 'common-lil-cloud', count: 1, placed: true });
   });
 });

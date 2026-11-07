@@ -2,6 +2,7 @@ import { act, fireEvent } from '@testing-library/react-native';
 import { useState } from 'react';
 
 import { Segmented } from '@/components/Segmented';
+import { tokens } from '@/theme';
 
 import { renderWithTheme } from '../../test/render';
 
@@ -34,5 +35,22 @@ describe('Segmented', () => {
     expect(getByRole('tab', { name: 'loved it' }).props.accessibilityState).toMatchObject({
       selected: true,
     });
+  });
+
+  it('paints the selected tally segment with c3', async () => {
+    const { getByRole } = await renderWithTheme(
+      <Segmented
+        selectedFill="c3"
+        value="week"
+        onChange={() => undefined}
+        options={[
+          { label: 'day', value: 'day' },
+          { label: 'week', value: 'week' },
+        ]}
+      />,
+    );
+    const week = getByRole('tab', { name: 'week' });
+    const style = Array.isArray(week.props.style) ? week.props.style[0] : week.props.style;
+    expect(style.backgroundColor).toBe(tokens('cloud').c3);
   });
 });

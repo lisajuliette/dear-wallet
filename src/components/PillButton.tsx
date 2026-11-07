@@ -1,3 +1,4 @@
+import { type ReactNode } from 'react';
 import {
   Pressable,
   Text,
@@ -18,6 +19,7 @@ type PillButtonProps = Omit<PressableProps, 'children' | 'style'> & {
   size?: Size;
   /** Stretch to parent width (Quick log, Milestone row, forms). Default true. */
   fullWidth?: boolean;
+  icon?: ReactNode;
   accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
 };
@@ -26,18 +28,21 @@ type PillButtonProps = Omit<PressableProps, 'children' | 'style'> & {
 export function PillButton({
   label,
   variant = 'primary',
-  size = 'lg',
+  size = 'md',
   fullWidth = true,
+  icon,
   disabled,
   accessibilityLabel,
   style,
   ...rest
 }: PillButtonProps) {
   const t = useTokens();
-  const height = size === 'lg' ? 60 : 44;
+  // Same box as the home "go" and decorate "done" buttons: 44 tall, 18 of side padding.
+  // lg is the wider action (nvm, yay) at the canvas 56.
+  const height = size === 'lg' ? 56 : 44;
   const radius = height / 2;
-  const fontSize = size === 'lg' ? 22 : 15;
-  const padX = size === 'lg' ? 28 : 18;
+  const fontSize = size === 'lg' ? 18 : 15;
+  const padX = 18;
   const effectiveVariant = disabled ? 'dashed' : variant;
 
   let backgroundColor = t.btn;
@@ -55,6 +60,7 @@ export function PillButton({
     case 'secondary':
       backgroundColor = t.c3;
       color = t.text;
+      showShadow = true;
       break;
     case 'surface':
       backgroundColor = t.surface;
@@ -64,7 +70,8 @@ export function PillButton({
     case 'dashed':
       backgroundColor = t.surface;
       color = t.text;
-      borderStyle = 'dashed';
+      // iOS drops dashed borders, which left these pills looking like bare text.
+      borderStyle = 'solid';
       break;
     case 'link':
       backgroundColor = 'transparent';
@@ -74,6 +81,23 @@ export function PillButton({
   }
 
   const isLink = effectiveVariant === 'link';
+
+  const box = {
+    height: isLink ? undefined : height,
+    minHeight: isLink ? 44 : height,
+    width: fullWidth ? ('100%' as const) : undefined,
+    alignSelf: fullWidth ? ('stretch' as const) : ('center' as const),
+    borderRadius: radius,
+    borderWidth: isLink ? 0 : 2,
+    borderColor: t.outline,
+    borderStyle,
+    backgroundColor,
+    flexDirection: 'row' as const,
+    alignItems: 'center' as const,
+    justifyContent: 'center' as const,
+    paddingHorizontal: isLink ? 8 : padX,
+    zIndex: 1,
+  };
 
   return (
     <View
@@ -93,6 +117,7 @@ export function PillButton({
           importantForAccessibility="no-hide-descendants"
           style={{
             position: 'absolute',
+            zIndex: -1,
             top: shadowOffset,
             right: 0,
             bottom: -shadowOffset,
@@ -102,46 +127,42 @@ export function PillButton({
           }}
         />
       ) : null}
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={accessibilityLabel ?? label}
-        accessibilityState={{ disabled: !!disabled }}
-        disabled={disabled}
-        style={(state) => ({
-          height: isLink ? undefined : height,
-          minHeight: isLink ? 44 : height,
-          width: fullWidth ? '100%' : undefined,
-          alignSelf: fullWidth ? 'stretch' : 'center',
-          borderRadius: radius,
-          borderWidth: isLink ? 0 : 2,
-          borderColor: t.outline,
-          borderStyle,
-          backgroundColor,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          paddingHorizontal: isLink ? 8 : padX,
-          opacity: state.pressed && !disabled ? 0.92 : 1,
-        })}
-        {...rest}
-      >
-        <Text
-          numberOfLines={1}
-          style={{
-            color,
-            fontFamily: 'Nunito_900Black',
-            fontSize,
-            lineHeight: fontSize + 4,
-            textAlign: 'center',
-            textDecorationLine: isLink ? 'underline' : 'none',
-            // Avoid Android font padding shoving glyphs into the pill curve.
-            includeFontPadding: false,
-            flexShrink: 1,
-          }}
+      <View style={box}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={accessibilityLabel ?? label}
+          accessibilityState={{ disabled: !!disabled }}
+          disabled={disabled}
+          {...rest}
+          style={({ pressed }) => [
+            {
+              alignItems: 'center',
+              justifyContent: 'center',
+              opacity: pressed && !disabled ? 0.92 : 1,
+            },
+          ]}
         >
-          {label}
-        </Text>
-      </Pressable>
+          <View
+            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 }}
+          >
+            {icon}
+            <Text
+              numberOfLines={1}
+              style={{
+                color,
+                fontFamily: 'Nunito_900Black',
+                fontSize,
+                textAlign: 'center',
+                textAlignVertical: 'center',
+                textDecorationLine: isLink ? 'underline' : 'none',
+                includeFontPadding: false,
+              }}
+            >
+              {label}
+            </Text>
+          </View>
+        </Pressable>
+      </View>
     </View>
   );
 }

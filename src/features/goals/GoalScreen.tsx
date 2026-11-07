@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Pressable, Text, TextInput, useWindowDimensions, View } from 'react-native';
+import { Text, TextInput, useWindowDimensions, View } from 'react-native';
 
 import {
   AmountPad,
-  Chip,
+  IconButton,
   PillButton,
+  PixelIcon,
   RetroWindow,
   Screen,
   ScriptText,
@@ -14,8 +15,6 @@ import { applyPadKey } from '@/lib/amountPad';
 import { formatCents, parsePadInput } from '@/lib/money';
 import { useTokens } from '@/theme';
 
-const IDEAS = ['concert tickets', 'a lil trip', 'new phone', 'rainy-day fund'];
-
 export type GoalScreenProps = {
   mode: 'none' | 'name' | 'amount' | 'progress' | 'reached';
   name: string;
@@ -23,13 +22,11 @@ export type GoalScreenProps = {
   progressCents: number;
   startedLabel: string;
   nvmCount: number;
-  onPickIdea: (idea: string) => void;
-  onCustomName: () => void;
   onChangeName: (name: string) => void;
   onNextAmount: () => void;
   onConfirmAmount: (cents: number) => void;
   onEdit: () => void;
-  onSwap: () => void;
+  onDelete: () => void;
   onPickNew: () => void;
   onKeepCounting: () => void;
   onBack?: () => void;
@@ -42,13 +39,11 @@ export function GoalScreen({
   progressCents,
   startedLabel,
   nvmCount,
-  onPickIdea,
-  onCustomName,
   onChangeName,
   onNextAmount,
   onConfirmAmount,
   onEdit,
-  onSwap,
+  onDelete,
   onPickNew,
   onKeepCounting,
   onBack,
@@ -66,24 +61,11 @@ export function GoalScreen({
       <View style={{ flex: 1, paddingHorizontal: 16, paddingTop: 8, gap: 12 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           {onBack ? (
-            <Pressable
-              accessibilityRole="button"
+            <IconButton
               accessibilityLabel="Back"
+              icon={<PixelIcon name="back" size={22} />}
               onPress={onBack}
-              hitSlop={8}
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 14,
-                borderWidth: 2,
-                borderColor: t.outline,
-                backgroundColor: t.surface,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Text style={{ fontFamily: 'Nunito_900Black', fontSize: 18, color: t.text }}>←</Text>
-            </Pressable>
+            />
           ) : null}
           <ScriptText size={compact ? 26 : 30}>Goal</ScriptText>
         </View>
@@ -96,57 +78,31 @@ export function GoalScreen({
             <Text style={{ fontFamily: 'Nunito_700Bold', fontSize: 14, color: t.text }}>
               pick something fun to keep money for. one at a time, change it whenever.
             </Text>
-            <Text
-              style={{
-                fontFamily: 'PixelifySans_500Medium',
-                fontSize: 13,
-                letterSpacing: 0.78,
-                color: t.text,
-              }}
-            >
-              IDEAS
-            </Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-              {IDEAS.map((idea) => (
-                <Chip key={idea} label={idea} onPress={() => onPickIdea(idea)} />
-              ))}
+            <View style={{ gap: 10 }}>
+              <TextInput
+                accessibilityLabel="goal name"
+                value={name}
+                onChangeText={onChangeName}
+                placeholder="i'm keeping money for…"
+                placeholderTextColor={t.soft}
+                style={{
+                  height: 48,
+                  borderRadius: 16,
+                  borderWidth: 2,
+                  borderColor: t.outline,
+                  backgroundColor: t.surface,
+                  paddingHorizontal: 14,
+                  fontFamily: 'Nunito_800ExtraBold',
+                  fontSize: 16,
+                  color: t.text,
+                }}
+              />
+              <PillButton
+                label="next: how much?"
+                disabled={name.trim().length === 0}
+                onPress={onNextAmount}
+              />
             </View>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="name your own"
-              onPress={onCustomName}
-            >
-              <Text style={{ fontFamily: 'Nunito_900Black', fontSize: 15, color: t.btn }}>
-                or name ur own
-              </Text>
-            </Pressable>
-            {mode === 'name' ? (
-              <View style={{ gap: 10 }}>
-                <TextInput
-                  accessibilityLabel="goal name"
-                  value={name}
-                  onChangeText={onChangeName}
-                  placeholder="i'm keeping money for…"
-                  placeholderTextColor={t.soft}
-                  style={{
-                    height: 48,
-                    borderRadius: 16,
-                    borderWidth: 2,
-                    borderColor: t.outline,
-                    backgroundColor: t.surface,
-                    paddingHorizontal: 14,
-                    fontFamily: 'Nunito_800ExtraBold',
-                    fontSize: 16,
-                    color: t.text,
-                  }}
-                />
-                <PillButton
-                  label="next: how much?"
-                  disabled={name.trim().length === 0}
-                  onPress={onNextAmount}
-                />
-              </View>
-            ) : null}
           </View>
         ) : null}
 
@@ -259,20 +215,36 @@ export function GoalScreen({
                 </Text>
               </View>
             </View>
-            <Text style={{ fontFamily: 'Nunito_700Bold', fontSize: 13, color: t.text }}>
-              no deadline, no budget. this counts the money u kept since {startedLabel}. buying
-              something after all never takes progress away ♡
-            </Text>
+            <View
+              testID="goal-explainer"
+              style={{
+                borderRadius: 18,
+                borderWidth: 2,
+                borderStyle: 'dashed',
+                borderColor: t.outline,
+                backgroundColor: t.surface,
+                paddingHorizontal: 14,
+                paddingVertical: 12,
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: 'Nunito_800ExtraBold',
+                  fontSize: 13,
+                  color: t.text,
+                  lineHeight: 19,
+                }}
+              >
+                no deadline, no budget. this counts the money u kept since {startedLabel}. buying
+                something after all never takes progress away ♡
+              </Text>
+            </View>
             <View style={{ flexDirection: 'row', gap: 10, marginTop: 'auto', paddingBottom: 24 }}>
               <View style={{ flex: 1 }}>
                 <PillButton label="edit goal" variant="secondary" onPress={onEdit} />
               </View>
               <View style={{ flex: 1 }}>
-                <PillButton
-                  label="swap for a different goal"
-                  variant="secondary"
-                  onPress={onSwap}
-                />
+                <PillButton label="delete goal" variant="secondary" onPress={onDelete} />
               </View>
             </View>
           </View>

@@ -24,6 +24,8 @@ type AmountPadProps = {
   compact?: boolean;
   hapticsEnabled?: boolean;
   accessibilityLabel?: string;
+  /** Time uses a colon in place of the decimal key. */
+  variant?: 'amount' | 'time';
 };
 
 /** 3 × 4 money pad. Keys are c2 with Pixelify labels and a hard shadow. */
@@ -32,6 +34,7 @@ export function AmountPad({
   compact: compactProp,
   hapticsEnabled = true,
   accessibilityLabel = 'amount pad',
+  variant = 'amount',
 }: AmountPadProps) {
   const t = useTokens();
   const { height } = useWindowDimensions();
@@ -44,13 +47,14 @@ export function AmountPad({
       style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}
     >
       {KEYS.map(({ key, label }) => {
-        const display = key === 'back' ? '⌫' : key === '.' ? '.' : key;
+        const display = key === 'back' ? '⌫' : key === '.' ? (variant === 'time' ? ':' : '.') : key;
+        const spoken = variant === 'time' && key === '.' ? 'Colon' : label;
         return (
           <Pressable
             key={key}
             testID={`pad-key-${key}`}
             accessibilityRole="button"
-            accessibilityLabel={label}
+            accessibilityLabel={spoken}
             onPress={() => {
               if (hapticsEnabled) {
                 void Haptics.selectionAsync();

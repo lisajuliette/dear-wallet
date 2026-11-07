@@ -1,233 +1,241 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { useEffect, useRef, useState, type ComponentRef } from 'react';
+import { ScrollView, Text, View, useWindowDimensions } from 'react-native';
 
 import {
   CalendarMonth,
-  CloudCard,
-  EmptyState,
+  CheckerBar,
+  HardShadow,
   IconButton,
   PixelIcon,
-  RetroWindow,
   Screen,
   ScriptText,
-  Sticker,
 } from '@/components';
 import type { CalendarDay } from '@/components/CalendarMonth';
-import type { Mood } from '@/components/MoodPicker';
+import { DayCard, MonthArrow, TodayChip } from '@/features/diary/DayCard';
+import type { DayCardModel } from '@/features/diary/dayCardModel';
+import { PromptCard } from '@/features/diary/PromptCard';
+import { useSettingsStore } from '@/features/rewards/settingsStore';
+import { TASKBAR_SCROLL_PAD } from '@/lib/taskbarPad';
 import { useTokens } from '@/theme';
 
-export type DiaryRecentRow = {
-  id: string;
-  entryDate: string;
-  mood: Mood | null;
-  body: string;
-};
-
 export type DiaryViewModel = {
-  monthLabel: string;
   promptText: string;
   starCount: number;
+  starWord: string;
+  monthLabel: string;
+  showTodayChip: boolean;
+  canGoPrev: boolean;
+  canGoNext: boolean;
   days: CalendarDay[];
-  recent: DiaryRecentRow[];
+  day: DayCardModel;
 };
 
 type DiaryScreenProps = {
   vm: DiaryViewModel;
   onPrevMonth: () => void;
   onNextMonth: () => void;
-  onWrite: () => void;
-  onOpenEntry: (id: string) => void;
-  onDayPress: (date: string) => void;
+  onToday: () => void;
+  onSelectDay: (date: string) => void;
+  onShuffle: () => void;
+  onOpenItem: (id: string) => void;
+  onOpenPage: () => void;
 };
 
-const MOOD_STICKER = {
-  proud: 'mood-proud',
-  chill: 'mood-chill',
-  meh: 'mood-meh',
-  tempted: 'mood-tempted',
-  wobbly: 'mood-wobbly',
-} as const;
-
-function formatEntryDate(key: string): string {
-  const [y, m, d] = key.split('-').map(Number);
-  if (!y || !m || !d) return key;
-  return new Date(y, m - 1, d)
-    .toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
-    .toLowerCase();
+function fadeOut(hex: string): string {
+  const n = Number.parseInt(hex.slice(1), 16);
+  const r = (n >> 16) & 255;
+  const g = (n >> 8) & 255;
+  const b = n & 255;
+  return `rgba(${r},${g},${b},0)`;
 }
 
 export function DiaryScreen({
   vm,
   onPrevMonth,
   onNextMonth,
-  onWrite,
-  onOpenEntry,
-  onDayPress,
+  onToday,
+  onSelectDay,
+  onShuffle,
+  onOpenItem,
+  onOpenPage,
 }: DiaryScreenProps) {
   const t = useTokens();
+  const { height } = useWindowDimensions();
+  const compact = height < 740;
+  const promptsOn = useSettingsStore((s) => s.prompts);
+  const reducedMotion = useSettingsStore((s) => s.reducedMotion);
+  const scrollRef = useRef<ComponentRef<typeof ScrollView>>(null);
+  const dayY = useRef(0);
+  const lastDay = useRef<string | null>(null);
+  // Pacifico's line box is much taller than the 48 pt row, so the fade is ~100 pt.
+  // Content starts below that measured height, with a gap so the first card is clear.
+  const [headerHeight, setHeaderHeight] = useState(104);
+
+  useEffect(() => {
+    if (lastDay.current === null || lastDay.current === vm.day.label) {
+      lastDay.current = vm.day.label;
+      return;
+    }
+    lastDay.current = vm.day.label;
+    scrollRef.current?.scrollTo({
+      y: Math.max(0, dayY.current - 8),
+      animated: !reducedMotion,
+    });
+  }, [vm.day.label, reducedMotion]);
 
   return (
     <Screen accessibilityLabel="Diary">
-      <ScrollView
-        contentContainerStyle={{
-          gap: 12,
-          paddingHorizontal: 16,
-          paddingTop: 8,
-          paddingBottom: 100,
-        }}
-      >
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-          <View style={{ flex: 1 }}>
-            <ScriptText size={32}>Diary</ScriptText>
-          </View>
-          <View
-            accessibilityLabel={`${vm.starCount} stars`}
-            style={{
-              height: 36,
-              paddingHorizontal: 12,
-              borderRadius: 18,
-              borderWidth: 2,
-              borderColor: t.outline,
-              backgroundColor: t.surface,
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 5,
-            }}
-          >
-            <PixelIcon name="sparkle" size={18} />
-            <Text style={{ fontFamily: 'PixelifySans_600SemiBold', fontSize: 16, color: t.text }}>
-              {vm.starCount}
-            </Text>
-          </View>
-          <IconButton
-            accessibilityLabel="Lock settings"
-            icon={<PixelIcon name="lock" size={22} />}
-            onPress={() => router.push('/settings')}
-          />
-        </View>
+      <View style={{ flex: 1 }}>
+        <ScrollView
+          ref={scrollRef}
+          style={{ flex: 1, marginBottom: TASKBAR_SCROLL_PAD }}
+          contentContainerStyle={{
+            paddingTop: headerHeight + 12,
+            paddingHorizontal: 16,
+            paddingBottom: 20,
+            gap: compact ? 8 : 14,
+          }}
+        >
+          {promptsOn ? (
+            <PromptCard text={vm.promptText} height={compact ? 74 : 86} onShuffle={onShuffle} />
+          ) : null}
 
-        <CloudCard fill="c2" height={110} accessibilityLabel="Today's prompt">
-          <View style={{ flex: 1, justifyContent: 'center', gap: 8 }}>
-            <Text
+          <HardShadow accessibilityLabel={vm.monthLabel}>
+            <View
               style={{
-                fontFamily: 'PixelifySans_500Medium',
-                fontSize: 12,
-                letterSpacing: 0.72,
-                color: t.text,
+                borderRadius: 20,
+                borderWidth: 2,
+                borderColor: t.outline,
+                backgroundColor: t.surface,
               }}
             >
-              {"TODAY'S PROMPT"}
-            </Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-              <Text
-                style={{
-                  flex: 1,
-                  fontFamily: 'Nunito_800ExtraBold',
-                  fontSize: 16,
-                  color: t.text,
-                  lineHeight: 22,
-                }}
-              >
-                {vm.promptText}
-              </Text>
-              <Pressable
-                testID="diary-write"
-                accessibilityRole="button"
-                accessibilityLabel="write"
-                onPress={onWrite}
-                style={{
-                  height: 40,
-                  paddingHorizontal: 16,
-                  borderRadius: 20,
-                  borderWidth: 2,
-                  borderColor: t.outline,
-                  backgroundColor: t.btn,
-                  justifyContent: 'center',
-                }}
-              >
-                <Text style={{ fontFamily: 'Nunito_900Black', fontSize: 15, color: t.btnText }}>
-                  write
-                </Text>
-              </Pressable>
-            </View>
-          </View>
-        </CloudCard>
-
-        <RetroWindow
-          title={vm.monthLabel}
-          titleBar="mint"
-          right={
-            <View style={{ flexDirection: 'row', gap: 4 }}>
-              <IconButton
-                size={36}
-                accessibilityLabel="Previous month"
-                icon={<PixelIcon name="back" size={16} />}
-                onPress={onPrevMonth}
-              />
-              <IconButton
-                size={36}
-                accessibilityLabel="Next month"
-                icon={<PixelIcon name="forward" size={16} />}
-                onPress={onNextMonth}
-              />
-            </View>
-          }
-        >
-          <CalendarMonth days={vm.days} onDayPress={onDayPress} />
-        </RetroWindow>
-
-        <RetroWindow title="RECENT ENTRIES" titleBar="butter">
-          {vm.recent.length === 0 ? (
-            <EmptyState
-              sticker="mood-chill"
-              title="no entries yet. one line is plenty"
-              body="or just pick a mood, that counts too ♡"
-            />
-          ) : (
-            <View style={{ gap: 6 }}>
-              {vm.recent.map((row) => (
-                <Pressable
-                  key={row.id}
-                  testID={`diary-recent-${row.mood ?? 'entry'}`}
-                  accessibilityRole="button"
-                  accessibilityLabel={`Entry ${formatEntryDate(row.entryDate)}${row.mood ? `, feeling ${row.mood}` : ''}`}
-                  onPress={() => onOpenEntry(row.id)}
+              <View style={{ borderRadius: 18, overflow: 'hidden' }}>
+                <View
                   style={{
-                    minHeight: 52,
-                    borderRadius: 15,
-                    borderWidth: 2,
+                    height: 46,
+                    borderBottomWidth: 2,
                     borderColor: t.outline,
-                    backgroundColor: t.c5,
-                    paddingHorizontal: 12,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: 10,
+                    justifyContent: 'center',
                   }}
                 >
-                  {row.mood ? (
-                    <Sticker id={MOOD_STICKER[row.mood]} size={28} />
-                  ) : (
-                    <PixelIcon name="note" size={22} />
-                  )}
-                  <View style={{ flex: 1, gap: 2 }}>
-                    <Text
-                      style={{ fontFamily: 'Nunito_800ExtraBold', fontSize: 12, color: t.text }}
+                  <CheckerBar a={t.c1} b={t.c2} patternId="diary-month" height={46} />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 6,
+                      paddingLeft: 8,
+                      paddingRight: 6,
+                    }}
+                  >
+                    <View
+                      style={{
+                        paddingHorizontal: 10,
+                        paddingVertical: 1,
+                        borderRadius: 999,
+                        borderWidth: 2,
+                        borderColor: t.outline,
+                        backgroundColor: t.surface,
+                      }}
                     >
-                      {formatEntryDate(row.entryDate)}
-                    </Text>
-                    <Text
-                      numberOfLines={1}
-                      style={{ fontFamily: 'Nunito_700Bold', fontSize: 14, color: t.text }}
-                    >
-                      {row.body.trim() || (row.mood ? `feeling ${row.mood}` : '…')}
-                    </Text>
+                      <Text
+                        style={{
+                          fontFamily: 'PixelifySans_500Medium',
+                          fontSize: 13,
+                          letterSpacing: 0.78,
+                          color: t.text,
+                        }}
+                      >
+                        {vm.monthLabel}
+                      </Text>
+                    </View>
+                    {vm.showTodayChip ? <TodayChip onPress={onToday} /> : null}
+                    <View style={{ flex: 1 }} />
+                    <MonthArrow
+                      label="Previous month"
+                      direction="back"
+                      disabled={!vm.canGoPrev}
+                      onPress={onPrevMonth}
+                    />
+                    <MonthArrow
+                      label="Next month"
+                      direction="forward"
+                      disabled={!vm.canGoNext}
+                      onPress={onNextMonth}
+                    />
                   </View>
-                </Pressable>
-              ))}
+                </View>
+                <View style={{ paddingHorizontal: 10, paddingTop: 8, paddingBottom: 10 }}>
+                  <CalendarMonth days={vm.days} onDayPress={onSelectDay} />
+                </View>
+              </View>
             </View>
-          )}
-        </RetroWindow>
-      </ScrollView>
+          </HardShadow>
+
+          <View
+            onLayout={(event) => {
+              dayY.current = event.nativeEvent.layout.y;
+            }}
+          >
+            <DayCard day={vm.day} onOpenItem={onOpenItem} onOpenPage={onOpenPage} />
+          </View>
+        </ScrollView>
+
+        <LinearGradient
+          pointerEvents="box-none"
+          colors={[t.bg1, t.bg1, fadeOut(t.bg1)]}
+          locations={[0, 0.7, 1]}
+          onLayout={(event) => {
+            const next = event.nativeEvent.layout.height;
+            setHeaderHeight((prev) => (prev === next ? prev : next));
+          }}
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            paddingHorizontal: 16,
+            paddingBottom: 16,
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, minHeight: 48 }}>
+            <View style={{ flex: 1 }}>
+              <ScriptText size={32}>Diary</ScriptText>
+            </View>
+            <View
+              accessibilityLabel={`${vm.starCount} ${vm.starWord}`}
+              style={{
+                height: 36,
+                marginTop: 4,
+                paddingLeft: 8,
+                paddingRight: 12,
+                borderRadius: 18,
+                borderWidth: 2,
+                borderColor: t.outline,
+                backgroundColor: t.surface,
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 5,
+              }}
+            >
+              <PixelIcon name="sparkle" size={18} />
+              <Text style={{ fontFamily: 'PixelifySans_600SemiBold', fontSize: 16, color: t.text }}>
+                {vm.starCount}
+              </Text>
+              <Text style={{ fontFamily: 'Nunito_800ExtraBold', fontSize: 12, color: t.text }}>
+                {vm.starWord}
+              </Text>
+            </View>
+            <IconButton
+              accessibilityLabel="Diary lock settings"
+              icon={<PixelIcon name="lock" size={22} />}
+              onPress={() => router.push('/settings')}
+            />
+          </View>
+        </LinearGradient>
+      </View>
     </Screen>
   );
 }

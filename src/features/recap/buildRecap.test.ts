@@ -45,7 +45,7 @@ describe('buildRecap', () => {
     });
     expect(data.quiet).toBe(true);
     expect(data.tracks).toHaveLength(2);
-    expect(data.moreLine).toBeNull();
+    expect(data.moreLine).toBe('a quiet month is still a hit ♡');
   });
 
   it('handles empty periods', () => {

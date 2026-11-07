@@ -14,6 +14,7 @@ import {
   type DiaryEntryViewModel,
 } from '@/features/diary';
 import { dayKey } from '@/lib/dates';
+import { goBack } from '@/lib/goBack';
 import { getLocalUserId } from '@/lib/localUser';
 
 function titleFor(dateKey: string, isNew: boolean): string {
@@ -56,7 +57,7 @@ export default function DiaryEntryRoute() {
       const entry = await getDiaryEntry(db, getLocalUserId(), id);
       if (cancelled) return;
       if (!entry) {
-        router.back();
+        goBack('/(tabs)/diary');
         return;
       }
       const prompt = getPromptById(entry.promptId) ?? pickPrompt(history);
@@ -86,7 +87,7 @@ export default function DiaryEntryRoute() {
   return (
     <DiaryEntryScreen
       vm={vm}
-      onClose={() => router.back()}
+      onClose={() => goBack('/(tabs)/diary')}
       onShufflePrompt={() => {
         void listPromptHistory(db, getLocalUserId()).then((history) => {
           const next = pickPrompt(history, new Date(), Math.random, promptId);
@@ -118,9 +119,25 @@ export default function DiaryEntryRoute() {
         });
       }}
       onDecorate={() => {
-        if (vm.entryId) {
-          router.push({ pathname: '/diary/decorate/[id]', params: { id: vm.entryId } });
-        }
+        void completeDiarySave({
+          id: vm.entryId ?? undefined,
+          entryDate: vm.entryId ? undefined : entryDate,
+          promptId,
+          mood: vm.mood,
+          body: vm.body,
+        }).then((result) => {
+          setVm((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  entryId: result.entryId,
+                  isNew: false,
+                  title: titleFor(entryDate, false),
+                }
+              : prev,
+          );
+          router.push({ pathname: '/diary/decorate/[id]', params: { id: result.entryId } });
+        });
       }}
     />
   );

@@ -16,6 +16,15 @@ describe('RetroWindow', () => {
     expect(getByLabelText('WINDOW TITLE')).toBeTruthy();
   });
 
+  it('renders a string count in the title bar as text', async () => {
+    const { getByText } = await renderWithTheme(
+      <RetroWindow title="MILESTONES" right="3 of 9">
+        <Text>badges</Text>
+      </RetroWindow>,
+    );
+    expect(getByText('3 of 9')).toBeTruthy();
+  });
+
   it('supports a custom accessibility label', async () => {
     const { getByLabelText } = await renderWithTheme(
       <RetroWindow title="kept" accessibilityLabel="kept window">

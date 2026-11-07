@@ -7,6 +7,8 @@ import { useTokens, type TokenName } from '@/theme';
 type ListRowProps = {
   title: string;
   meta?: string;
+  /** Short label on the same row as the title, such as a clock time. */
+  aside?: string;
   amountCents?: number;
   fill?: TokenName;
   onPress?: () => void;
@@ -18,6 +20,7 @@ type ListRowProps = {
 export function ListRow({
   title,
   meta,
+  aside,
   amountCents,
   fill = 'c5',
   onPress,
@@ -27,7 +30,7 @@ export function ListRow({
   const t = useTokens();
   const label =
     accessibilityLabel ??
-    [title, meta, amountCents !== undefined ? formatCents(amountCents) : null]
+    [title, meta, aside, amountCents !== undefined ? formatCents(amountCents) : null]
       .filter(Boolean)
       .join(', ');
 
@@ -58,6 +61,9 @@ export function ListRow({
           <Text style={{ fontFamily: 'Nunito_700Bold', fontSize: 12, color: t.text }}>{meta}</Text>
         ) : null}
       </View>
+      {aside ? (
+        <Text style={{ fontFamily: 'Nunito_700Bold', fontSize: 12, color: t.text }}>{aside}</Text>
+      ) : null}
       {amountCents !== undefined ? (
         <Text style={{ fontFamily: 'PixelifySans_600SemiBold', fontSize: 16, color: t.text }}>
           {formatCents(amountCents)}

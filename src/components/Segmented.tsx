@@ -12,6 +12,8 @@ type SegmentedProps<T extends string> = {
   value: T;
   onChange: (value: T) => void;
   accessibilityLabel?: string;
+  /** Card fill for the selected option. Tally and Recap use c3; Quick log uses c1. */
+  selectedFill?: 'c1' | 'c3';
 };
 
 /** 2–3 option segmented control. Selected option gets fill + 2 pt outline. */
@@ -20,6 +22,7 @@ export function Segmented<T extends string>({
   value,
   onChange,
   accessibilityLabel = 'segmented control',
+  selectedFill = 'c1',
 }: SegmentedProps<T>) {
   const t = useTokens();
 
@@ -53,7 +56,7 @@ export function Segmented<T extends string>({
               borderRadius: 20,
               borderWidth: 2,
               borderColor: selected ? t.outline : 'transparent',
-              backgroundColor: selected ? t.c1 : 'transparent',
+              backgroundColor: selected ? t[selectedFill] : 'transparent',
               alignItems: 'center',
               justifyContent: 'center',
               paddingHorizontal: 8,

@@ -1,5 +1,12 @@
 import { createTestDatabase } from '@/db/testClient';
-import { listPageStickers, replacePageStickers, saveDiaryEntry } from '@/features/diary/repository';
+import {
+  earliestActivityDay,
+  getDiaryByDate,
+  listPageStickers,
+  replacePageStickers,
+  saveDiaryEntry,
+} from '@/features/diary/repository';
+import { createItem } from '@/features/items/repository';
 import { LOCAL_USER_ID } from '@/lib/localUser';
 
 const userId = LOCAL_USER_ID;
@@ -30,6 +37,38 @@ describe('diary repository', () => {
     });
     expect(updated.id).toBe(created.id);
     expect(updated.mood).toBe('proud');
+  });
+
+  it('saves a backdated page on the selected day', async () => {
+    const created = await saveDiaryEntry(db, {
+      userId,
+      entryDate: '2026-10-19',
+      promptId: null,
+      mood: 'proud',
+      body: 'kept walking',
+    });
+    const found = await getDiaryByDate(db, userId, '2026-10-19');
+    expect(found?.id).toBe(created.id);
+    expect(found?.entryDate).toBe('2026-10-19');
+    expect(await getDiaryByDate(db, userId, '2026-11-07')).toBeNull();
+  });
+
+  it('bounds previous months at the first log or page', async () => {
+    await createItem(db, {
+      userId,
+      kind: 'kept',
+      name: 'boba',
+      amountCents: 650,
+      happenedAt: new Date(2026, 9, 30, 12, 0, 0),
+    });
+    await saveDiaryEntry(db, {
+      userId,
+      entryDate: '2026-11-02',
+      promptId: null,
+      mood: 'chill',
+      body: 'hi',
+    });
+    expect(earliestActivityDay(db, userId)?.slice(0, 7)).toBe('2026-10');
   });
 
   it('replaces page stickers and soft-deletes removed ones', async () => {

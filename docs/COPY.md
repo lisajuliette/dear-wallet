@@ -72,9 +72,12 @@ Placeholders in {braces}.
 - Card bits: A DEAR WALLET MIXTAPE · THE LOVED EDITION · + {n} more tiny wins · a quiet month is still a hit · fewer temptations, same cute me ♡ · KEPT THIS WEEK · 3 THINGS THAT MADE MY WEEK · MADE WITH DEAR WALLET ♡
 
 ## Diary
-- Diary · TODAY'S PROMPT · write · RECENT ENTRIES
-- Empty: no entries yet. one line is plenty · or just pick a mood, that counts too ♡
-- Prompts (rotate, no repeats within a week): how's ur wallet feeling today? · what almost tempted u this week? · one thing u loved that cost $0? · what would future u say about today? · a money win, any size? · what are u saving the feeling for? · describe ur dream purchase in 3 words
+- Diary · TODAY'S PROMPT · {n} star · {n} stars · today · wrote a page · showed up · kept · {n} nvm · {n} nvms · {n} loved · +1 star
+- Write: write today's page ♡ · open today's page · open this page
+- Quiet today: nothing logged today, and that's fine · one line or just a mood counts
+- Quiet day: a quiet day. that's allowed ♡ · no nvms and no page on this day
+- Row: didn't buy · loved it
+- Prompts (shuffle, no repeats within a week): how's ur wallet feeling today? · what almost tempted u this week? · one thing u loved that cost $0? · what would future u say about today? · a money win, any size? · what are u saving the feeling for? · describe ur dream purchase in 3 words
 - Entry: NEW ENTRY · EDITING · PROMPT · OPTIONAL · MOOD · OPTIONAL · Dear Wallet, · a line or two is plenty… · {n} / 280 · decorate · save ♡ · a mood or one line is enough to save. stickers come after.
 - Moods: proud · chill · meh · tempted · wobbly
 - Decorate: DECORATE · done · this page is all urs · drag a sticker up from the tray, anywhere u like · drag · pinch to resize · twist to rotate · STICKER TRAY · all stuck! ur page looks cute · new stickers drop when u log or write. tap one on the page to send it back here.

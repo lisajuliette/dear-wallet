@@ -1,7 +1,8 @@
 import type { StickerId } from '@/components/stickerAssets';
 import { db } from '@/db/client';
 import { checkGoalReached } from '@/features/goals/repository';
-import { createItem, keptTotalCents } from '@/features/items/repository';
+import { storePickedPhoto } from '@/features/items/photos';
+import { createItem, keptTotalCents, updateItem } from '@/features/items/repository';
 import type { QuickLogSavePayload } from '@/features/log/QuickLogForm';
 import { rollSticker } from '@/features/rewards/engine';
 import { applyMilestones, listUnlockIds } from '@/features/rewards/milestones';
@@ -36,7 +37,15 @@ export async function completeLog(payload: QuickLogSavePayload): Promise<LogRewa
     amountCents: payload.kind === 'kept' ? (payload.amountCents ?? 0) : payload.amountCents,
     category: payload.category,
     note: payload.note,
+    link: payload.link,
   });
+
+  if (payload.photoUri) {
+    const photoPath = await storePickedPhoto(item.id, payload.photoUri);
+    if (photoPath) {
+      await updateItem(db, getLocalUserId(), item.id, { photoPath });
+    }
+  }
 
   const starAwarded = awardStar(db, getLocalUserId(), 'log');
   const starCount = await countStars(db, getLocalUserId());

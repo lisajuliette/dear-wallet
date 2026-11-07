@@ -2,6 +2,7 @@ export { AmountPad } from '@/components/AmountPad';
 export { BarChart } from '@/components/BarChart';
 export { BottomSheet } from '@/components/BottomSheet';
 export { CalendarMonth, type CalendarDay } from '@/components/CalendarMonth';
+export { CheckerBar } from '@/components/CheckerBar';
 export { Chip } from '@/components/Chip';
 export { CloudCard } from '@/components/CloudCard';
 export { Coin } from '@/components/Coin';

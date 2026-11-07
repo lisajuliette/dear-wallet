@@ -17,6 +17,7 @@ function item(partial: Partial<Item> = {}): Item {
     currency: 'USD',
     category: 'shoes',
     note: 'cute but not needed',
+    link: null,
     photoPath: null,
     tag: null,
     happenedAt: new Date(2026, 10, 6, 15, 12).toISOString(),

@@ -40,6 +40,7 @@ describe('buildHomeViewModel', () => {
           currency: 'USD',
           category: null,
           note: null,
+          link: null,
           photoPath: null,
           tag: null,
           boughtAfterAllAt: null,

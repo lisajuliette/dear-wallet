@@ -7,5 +7,5 @@ export {
   saveAppLock,
 } from '@/features/settings/prefs';
 export { syncWeeklyCheckin, CHECKIN_COPY } from '@/features/settings/notifications';
-export { buildExportJson, shareExportJson } from '@/features/settings/exportData';
+export { loadExportBundle, shareExport } from '@/features/settings/exportData';
 export type { AppLockMode, ProfilePrefs } from '@/features/settings/types';

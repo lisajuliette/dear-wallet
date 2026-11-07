@@ -2,8 +2,10 @@ import * as Haptics from 'expo-haptics';
 import { useEffect } from 'react';
 import { AccessibilityInfo, Pressable, Text, View, useWindowDimensions } from 'react-native';
 import Animated, {
+  Easing,
   useAnimatedStyle,
   useSharedValue,
+  withDelay,
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
@@ -13,6 +15,8 @@ import type { StickerId } from '@/components/stickerAssets';
 import { useSettingsStore } from '@/features/rewards/settingsStore';
 import { formatCents } from '@/lib/money';
 import { HOLO, useTokens } from '@/theme';
+
+const EASE = Easing.bezier(0.2, 0.8, 0.2, 1);
 
 export type RewardMomentProps = {
   amountCents: number | null;
@@ -42,8 +46,11 @@ export function RewardMoment({
   const veil = useSharedValue(0);
   const coinY = useSharedValue(-40);
   const coinScale = useSharedValue(0.7);
-  const chipY = useSharedValue(8);
+  const chipY = useSharedValue(12);
   const stickerScale = useSharedValue(0.85);
+  const sparkle = useSharedValue(0);
+  const monthOpacity = useSharedValue(0);
+  const holoX = useSharedValue(-90);
 
   useEffect(() => {
     let cancelled = false;
@@ -62,19 +69,36 @@ export function RewardMoment({
         coinScale.value = 1;
         chipY.value = 0;
         stickerScale.value = 1;
+        sparkle.value = 1;
+        monthOpacity.value = 1;
+        holoX.value = 0;
         return;
       }
 
-      veil.value = withTiming(1, { duration: 200 });
+      veil.value = withTiming(1, { duration: 200, easing: EASE });
       coinY.value = withSpring(0, { stiffness: 220, damping: 14, mass: 1 });
       coinScale.value = withSpring(1, { stiffness: 220, damping: 14, mass: 1 });
-      chipY.value = withTiming(-12, { duration: 400 });
-      stickerScale.value = withSpring(1, { stiffness: 220, damping: 14, mass: 1 });
+      sparkle.value = withDelay(180, withTiming(1, { duration: 320, easing: EASE }));
+      monthOpacity.value = withDelay(200, withTiming(1, { duration: 500, easing: EASE }));
+      chipY.value = withDelay(300, withTiming(0, { duration: 400, easing: EASE }));
+      stickerScale.value = withDelay(700, withTiming(1, { duration: 220, easing: EASE }));
+      holoX.value = withDelay(920, withTiming(70, { duration: 580, easing: EASE }));
     })();
     return () => {
       cancelled = true;
     };
-  }, [chipY, coinScale, coinY, hapticsOn, reducedSetting, stickerScale, veil]);
+  }, [
+    chipY,
+    coinScale,
+    coinY,
+    hapticsOn,
+    holoX,
+    monthOpacity,
+    reducedSetting,
+    sparkle,
+    stickerScale,
+    veil,
+  ]);
 
   const veilStyle = useAnimatedStyle(() => ({ opacity: veil.value }));
   const coinStyle = useAnimatedStyle(() => ({
@@ -85,6 +109,12 @@ export function RewardMoment({
   }));
   const stickerStyle = useAnimatedStyle(() => ({
     transform: [{ scale: stickerScale.value }],
+  }));
+  const sparkleStyle = useAnimatedStyle(() => ({ opacity: sparkle.value }));
+  const monthStyle = useAnimatedStyle(() => ({ opacity: monthOpacity.value }));
+  const holoStyle = useAnimatedStyle(() => ({
+    opacity: 0.55,
+    transform: [{ translateX: holoX.value }],
   }));
 
   const amountLabel =
@@ -106,20 +136,24 @@ export function RewardMoment({
       >
         <View style={{ alignItems: 'center', transform: [{ scale: compact ? 0.8 : 1 }] }}>
           {rare ? (
-            <View
+            <Animated.View
               pointerEvents="none"
-              style={{
-                position: 'absolute',
-                width: 220,
-                height: 220,
-                borderRadius: 110,
-                backgroundColor: HOLO[0],
-                opacity: 0.55,
-                top: 40,
-              }}
+              style={[
+                {
+                  position: 'absolute',
+                  width: 80,
+                  height: 220,
+                  borderRadius: 40,
+                  backgroundColor: HOLO[2],
+                  top: 40,
+                },
+                holoStyle,
+              ]}
             />
           ) : null}
-          <SparkleBurst count={9} radius={52} />
+          <Animated.View style={sparkleStyle}>
+            <SparkleBurst count={9} radius={52} />
+          </Animated.View>
           <Animated.View style={[{ marginTop: -120, alignItems: 'center' }, coinStyle]}>
             <Coin size={120} />
             <Animated.View
@@ -153,7 +187,7 @@ export function RewardMoment({
           </Text>
         </View>
 
-        <View style={{ alignItems: 'center', marginTop: 18, gap: 6 }}>
+        <Animated.View style={[{ alignItems: 'center', marginTop: 18, gap: 6 }, monthStyle]}>
           <Text
             style={{
               fontFamily: 'PixelifySans_500Medium',
@@ -178,7 +212,7 @@ export function RewardMoment({
               {formatCents(monthCents)}
             </Text>
           </View>
-        </View>
+        </Animated.View>
 
         {!stickerId && starAwarded ? (
           <View style={{ alignItems: 'center', marginTop: 20, gap: 10 }}>

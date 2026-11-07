@@ -123,12 +123,17 @@ export function buildRecap(input: {
     dateLabel,
     coverTag: kind === 'wanted' ? 'A DEAR WALLET MIXTAPE' : 'THE LOVED EDITION',
     coverMonthShort: monthShort,
-    listTitle: 'TRACK LIST',
+    listTitle: period === 'week' ? `THIS WEEK · ${sorted.length}` : `TRACK LIST · ${sorted.length}`,
     totalChip: kind === 'wanted' ? `${formatCents(totalCents)} KEPT` : `${sorted.length} LOVED`,
     totalCents: kind === 'wanted' ? totalCents : 0,
     tracks,
     moreCount,
-    moreLine: moreCount > 0 ? `+ ${moreCount} more tiny wins` : null,
+    moreLine:
+      moreCount > 0
+        ? `+ ${moreCount} more tiny wins`
+        : quiet
+          ? 'a quiet month is still a hit ♡'
+          : null,
     quiet,
     empty,
     weekLabel: `WEEK_${String(weekNum).padStart(2, '0')}.EXE`,

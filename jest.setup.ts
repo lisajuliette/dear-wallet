@@ -192,6 +192,18 @@ jest.mock('expo-file-system/legacy', () => ({
   documentDirectory: 'file:///tmp/',
   writeAsStringAsync: jest.fn(async () => undefined),
   readAsStringAsync: jest.fn(async () => ''),
+  makeDirectoryAsync: jest.fn(async () => undefined),
+  copyAsync: jest.fn(async () => undefined),
+}));
+
+jest.mock('expo-image-picker', () => ({
+  requestMediaLibraryPermissionsAsync: jest.fn(async () => ({ granted: true })),
+  launchImageLibraryAsync: jest.fn(async () => ({ canceled: true, assets: [] })),
+}));
+
+jest.mock('expo-image-manipulator', () => ({
+  SaveFormat: { JPEG: 'jpeg' },
+  manipulateAsync: jest.fn(async (uri: string) => ({ uri })),
 }));
 
 jest.mock('@react-native-async-storage/async-storage', () =>

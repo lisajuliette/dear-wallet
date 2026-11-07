@@ -2,6 +2,13 @@ appId: com.pixelwitch.dearwallet
 ---
 # Expo Dev Client opens the launcher after clearState; jump straight to Metro.
 - openLink: exp+dear-wallet://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081
+# System sheets sit above the dev client and hide its buttons.
+- tapOn:
+    text: 'Open'
+    optional: true
+- tapOn:
+    text: 'Don.+Allow'
+    optional: true
 - extendedWaitUntil:
     visible: 'Continue|Skip onboarding|Reload'
     timeout: 45000
@@ -9,8 +16,14 @@ appId: com.pixelwitch.dearwallet
 - repeat:
     times: 5
     while:
-      visible: 'Continue|Reload'
+      visible: 'Continue|Reload|Don.+Allow'
     commands:
+      - runFlow:
+          when:
+            visible: 'Don.+Allow'
+          commands:
+            - tapOn: 'Don.+Allow'
+            - waitForAnimationToEnd
       - runFlow:
           when:
             visible: 'Continue'

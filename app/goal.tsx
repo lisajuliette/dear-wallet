@@ -13,6 +13,7 @@ import {
   progressForGoal,
   updateGoalTarget,
 } from '@/features/goals/repository';
+import { formatShortDate } from '@/lib/formatWhen';
 import { getLocalUserId } from '@/lib/localUser';
 
 type Mode = 'none' | 'name' | 'amount' | 'progress' | 'reached';
@@ -55,9 +56,7 @@ export default function GoalRoute() {
     setName(goal.name);
     setTargetCents(goal.targetCents);
     setProgressCents(progress);
-    setStartedLabel(
-      started.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }),
-    );
+    setStartedLabel(formatShortDate(started));
     setNvmCount(Number(nvm?.n ?? 0));
     setMode(goal.reachedAt ? 'reached' : 'progress');
   }, []);
@@ -77,11 +76,6 @@ export default function GoalRoute() {
       startedLabel={startedLabel}
       nvmCount={nvmCount}
       onBack={() => router.back()}
-      onPickIdea={(idea) => {
-        setName(idea);
-        setMode('amount');
-      }}
-      onCustomName={() => setMode('name')}
       onChangeName={setName}
       onNextAmount={() => setMode('amount')}
       onConfirmAmount={async (cents) => {
@@ -97,7 +91,7 @@ export default function GoalRoute() {
         await refresh();
       }}
       onEdit={() => setMode('amount')}
-      onSwap={async () => {
+      onDelete={async () => {
         if (goalId) await archiveGoal(db, getLocalUserId(), goalId);
         setName('');
         setMode('none');

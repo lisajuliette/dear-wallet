@@ -1,4 +1,3 @@
-import NetInfo from '@react-native-community/netinfo';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useWindowDimensions, View } from 'react-native';
@@ -6,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { completeLog } from '@/features/log/completeLog';
 import { QuickLogForm } from '@/features/log/QuickLogForm';
+import { subscribeOffline } from '@/lib/network';
 import { useTokens } from '@/theme';
 
 export default function LogRoute() {
@@ -16,51 +16,54 @@ export default function LogRoute() {
   const initialKind = params.kind === 'loved' ? 'loved' : 'kept';
   const [offline, setOffline] = useState(false);
 
-  useEffect(() => {
-    const sub = NetInfo.addEventListener((state) => {
-      setOffline(!(state.isConnected && state.isInternetReachable !== false));
-    });
-    return () => sub();
-  }, []);
+  useEffect(() => subscribeOffline(setOffline), []);
 
   return (
     <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: t.scrim }}>
       <View
         style={{
-          // Definite height so QuickLogForm's flex:1 ScrollView can lay out.
-          // maxHeight alone collapses the body to ~0 (header only).
+          // Border lives on this shell. overflow hidden on the same view
+          // clips the stroke at the rounded corners.
           height: Math.round(height * 0.92),
-          backgroundColor: t.surface,
+          backgroundColor: t.outline,
           borderTopLeftRadius: 28,
           borderTopRightRadius: 28,
-          borderWidth: 2,
-          borderBottomWidth: 0,
-          borderColor: t.outline,
-          paddingBottom: Math.max(insets.bottom, 8),
-          overflow: 'hidden',
+          paddingTop: 2,
+          paddingHorizontal: 2,
         }}
       >
-        <QuickLogForm
-          initialKind={initialKind}
-          offline={offline}
-          onClose={() => router.back()}
-          onSave={(payload) => {
-            // Save locally with no spinner, then open Reward within 300 ms.
-            void completeLog(payload).then((result) => {
-              router.replace({
-                pathname: '/reward',
-                params: {
-                  amountCents: String(result.amountCents ?? ''),
-                  monthCents: String(result.monthCents),
-                  starAwarded: result.starAwarded ? '1' : '0',
-                  starCount: String(result.starCount),
-                  stickerId: result.stickerId ?? '',
-                  rare: result.rare ? '1' : '0',
-                },
-              });
-            });
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: t.surface,
+            borderTopLeftRadius: 26,
+            borderTopRightRadius: 26,
+            paddingBottom: Math.max(insets.bottom, 8),
+            overflow: 'hidden',
           }}
-        />
+        >
+          <QuickLogForm
+            initialKind={initialKind}
+            offline={offline}
+            onClose={() => router.back()}
+            onSave={(payload) => {
+              // Save locally with no spinner, then open Reward within 300 ms.
+              void completeLog(payload).then((result) => {
+                router.replace({
+                  pathname: '/reward',
+                  params: {
+                    amountCents: String(result.amountCents ?? ''),
+                    monthCents: String(result.monthCents),
+                    starAwarded: result.starAwarded ? '1' : '0',
+                    starCount: String(result.starCount),
+                    stickerId: result.stickerId ?? '',
+                    rare: result.rare ? '1' : '0',
+                  },
+                });
+              });
+            }}
+          />
+        </View>
       </View>
     </View>
   );

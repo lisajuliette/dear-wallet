@@ -98,3 +98,13 @@ export async function signOut(): Promise<void> {
   if (!supabaseConfigured) return;
   await supabase.auth.signOut();
 }
+
+/** Removes the signed-in backup, then signs out. The diary on this phone stays. */
+export async function deleteAccount(): Promise<{ error: string | null }> {
+  if (!supabaseConfigured) return { error: 'supabase is not configured' };
+  const { error } = await supabase.rpc('delete_my_account');
+  if (error) return { error: error.message };
+  await supabase.auth.signOut();
+  useAuthStore.getState().setSession({ userId: null, isAnonymous: true, email: null });
+  return { error: null };
+}
