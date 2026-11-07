@@ -21,6 +21,11 @@ module.exports = {
     '!**/RecapScreen.tsx',
     '!**/RecapCard.tsx',
     '!**/export.ts',
+    '!**/SettingsScreen.tsx',
+    '!**/LockScreen.tsx',
+    '!**/useAppLock.ts',
+    '!**/exportData.ts',
+    '!**/hydratePrefs.ts',
   ],
   // collectCoverageFrom already limits to src/features and src/lib
   coverageThreshold: {

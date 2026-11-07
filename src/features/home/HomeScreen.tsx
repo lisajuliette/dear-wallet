@@ -67,7 +67,7 @@ export function HomeScreen({ vm }: HomeScreenProps) {
           <IconButton
             accessibilityLabel="Settings"
             icon={<PixelIcon name="settings" size={22} />}
-            onPress={() => router.push('/dev/theme')}
+            onPress={() => router.push('/settings')}
           />
         </View>
 
