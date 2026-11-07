@@ -8,7 +8,7 @@ import { goalProgressCents, keptTotalCents, listByDay } from '@/features/items/r
 import { useSettingsStore } from '@/features/rewards/settingsStore';
 import { countStars } from '@/features/rewards/stars';
 import { dayKey, dayRange, monthRange } from '@/lib/dates';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 export function useHomeData() {
   const displayName = useSettingsStore((s) => s.displayName);
@@ -17,36 +17,36 @@ export function useHomeData() {
   const refresh = useCallback(async () => {
     const now = new Date();
     const key = dayKey(now);
-    const todayItems = await listByDay(db, LOCAL_USER_ID, now);
+    const todayItems = await listByDay(db, getLocalUserId(), now);
     const [todayCents, monthCents, starCount] = await Promise.all([
-      keptTotalCents(db, LOCAL_USER_ID, dayRange(now)),
-      keptTotalCents(db, LOCAL_USER_ID, monthRange(now)),
-      countStars(db, LOCAL_USER_ID),
+      keptTotalCents(db, getLocalUserId(), dayRange(now)),
+      keptTotalCents(db, getLocalUserId(), monthRange(now)),
+      countStars(db, getLocalUserId()),
     ]);
 
     const allTime = db
       .select({ n: count() })
       .from(items)
-      .where(and(eq(items.userId, LOCAL_USER_ID), isNull(items.deletedAt)))
+      .where(and(eq(items.userId, getLocalUserId()), isNull(items.deletedAt)))
       .get();
 
     const quest = db
       .select()
       .from(quests)
-      .where(and(eq(quests.userId, LOCAL_USER_ID), eq(quests.day, key)))
+      .where(and(eq(quests.userId, getLocalUserId()), eq(quests.day, key)))
       .get();
 
     const goal = db
       .select()
       .from(goals)
       .where(
-        and(eq(goals.userId, LOCAL_USER_ID), isNull(goals.archivedAt), isNull(goals.deletedAt)),
+        and(eq(goals.userId, getLocalUserId()), isNull(goals.archivedAt), isNull(goals.deletedAt)),
       )
       .get();
 
     let goalProgress = 0;
     if (goal) {
-      goalProgress = await goalProgressCents(db, LOCAL_USER_ID, new Date(goal.startedAt), now);
+      goalProgress = await goalProgressCents(db, getLocalUserId(), new Date(goal.startedAt), now);
     }
 
     setVm(
@@ -58,7 +58,7 @@ export function useHomeData() {
         todayItems,
         allTimeItemCount: Number(allTime?.n ?? 0),
         dayKey: key,
-        userId: LOCAL_USER_ID,
+        userId: getLocalUserId(),
         questCompleted: !!quest?.completedAt,
         hasGoal: !!goal,
         goalName: goal?.name,

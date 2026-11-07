@@ -7,18 +7,18 @@ import { pickPrompt } from '@/features/diary/prompts';
 import { listDiaryByMonth, listPromptHistory, listRecentDiary } from '@/features/diary/repository';
 import { countStars, listStarDays } from '@/features/rewards/stars';
 import { dayKey } from '@/lib/dates';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 export function useDiaryData(cursor: Date) {
   const [vm, setVm] = useState<DiaryViewModel | null>(null);
 
   const refresh = useCallback(async () => {
     const [entries, recent, history, starDays, starCount] = await Promise.all([
-      listDiaryByMonth(db, LOCAL_USER_ID, cursor),
-      listRecentDiary(db, LOCAL_USER_ID, 8),
-      listPromptHistory(db, LOCAL_USER_ID),
-      listStarDays(db, LOCAL_USER_ID),
-      countStars(db, LOCAL_USER_ID),
+      listDiaryByMonth(db, getLocalUserId(), cursor),
+      listRecentDiary(db, getLocalUserId(), 8),
+      listPromptHistory(db, getLocalUserId()),
+      listStarDays(db, getLocalUserId()),
+      countStars(db, getLocalUserId()),
     ]);
 
     const prompt = pickPrompt(history);

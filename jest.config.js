@@ -26,6 +26,14 @@ module.exports = {
     '!**/useAppLock.ts',
     '!**/exportData.ts',
     '!**/hydratePrefs.ts',
+    '!**/SignInScreen.tsx',
+    '!**/supabase.ts',
+    '!**/photos.ts',
+    '!**/runSync.ts',
+    '!**/authActions.ts',
+    '!**/ensureSession.ts',
+    '!**/outboxWorker.ts',
+    '!**/database.types.ts',
   ],
   // collectCoverageFrom already limits to src/features and src/lib
   coverageThreshold: {

@@ -5,7 +5,7 @@ import { db } from '@/db/client';
 import { listByMonth, listByWeek } from '@/features/items/repository';
 import { buildRecap, type RecapKind, type RecapPeriod } from '@/features/recap/buildRecap';
 import { RecapScreen } from '@/features/recap/RecapScreen';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 function parsePeriod(value: string | undefined): RecapPeriod {
   return value === 'week' ? 'week' : 'month';
@@ -25,8 +25,8 @@ export default function RecapRoute() {
   const refresh = useCallback(async () => {
     const rows =
       period === 'week'
-        ? await listByWeek(db, LOCAL_USER_ID, at)
-        : await listByMonth(db, LOCAL_USER_ID, at);
+        ? await listByWeek(db, getLocalUserId(), at)
+        : await listByMonth(db, getLocalUserId(), at);
     setItems(rows);
   }, [at, period]);
 

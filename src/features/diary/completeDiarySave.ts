@@ -11,8 +11,9 @@ import { usePityStore } from '@/features/rewards/pityStore';
 import { useRewardQueueStore } from '@/features/rewards/rewardQueue';
 import { awardStar, countStars } from '@/features/rewards/stars';
 import { awardSticker } from '@/features/rewards/stickers';
+import { scheduleSync } from '@/features/sync/runSync';
 import { dayKey } from '@/lib/dates';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 export type DiarySaveResult = {
   entryId: string;
@@ -31,7 +32,7 @@ export async function completeDiarySave(input: {
   body: string;
 }): Promise<DiarySaveResult> {
   const entry = await saveDiaryEntry(db, {
-    userId: LOCAL_USER_ID,
+    userId: getLocalUserId(),
     id: input.id,
     entryDate: input.entryDate ?? dayKey(),
     promptId: input.promptId,
@@ -39,22 +40,23 @@ export async function completeDiarySave(input: {
     body: input.body,
   });
 
-  const starAwarded = awardStar(db, LOCAL_USER_ID, 'diary');
-  const starCount = await countStars(db, LOCAL_USER_ID);
+  const starAwarded = awardStar(db, getLocalUserId(), 'diary');
+  const starCount = await countStars(db, getLocalUserId());
 
-  const unlockIds = await listUnlockIds(db, LOCAL_USER_ID);
+  const unlockIds = await listUnlockIds(db, getLocalUserId());
   const pools = dropPoolsForUnlocks(unlockIds);
   const emptyStreak = usePityStore.getState().emptyStreak;
   const roll = rollSticker(emptyStreak, Math.random, pools.commons, pools.rares);
   usePityStore.getState().setEmptyStreak(roll.nextEmptyStreak);
 
   if (roll.stickerId) {
-    awardSticker(db, LOCAL_USER_ID, roll.stickerId, 'diary', entry.id);
+    awardSticker(db, getLocalUserId(), roll.stickerId, 'diary', entry.id);
   }
 
-  const milestoneIds = await applyMilestones(db, LOCAL_USER_ID);
+  const milestoneIds = await applyMilestones(db, getLocalUserId());
   useRewardQueueStore.getState().enqueue(milestoneIds);
-  await checkGoalReached(db, LOCAL_USER_ID);
+  await checkGoalReached(db, getLocalUserId());
+  scheduleSync(db);
 
   return {
     entryId: entry.id,

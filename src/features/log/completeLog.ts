@@ -11,8 +11,9 @@ import { usePityStore } from '@/features/rewards/pityStore';
 import { useRewardQueueStore } from '@/features/rewards/rewardQueue';
 import { awardStar, countStars } from '@/features/rewards/stars';
 import { awardSticker } from '@/features/rewards/stickers';
+import { scheduleSync } from '@/features/sync/runSync';
 import { monthRange } from '@/lib/dates';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 export type LogRewardResult = {
   itemId: string;
@@ -29,7 +30,7 @@ export type LogRewardResult = {
 /** Local-first log save + star/sticker roll + milestones. No network. */
 export async function completeLog(payload: QuickLogSavePayload): Promise<LogRewardResult> {
   const item = await createItem(db, {
-    userId: LOCAL_USER_ID,
+    userId: getLocalUserId(),
     kind: payload.kind,
     name: payload.name,
     amountCents: payload.kind === 'kept' ? (payload.amountCents ?? 0) : payload.amountCents,
@@ -37,23 +38,24 @@ export async function completeLog(payload: QuickLogSavePayload): Promise<LogRewa
     note: payload.note,
   });
 
-  const starAwarded = awardStar(db, LOCAL_USER_ID, 'log');
-  const starCount = await countStars(db, LOCAL_USER_ID);
+  const starAwarded = awardStar(db, getLocalUserId(), 'log');
+  const starCount = await countStars(db, getLocalUserId());
 
-  const unlockIds = await listUnlockIds(db, LOCAL_USER_ID);
+  const unlockIds = await listUnlockIds(db, getLocalUserId());
   const pools = dropPoolsForUnlocks(unlockIds);
   const emptyStreak = usePityStore.getState().emptyStreak;
   const roll = rollSticker(emptyStreak, Math.random, pools.commons, pools.rares);
   usePityStore.getState().setEmptyStreak(roll.nextEmptyStreak);
 
   if (roll.stickerId) {
-    awardSticker(db, LOCAL_USER_ID, roll.stickerId, 'log', item.id);
+    awardSticker(db, getLocalUserId(), roll.stickerId, 'log', item.id);
   }
 
-  const monthCents = await keptTotalCents(db, LOCAL_USER_ID, monthRange());
-  const milestoneIds = await applyMilestones(db, LOCAL_USER_ID);
+  const monthCents = await keptTotalCents(db, getLocalUserId(), monthRange());
+  const milestoneIds = await applyMilestones(db, getLocalUserId());
   useRewardQueueStore.getState().enqueue(milestoneIds);
-  await checkGoalReached(db, LOCAL_USER_ID);
+  await checkGoalReached(db, getLocalUserId());
+  scheduleSync(db);
 
   return {
     itemId: item.id,

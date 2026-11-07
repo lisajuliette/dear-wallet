@@ -1,5 +1,5 @@
 import { and, eq, isNull, ne, sql } from 'drizzle-orm';
-import { useFocusEffect } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, useWindowDimensions, View } from 'react-native';
 
@@ -29,7 +29,7 @@ import {
 import { syncWeeklyCheckin } from '@/features/settings/notifications';
 import { persistPrefs, saveAppLock, savePalette } from '@/features/settings/prefs';
 import type { AppLockMode } from '@/features/settings/types';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 import { palettes, useTokens, type PaletteKey } from '@/theme';
 import { useThemeStore } from '@/theme/store';
 
@@ -67,15 +67,15 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
 
   const refresh = useCallback(async () => {
     const [ids, kept, logs, diaryCount] = await Promise.all([
-      listUnlockIds(db, LOCAL_USER_ID),
-      keptTotalCents(db, LOCAL_USER_ID, null),
-      keptLogCount(db, LOCAL_USER_ID),
+      listUnlockIds(db, getLocalUserId()),
+      keptTotalCents(db, getLocalUserId(), null),
+      keptLogCount(db, getLocalUserId()),
       db
         .select({ n: sql<number>`count(*)` })
         .from(diaryEntries)
         .where(
           and(
-            eq(diaryEntries.userId, LOCAL_USER_ID),
+            eq(diaryEntries.userId, getLocalUserId()),
             isNull(diaryEntries.deletedAt),
             ne(diaryEntries.body, ''),
           ),
@@ -410,7 +410,11 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
                     .finally(() => setBusyExport(false));
                 }}
               />
-              <SettingsRow label="account" value="soon ♡" onPress={() => undefined} />
+              <SettingsRow
+                label="account"
+                value="sign in"
+                onPress={() => router.push('/sign-in')}
+              />
             </View>
           </RetroWindow>
         </ScrollView>

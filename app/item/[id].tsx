@@ -16,7 +16,7 @@ import {
   type Item,
   type ItemTag,
 } from '@/features/items/repository';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 export default function ItemDetailRoute() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -29,7 +29,7 @@ export default function ItemDetailRoute() {
       setMissing(true);
       return;
     }
-    const row = await getItem(db, LOCAL_USER_ID, id);
+    const row = await getItem(db, getLocalUserId(), id);
     if (!row) {
       setMissing(true);
       setItem(null);
@@ -70,20 +70,20 @@ export default function ItemDetailRoute() {
         onAddPhoto={() => {
           void pickAndStoreItemPhoto(item.id).then(async (path) => {
             if (!path) return;
-            const next = await updateItem(db, LOCAL_USER_ID, item.id, { photoPath: path });
+            const next = await updateItem(db, getLocalUserId(), item.id, { photoPath: path });
             setItem(next);
           });
         }}
         onToggleTag={(tag: ItemTag) => {
-          void updateItem(db, LOCAL_USER_ID, item.id, {
+          void updateItem(db, getLocalUserId(), item.id, {
             tag: item.tag === tag ? null : tag,
           }).then(setItem);
         }}
         onBoughtAfterAll={() => {
-          void markBoughtAfterAll(db, LOCAL_USER_ID, item.id).then(setItem);
+          void markBoughtAfterAll(db, getLocalUserId(), item.id).then(setItem);
         }}
         onUndoBought={() => {
-          void undoBoughtAfterAll(db, LOCAL_USER_ID, item.id).then(setItem);
+          void undoBoughtAfterAll(db, getLocalUserId(), item.id).then(setItem);
         }}
         onRequestDelete={() => setDeleteOpen(true)}
       />
@@ -92,7 +92,7 @@ export default function ItemDetailRoute() {
         name={item.name}
         onKeep={() => setDeleteOpen(false)}
         onDelete={() => {
-          void softDelete(db, LOCAL_USER_ID, item.id).then(() => {
+          void softDelete(db, getLocalUserId(), item.id).then(() => {
             setDeleteOpen(false);
             router.back();
           });

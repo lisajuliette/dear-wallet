@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { profiles } from '@/db/schema';
 import type { ItemsDb } from '@/db/transaction';
 import type { AppLockMode, ProfilePrefs } from '@/features/settings/types';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 const DEFAULTS: ProfilePrefs = {
   displayName: 'Jazmine',
@@ -41,7 +41,7 @@ function rowToPrefs(row: typeof profiles.$inferSelect): ProfilePrefs {
 /** Ensure a local profile row exists and return prefs. */
 export async function ensureProfile(
   db: ItemsDb,
-  userId: string = LOCAL_USER_ID,
+  userId: string = getLocalUserId(),
 ): Promise<ProfilePrefs> {
   const existing = await db.select().from(profiles).where(eq(profiles.id, userId)).limit(1);
   if (existing[0]) return rowToPrefs(existing[0]);
@@ -68,7 +68,7 @@ export async function ensureProfile(
 
 export async function getProfilePrefs(
   db: ItemsDb,
-  userId: string = LOCAL_USER_ID,
+  userId: string = getLocalUserId(),
 ): Promise<ProfilePrefs> {
   return ensureProfile(db, userId);
 }
@@ -76,7 +76,7 @@ export async function getProfilePrefs(
 export async function updateProfilePrefs(
   db: ItemsDb,
   patch: Partial<ProfilePrefs>,
-  userId: string = LOCAL_USER_ID,
+  userId: string = getLocalUserId(),
 ): Promise<ProfilePrefs> {
   await ensureProfile(db, userId);
   const now = new Date().toISOString();

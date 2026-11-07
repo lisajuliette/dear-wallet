@@ -18,7 +18,7 @@ import {
 } from '@/features/rewards/milestones';
 import { MILESTONES } from '@/features/rewards/milestonesCatalog';
 import { countStars } from '@/features/rewards/stars';
-import { LOCAL_USER_ID } from '@/lib/localUser';
+import { getLocalUserId } from '@/lib/localUser';
 
 const emptyStats = { keptTotalCents: 0, keptLogCount: 0, diaryTextCount: 0 };
 
@@ -32,15 +32,15 @@ export default function CollectionRoute() {
 
   const refresh = useCallback(async () => {
     const [achieved, unlocks, stats, starCount, awards] = await Promise.all([
-      listAchievedMilestoneIds(db, LOCAL_USER_ID),
-      listUnlockIds(db, LOCAL_USER_ID),
-      loadMilestoneStats(db, LOCAL_USER_ID),
-      countStars(db, LOCAL_USER_ID),
+      listAchievedMilestoneIds(db, getLocalUserId()),
+      listUnlockIds(db, getLocalUserId()),
+      loadMilestoneStats(db, getLocalUserId()),
+      countStars(db, getLocalUserId()),
       Promise.resolve(
         db
           .select({ stickerId: stickerAwards.stickerId })
           .from(stickerAwards)
-          .where(and(eq(stickerAwards.userId, LOCAL_USER_ID), isNull(stickerAwards.deletedAt)))
+          .where(and(eq(stickerAwards.userId, getLocalUserId()), isNull(stickerAwards.deletedAt)))
           .all(),
       ),
     ]);

@@ -112,6 +112,7 @@ jest.mock('expo-router', () => ({
   },
   useFocusEffect: jest.fn(),
   useLocalSearchParams: jest.fn(() => ({})),
+  usePathname: jest.fn(() => '/'),
   Redirect: ({ href }: { href: string }) => href,
   Link: ({ children }: { children: unknown }) => children,
   Stack: {
@@ -190,6 +191,55 @@ jest.mock('expo-file-system/legacy', () => ({
   cacheDirectory: 'file:///tmp/',
   documentDirectory: 'file:///tmp/',
   writeAsStringAsync: jest.fn(async () => undefined),
+  readAsStringAsync: jest.fn(async () => ''),
+}));
+
+jest.mock('@react-native-async-storage/async-storage', () =>
+  // eslint-disable-next-line @typescript-eslint/no-require-imports -- official AsyncStorage jest mock
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
+);
+
+jest.mock('@supabase/supabase-js', () => ({
+  createClient: () => ({
+    auth: {
+      getSession: jest.fn(async () => ({ data: { session: null }, error: null })),
+      signInAnonymously: jest.fn(async () => ({
+        data: {
+          user: { id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', is_anonymous: true },
+        },
+        error: null,
+      })),
+      signInWithPassword: jest.fn(async () => ({ data: { user: null }, error: null })),
+      signUp: jest.fn(async () => ({ data: { user: null }, error: null })),
+      updateUser: jest.fn(async () => ({ data: { user: null }, error: null })),
+      resetPasswordForEmail: jest.fn(async () => ({ error: null })),
+      signInWithIdToken: jest.fn(async () => ({ data: { user: null }, error: null })),
+      signOut: jest.fn(async () => ({ error: null })),
+      startAutoRefresh: jest.fn(),
+      stopAutoRefresh: jest.fn(),
+    },
+    from: jest.fn(() => ({
+      upsert: jest.fn(async () => ({ error: null })),
+      select: jest.fn(() => ({
+        eq: jest.fn(() => ({
+          gt: jest.fn(async () => ({ data: [], error: null })),
+        })),
+      })),
+    })),
+    storage: {
+      from: jest.fn(() => ({
+        upload: jest.fn(async () => ({ error: null })),
+      })),
+    },
+  }),
+}));
+
+jest.mock('expo-apple-authentication', () => ({
+  AppleAuthenticationButton: 'AppleAuthenticationButton',
+  AppleAuthenticationButtonType: { SIGN_IN: 0 },
+  AppleAuthenticationButtonStyle: { BLACK: 0 },
+  AppleAuthenticationScope: { FULL_NAME: 0, EMAIL: 1 },
+  signInAsync: jest.fn(async () => ({ identityToken: null })),
 }));
 
 jest.mock('react-native-gesture-handler', () => {
