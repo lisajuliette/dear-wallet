@@ -1,0 +1,21 @@
+appId: com.pixelwitch.dearwallet
+---
+# iOS first-run keyboard tip sheets (English/Dutch).
+- runFlow:
+    when:
+      visible: 'Type English and Dutch|Customize in Settings|Continue'
+    commands:
+      - tapOn: 'Continue'
+      - waitForAnimationToEnd
+# Soft keyboard covers quick-log-save — dismiss via Return / enter, then header blur.
+- runFlow:
+    when:
+      visible: 'Return'
+    commands:
+      - tapOn: 'Return'
+      - waitForAnimationToEnd
+- pressKey: enter
+- tapOn:
+    text: 'QUICK LOG'
+    optional: true
+- waitForAnimationToEnd

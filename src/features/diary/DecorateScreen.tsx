@@ -102,7 +102,13 @@ export function DecorateScreen({
               </Text>
             </View>
           </View>
-          <PillButton label="done" size="md" variant="secondary" onPress={onDone} />
+          <PillButton
+            testID="decorate-done"
+            label="done"
+            size="md"
+            variant="secondary"
+            onPress={onDone}
+          />
         </View>
 
         <View style={{ flex: 1, alignItems: 'center' }}>
@@ -195,6 +201,7 @@ export function DecorateScreen({
         )}
 
         <PillButton
+          testID="decorate-tray"
           label="sticker tray"
           variant="surface"
           size="md"

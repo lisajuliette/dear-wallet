@@ -10,6 +10,7 @@ type FaceplateProps = {
   selected?: boolean;
   onPress?: () => void;
   accessibilityLabel?: string;
+  testID?: string;
 };
 
 /** Mini phone preview in its own palette (Settings / Onboarding). */
@@ -19,12 +20,14 @@ export function Faceplate({
   selected = false,
   onPress,
   accessibilityLabel,
+  testID,
 }: FaceplateProps) {
   const t = tokens(palette);
   const label = accessibilityLabel ?? `${palettes[palette].name} faceplate`;
 
   return (
     <Pressable
+      testID={testID ?? `faceplate-${palette}`}
       accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityState={{ selected, disabled: locked }}

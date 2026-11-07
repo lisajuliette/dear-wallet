@@ -1,0 +1,10 @@
+appId: com.pixelwitch.dearwallet
+---
+- launchApp:
+    clearState: true
+- runFlow: helpers/connect-dev-client.yaml
+- runFlow: helpers/finish-onboarding.yaml
+- assertVisible:
+    id: 'home-today-total'
+- assertVisible:
+    id: 'screen-home'

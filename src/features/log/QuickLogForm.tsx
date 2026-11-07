@@ -51,7 +51,7 @@ export function QuickLogForm({
         : `$${amountText}`;
 
   return (
-    <View style={{ flex: 1 }} accessibilityLabel="Quick log">
+    <View style={{ flex: 1 }} accessibilityLabel="Quick log" testID="quick-log">
       <View
         style={{
           height: 56,
@@ -180,6 +180,7 @@ export function QuickLogForm({
             </Text>
           ) : null}
           <TextInput
+            testID="quick-log-name"
             accessibilityLabel="What was it"
             value={name}
             onChangeText={setName}
@@ -253,6 +254,7 @@ export function QuickLogForm({
         ) : null}
 
         <PillButton
+          testID="quick-log-save"
           label="nvm!"
           disabled={!enabled}
           size={compact ? 'md' : 'lg'}

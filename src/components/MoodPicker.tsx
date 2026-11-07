@@ -34,6 +34,7 @@ export function MoodPicker({
         return (
           <Pressable
             key={mood.id}
+            testID={`mood-${mood.id}`}
             accessibilityRole="button"
             accessibilityLabel={mood.label}
             accessibilityState={{ selected }}

@@ -48,6 +48,7 @@ export function AmountPad({
         return (
           <Pressable
             key={key}
+            testID={`pad-key-${key}`}
             accessibilityRole="button"
             accessibilityLabel={label}
             onPress={() => {

@@ -1,0 +1,30 @@
+appId: com.pixelwitch.dearwallet
+---
+# After splash / welcome, skip the three onboarding screens to land on Home.
+- extendedWaitUntil:
+    visible:
+      id: 'onboarding-skip'
+    timeout: 20000
+# Dev menu can cover Skip — dismiss it before tapping.
+- repeat:
+    times: 3
+    while:
+      visible: 'Reload'
+    commands:
+      - tapOn: 'Close'
+      - waitForAnimationToEnd
+- tapOn:
+    id: 'onboarding-skip'
+- waitForAnimationToEnd
+# Navigation / Fast Refresh can resurface the Expo menu over Home.
+- repeat:
+    times: 5
+    while:
+      visible: 'Reload'
+    commands:
+      - tapOn: 'Close'
+      - waitForAnimationToEnd
+- extendedWaitUntil:
+    visible:
+      id: 'screen-home'
+    timeout: 20000

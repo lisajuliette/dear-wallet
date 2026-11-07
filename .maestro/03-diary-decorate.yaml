@@ -1,0 +1,66 @@
+appId: com.pixelwitch.dearwallet
+---
+- launchApp:
+    clearState: true
+- runFlow: helpers/connect-dev-client.yaml
+- runFlow: helpers/finish-onboarding.yaml
+# Sticker drops are random; pity forces a drop by the 4th empty action.
+# Onboarding log + these three guarantee at least one award in the tray.
+- repeat:
+    times: 3
+    commands:
+      - tapOn:
+          id: 'tab-log'
+      - tapOn:
+          id: 'pad-key-2'
+      - tapOn:
+          id: 'quick-log-name'
+      - inputText: 'sticker bait'
+      - runFlow: helpers/dismiss-ios-keyboard-tip.yaml
+      - scrollUntilVisible:
+          element:
+            id: 'quick-log-save'
+          direction: DOWN
+          timeout: 5000
+      - tapOn:
+          id: 'quick-log-save'
+      - runFlow: helpers/close-reward-chain.yaml
+- tapOn:
+    id: 'tab-diary'
+- tapOn:
+    id: 'diary-write'
+- tapOn:
+    id: 'mood-chill'
+- tapOn:
+    id: 'diary-save'
+- runFlow: helpers/close-reward-chain.yaml
+- tapOn:
+    id: 'tab-diary'
+- scrollUntilVisible:
+    element:
+      id: 'diary-recent-chill'
+    direction: DOWN
+    timeout: 8000
+    visibilityPercentage: 40
+- tapOn:
+    id: 'diary-recent-chill'
+- extendedWaitUntil:
+    visible:
+      id: 'diary-decorate'
+    timeout: 8000
+- tapOn:
+    id: 'diary-decorate'
+# Tray opens by default on Decorate.
+- extendedWaitUntil:
+    visible: 'STICKER TRAY|all stuck'
+    timeout: 8000
+- tapOn:
+    id: 'tray-sticker-.*'
+- tapOn:
+    id: 'decorate-done'
+- extendedWaitUntil:
+    visible:
+      id: 'diary-decorate'
+    timeout: 8000
+- assertVisible:
+    id: 'diary-decorate'

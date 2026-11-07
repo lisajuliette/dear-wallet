@@ -1,0 +1,16 @@
+appId: com.pixelwitch.dearwallet
+---
+# Reward may be followed by a milestone sheet.
+- extendedWaitUntil:
+    visible:
+      id: 'reward-close'
+    timeout: 15000
+- tapOn:
+    id: 'reward-close'
+- waitForAnimationToEnd
+- runFlow:
+    when:
+      visible: 'yay ♡|NEW MILESTONE'
+    commands:
+      - tapOn: 'yay ♡'
+      - waitForAnimationToEnd

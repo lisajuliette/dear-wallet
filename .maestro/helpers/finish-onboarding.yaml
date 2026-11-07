@@ -1,0 +1,24 @@
+appId: com.pixelwitch.dearwallet
+---
+# Full welcome → palette → first-log path (skip sits under an Expo gear and is flaky).
+- extendedWaitUntil:
+    visible:
+      id: 'onboarding-lets-go'
+    timeout: 20000
+- tapOn:
+    id: 'onboarding-lets-go'
+- tapOn:
+    id: 'palette-lilac'
+- tapOn:
+    id: 'onboarding-this-one'
+- tapOn: 'bubble tea 6 dollars'
+- tapOn:
+    text: 'OR TAP ONE'
+    optional: true
+- tapOn:
+    id: 'first-log-nvm'
+- runFlow: close-reward-chain.yaml
+- extendedWaitUntil:
+    visible:
+      id: 'screen-home'
+    timeout: 15000

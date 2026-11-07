@@ -36,6 +36,7 @@ export function StickerTray({
         return (
           <Pressable
             key={item.id}
+            testID={`tray-sticker-${item.id}`}
             accessibilityRole="button"
             accessibilityLabel={`${item.id}, ${item.count} left`}
             disabled={placed}

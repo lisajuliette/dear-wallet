@@ -213,6 +213,7 @@ export function RecapScreen({
           <View style={{ flexDirection: 'row', gap: 10, width: '100%' }}>
             <View style={{ flex: 1 }}>
               <PillButton
+                testID="recap-save"
                 label={busy === 'save' ? 'saving…' : 'save'}
                 disabled={!!busy}
                 onPress={() => {

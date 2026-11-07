@@ -59,6 +59,7 @@ export default function PaletteScreen() {
             return (
               <Pressable
                 key={key}
+                testID={`palette-${key}`}
                 accessibilityRole="button"
                 accessibilityLabel={palettes[key].name}
                 accessibilityState={{ selected: on }}
@@ -153,6 +154,7 @@ export default function PaletteScreen() {
 
         <View style={{ flex: 1 }} />
         <PillButton
+          testID="onboarding-this-one"
           label="this one ♡"
           onPress={() => router.push('/(onboarding)/first-log')}
           style={{ marginBottom: 24 }}

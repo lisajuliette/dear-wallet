@@ -131,6 +131,7 @@ export function DiaryScreen({
                 {vm.promptText}
               </Text>
               <Pressable
+                testID="diary-write"
                 accessibilityRole="button"
                 accessibilityLabel="write"
                 onPress={onWrite}
@@ -187,8 +188,9 @@ export function DiaryScreen({
               {vm.recent.map((row) => (
                 <Pressable
                   key={row.id}
+                  testID={`diary-recent-${row.mood ?? 'entry'}`}
                   accessibilityRole="button"
-                  accessibilityLabel={`Entry ${formatEntryDate(row.entryDate)}`}
+                  accessibilityLabel={`Entry ${formatEntryDate(row.entryDate)}${row.mood ? `, feeling ${row.mood}` : ''}`}
                   onPress={() => onOpenEntry(row.id)}
                   style={{
                     minHeight: 52,

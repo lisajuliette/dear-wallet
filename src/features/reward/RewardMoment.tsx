@@ -95,6 +95,7 @@ export function RewardMoment({
 
   return (
     <Pressable
+      testID="reward-close"
       accessibilityRole="button"
       accessibilityLabel="Reward. Tap anywhere to close"
       onPress={onClose}

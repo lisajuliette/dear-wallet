@@ -1,0 +1,40 @@
+appId: com.pixelwitch.dearwallet
+---
+- launchApp:
+    clearState: true
+- runFlow: helpers/connect-dev-client.yaml
+- runFlow: helpers/finish-onboarding.yaml
+- tapOn:
+    id: 'tab-log'
+- tapOn: 'loved it'
+- tapOn:
+    id: 'pad-key-8'
+- tapOn:
+    id: 'quick-log-name'
+- inputText: 'mixtape'
+- runFlow: helpers/dismiss-ios-keyboard-tip.yaml
+- scrollUntilVisible:
+    element:
+      id: 'quick-log-save'
+    direction: DOWN
+    timeout: 5000
+- tapOn:
+    id: 'quick-log-save'
+- runFlow: helpers/close-reward-chain.yaml
+- tapOn:
+    id: 'tab-tally'
+- tapOn:
+    id: 'tally-loved-list'
+- extendedWaitUntil:
+    visible:
+      id: 'loved-make-recap'
+    timeout: 8000
+- tapOn:
+    id: 'loved-make-recap'
+- extendedWaitUntil:
+    visible:
+      id: 'recap-save'
+    timeout: 8000
+- tapOn:
+    id: 'recap-save'
+- assertVisible: '.*Photos.*|.*saved.*|.*Allow.*|.*Don.t Allow.*|.*save.*'

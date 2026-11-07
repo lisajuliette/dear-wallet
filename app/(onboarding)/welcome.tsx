@@ -101,6 +101,7 @@ export default function WelcomeScreen() {
 
         <View style={{ flex: 1 }} />
         <PillButton
+          testID="onboarding-lets-go"
           label="let's go ♡"
           onPress={() => router.push('/(onboarding)/palette')}
           style={{ marginBottom: 24 }}

@@ -180,6 +180,7 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
       <View style={{ flex: 1, paddingHorizontal: 16, paddingTop: 8, gap: 12 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <IconButton
+            testID="settings-back"
             accessibilityLabel="Back"
             icon={<PixelIcon name="back" size={22} />}
             onPress={onBack}
@@ -205,6 +206,7 @@ export function SettingsScreen({ onBack }: SettingsScreenProps) {
                 {plates.map((p) => (
                   <Pressable
                     key={p.key}
+                    testID={`settings-palette-${p.key}`}
                     accessibilityRole="button"
                     accessibilityLabel={`${p.name}, ${p.status}`}
                     accessibilityState={{ selected: p.key === activeKey }}
