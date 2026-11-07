@@ -137,6 +137,20 @@ jest.mock('drizzle-orm/expo-sqlite/migrator', () => ({
   useMigrations: () => ({ success: true, error: null }),
 }));
 
+jest.mock('react-native-view-shot', () => ({
+  captureRef: jest.fn(async () => 'file:///tmp/recap.png'),
+}));
+
+jest.mock('expo-media-library/legacy', () => ({
+  requestPermissionsAsync: jest.fn(async () => ({ granted: true, status: 'granted' })),
+  saveToLibraryAsync: jest.fn(async () => undefined),
+}));
+
+jest.mock('expo-sharing', () => ({
+  isAvailableAsync: jest.fn(async () => true),
+  shareAsync: jest.fn(async () => undefined),
+}));
+
 jest.mock('react-native-gesture-handler', () => {
   // eslint-disable-next-line @typescript-eslint/no-require-imports -- RN View for gesture mock
   const { View } = require('react-native');
