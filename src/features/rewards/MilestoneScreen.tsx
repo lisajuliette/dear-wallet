@@ -286,14 +286,20 @@ export function MilestoneScreen({
 
         <Animated.View
           style={[
-            { flexDirection: 'row', gap: 10, marginTop: 'auto', paddingBottom: 28 },
+            {
+              flexDirection: 'row',
+              gap: 10,
+              marginTop: 'auto',
+              paddingBottom: 28,
+              width: '100%',
+            },
             btnStyle,
           ]}
         >
           <View style={{ flex: 1 }}>
-            <PillButton label="save card" variant="secondary" onPress={onSaveCard} />
+            <PillButton label="save card" variant="surface" onPress={onSaveCard} />
           </View>
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1.4 }}>
             <PillButton label="yay ♡" onPress={onYay} />
           </View>
         </Animated.View>
