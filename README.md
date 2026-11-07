@@ -22,7 +22,7 @@ npm run e2e
 maestro test .maestro/01-first-launch.yaml
 ```
 
-`clearState` wipes the app between flows so onboarding runs fresh. Airplane mode in `02-log-bought-after-all` may be a no-op on some Simulator versions; the log + bought-after-all path still exercises.
+`clearState` wipes the app between flows so onboarding runs fresh. Flows open the Expo Dev Client via `exp+dear-wallet://…127.0.0.1:8081`, so Metro must be running on port 8081 (`npx expo start`). Airplane mode in `02-log-bought-after-all` may be a no-op on some Simulator versions; the log + bought-after-all path still exercises.
 
 ## Folder map
 

@@ -11,6 +11,7 @@ type ListRowProps = {
   fill?: TokenName;
   onPress?: () => void;
   accessibilityLabel?: string;
+  testID?: string;
 };
 
 /** List row with sparkle bullet, radius 15, optional amount. */
@@ -21,6 +22,7 @@ export function ListRow({
   fill = 'c5',
   onPress,
   accessibilityLabel,
+  testID,
 }: ListRowProps) {
   const t = useTokens();
   const label =
@@ -31,6 +33,7 @@ export function ListRow({
 
   return (
     <Pressable
+      testID={testID}
       accessibilityRole="button"
       accessibilityLabel={label}
       disabled={!onPress}

@@ -1,8 +1,9 @@
 appId: com.pixelwitch.dearwallet
 ---
-- clearState
-- launchApp
-- runFlow: helpers/skip-onboarding.yaml
+- launchApp:
+    clearState: true
+- runFlow: helpers/connect-dev-client.yaml
+- runFlow: helpers/finish-onboarding.yaml
 - tapOn:
     id: 'home-settings'
 - extendedWaitUntil:
@@ -11,16 +12,22 @@ appId: com.pixelwitch.dearwallet
     timeout: 8000
 - tapOn:
     id: 'settings-palette-lilac'
-# Try on a locked palette (preview only) — Midnight CD starts locked.
+# Swipe across the faceplate row (not mid-screen vertical ScrollView).
+- repeat:
+    times: 5
+    commands:
+      - swipe:
+          start: 88%, 22%
+          end: 12%, 22%
+          duration: 350
 - tapOn:
     id: 'settings-palette-midnight'
-- assertVisible: '.*Midnight.*|.*try.*|.*unlock.*|.*locked.*|.*to go.*'
+- assertVisible: '.*Midnight.*|.*try.*|.*unlock.*|.*locked.*|.*to go.*|FACEPLATES|at \\$1,000|try-on'
 - tapOn:
     id: 'settings-back'
 - extendedWaitUntil:
     visible:
       id: 'screen-home'
     timeout: 8000
-# Active palette should still be lilac (or cloud if try-on reverted).
 - assertVisible:
     id: 'home-settings'

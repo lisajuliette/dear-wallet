@@ -1,9 +1,9 @@
 appId: com.pixelwitch.dearwallet
 ---
-- clearState
-- launchApp
-- runFlow: helpers/skip-onboarding.yaml
-# Need at least one loved item for a non-empty recap path; log a loved via Quick log segment.
+- launchApp:
+    clearState: true
+- runFlow: helpers/connect-dev-client.yaml
+- runFlow: helpers/finish-onboarding.yaml
 - tapOn:
     id: 'tab-log'
 - tapOn: 'loved it'
@@ -12,14 +12,15 @@ appId: com.pixelwitch.dearwallet
 - tapOn:
     id: 'quick-log-name'
 - inputText: 'mixtape'
+- runFlow: helpers/dismiss-ios-keyboard-tip.yaml
+- scrollUntilVisible:
+    element:
+      id: 'quick-log-save'
+    direction: DOWN
+    timeout: 5000
 - tapOn:
     id: 'quick-log-save'
-- extendedWaitUntil:
-    visible:
-      id: 'reward-close'
-    timeout: 10000
-- tapOn:
-    id: 'reward-close'
+- runFlow: helpers/close-reward-chain.yaml
 - tapOn:
     id: 'tab-tally'
 - tapOn:
@@ -36,5 +37,4 @@ appId: com.pixelwitch.dearwallet
     timeout: 8000
 - tapOn:
     id: 'recap-save'
-# Permission sheet or success toast — either is fine for smoke.
-- assertVisible: '.*Photos.*|.*saved.*|.*Allow.*|.*save.*'
+- assertVisible: '.*Photos.*|.*saved.*|.*Allow.*|.*Don.t Allow.*|.*save.*'

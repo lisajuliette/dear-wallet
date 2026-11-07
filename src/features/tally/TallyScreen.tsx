@@ -267,6 +267,7 @@ export function TallyScreen({ vm, onRangeChange }: TallyScreenProps) {
             {vm.items.map((item, index) => (
               <ListRow
                 key={item.id}
+                testID={`tally-item-${item.name}`}
                 title={item.name}
                 meta={itemMeta(item)}
                 amountCents={item.amountCents ?? undefined}
