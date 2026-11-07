@@ -97,7 +97,7 @@ export function DiaryScreen({
           <IconButton
             accessibilityLabel="Lock settings"
             icon={<PixelIcon name="lock" size={22} />}
-            onPress={() => router.push('/dev/theme')}
+            onPress={() => router.push('/settings')}
           />
         </View>
 

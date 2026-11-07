@@ -87,9 +87,17 @@ jest.mock(
   { virtual: true },
 );
 
-jest.mock('expo-crypto', () => ({
-  randomUUID: () => globalThis.crypto.randomUUID(),
-}));
+jest.mock('expo-crypto', () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports -- jest mock
+  const { createHash, randomBytes } = require('node:crypto');
+  return {
+    randomUUID: () => globalThis.crypto.randomUUID(),
+    CryptoDigestAlgorithm: { SHA256: 'SHA-256' },
+    digestStringAsync: async (_algo: string, data: string) =>
+      createHash('sha256').update(data).digest('hex'),
+    getRandomBytesAsync: async (n: number) => new Uint8Array(randomBytes(n)),
+  };
+});
 
 jest.mock('@react-native-community/netinfo', () => ({
   addEventListener: jest.fn(() => jest.fn()),
@@ -149,6 +157,39 @@ jest.mock('expo-media-library/legacy', () => ({
 jest.mock('expo-sharing', () => ({
   isAvailableAsync: jest.fn(async () => true),
   shareAsync: jest.fn(async () => undefined),
+}));
+
+jest.mock('expo-notifications', () => ({
+  SchedulableTriggerInputTypes: { WEEKLY: 'weekly' },
+  scheduleNotificationAsync: jest.fn(async () => 'id'),
+  cancelScheduledNotificationAsync: jest.fn(async () => undefined),
+  requestPermissionsAsync: jest.fn(async () => ({ status: 'granted' })),
+  getPermissionsAsync: jest.fn(async () => ({ status: 'granted' })),
+}));
+
+jest.mock('expo-secure-store', () => {
+  const store = new Map<string, string>();
+  return {
+    getItemAsync: jest.fn(async (key: string) => store.get(key) ?? null),
+    setItemAsync: jest.fn(async (key: string, value: string) => {
+      store.set(key, value);
+    }),
+    deleteItemAsync: jest.fn(async (key: string) => {
+      store.delete(key);
+    }),
+  };
+});
+
+jest.mock('expo-local-authentication', () => ({
+  hasHardwareAsync: jest.fn(async () => false),
+  isEnrolledAsync: jest.fn(async () => false),
+  authenticateAsync: jest.fn(async () => ({ success: false })),
+}));
+
+jest.mock('expo-file-system/legacy', () => ({
+  cacheDirectory: 'file:///tmp/',
+  documentDirectory: 'file:///tmp/',
+  writeAsStringAsync: jest.fn(async () => undefined),
 }));
 
 jest.mock('react-native-gesture-handler', () => {
