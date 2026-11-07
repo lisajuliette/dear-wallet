@@ -14,8 +14,8 @@
       "appleTeamId": "U4A2939AHC",
       "icon": "./assets/expo.icon",
       "usesAppleSignIn": true,
-      "buildNumber": "1",
       "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
         "NSPhotoLibraryUsageDescription": "Add a photo to a log or loved thing.",
         "NSPhotoLibraryAddUsageDescription": "Save ur recap cards to Photos.",
         "NSFaceIDUsageDescription": "Dear Wallet uses Face ID to keep ur diary private.",
