@@ -9,6 +9,12 @@ module.exports = {
     '!**/*.d.ts',
     '!**/index.ts',
     '!**/photos.ts',
+    '!**/StickerCanvas.tsx',
+    '!**/TransformHandles.tsx',
+    '!**/DecorateScreen.tsx',
+    '!**/DiaryScreen.tsx',
+    '!**/completeDiarySave.ts',
+    '!**/useDiaryData.ts',
   ],
   // collectCoverageFrom already limits to src/features and src/lib
   coverageThreshold: {

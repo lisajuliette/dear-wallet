@@ -136,3 +136,27 @@ jest.mock('expo-sqlite', () => ({
 jest.mock('drizzle-orm/expo-sqlite/migrator', () => ({
   useMigrations: () => ({ success: true, error: null }),
 }));
+
+jest.mock('react-native-gesture-handler', () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports -- RN View for gesture mock
+  const { View } = require('react-native');
+  const chain = () => {
+    const api: Record<string, unknown> = {};
+    const self = () => api;
+    api.onBegin = self;
+    api.onUpdate = self;
+    api.onEnd = self;
+    return api;
+  };
+  return {
+    GestureHandlerRootView: View,
+    GestureDetector: ({ children }: { children: unknown }) => children,
+    Gesture: {
+      Pan: chain,
+      Pinch: chain,
+      Rotation: chain,
+      Tap: chain,
+      Simultaneous: (...gestures: unknown[]) => gestures,
+    },
+  };
+});
