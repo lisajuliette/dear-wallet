@@ -14,6 +14,8 @@ module.exports = defineConfig([
       'android/*',
       '.expo/*',
       'design-source/**',
+      'design/**',
+      'review/**',
       'supabase/**',
       'drizzle/**',
     ],
