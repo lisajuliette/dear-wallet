@@ -5,6 +5,8 @@ coverage
 ios
 android
 design-source
+design
+review
 supabase
 docs
 package-lock.json
