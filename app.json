@@ -4,7 +4,7 @@
     "slug": "dear-wallet",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/icon/app-icon-cloud.png",
     "scheme": "dearwallet",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
@@ -18,7 +18,7 @@
       "package": "com.pixelwitch.dearwallet",
       "adaptiveIcon": {
         "backgroundColor": "#F6CDEB",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "foregroundImage": "./assets/icon/android-adaptive-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
@@ -35,8 +35,8 @@
         "expo-splash-screen",
         {
           "backgroundColor": "#F6CDEB",
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "image": "./assets/splash/splash-icon.png",
+          "imageWidth": 200
         }
       ],
       "expo-dev-client",
