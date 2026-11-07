@@ -3,11 +3,13 @@ import { stickerAwards } from '@/db/schema';
 import { runTransaction, type ItemsDb } from '@/db/transaction';
 import { createId } from '@/lib/uuid';
 
+export type StickerAwardSource = 'log' | 'diary' | 'milestone' | 'pack' | 'quest';
+
 export function awardSticker(
   db: ItemsDb,
   userId: string,
   stickerId: StickerId,
-  source: 'log' | 'diary',
+  source: StickerAwardSource,
   sourceId?: string,
 ): string {
   const id = createId();

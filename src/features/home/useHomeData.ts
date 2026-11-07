@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { db } from '@/db/client';
 import { goals, items, quests } from '@/db/schema';
 import { buildHomeViewModel, type HomeViewModel } from '@/features/home/homeModel';
-import { keptTotalCents, listByDay } from '@/features/items/repository';
+import { goalProgressCents, keptTotalCents, listByDay } from '@/features/items/repository';
 import { useSettingsStore } from '@/features/rewards/settingsStore';
 import { countStars } from '@/features/rewards/stars';
 import { dayKey, dayRange, monthRange } from '@/lib/dates';
@@ -46,10 +46,7 @@ export function useHomeData() {
 
     let goalProgress = 0;
     if (goal) {
-      goalProgress = await keptTotalCents(db, LOCAL_USER_ID, {
-        start: new Date(goal.startedAt),
-        end: now,
-      });
+      goalProgress = await goalProgressCents(db, LOCAL_USER_ID, new Date(goal.startedAt), now);
     }
 
     setVm(

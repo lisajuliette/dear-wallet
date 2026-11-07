@@ -193,38 +193,44 @@ export function HomeScreen({ vm }: HomeScreenProps) {
         </CloudCard>
 
         {vm.hasGoal ? (
-          <CloudCard fill="c3" height={110} accessibilityLabel="goal">
-            <View style={{ gap: 8 }}>
-              <Text
-                style={{
-                  fontFamily: 'PixelifySans_500Medium',
-                  fontSize: 12,
-                  letterSpacing: 0.72,
-                  color: t.text,
-                }}
-              >
-                KEEPING MONEY FOR
-              </Text>
-              <Text style={{ fontFamily: 'Nunito_900Black', fontSize: 16, color: t.text }}>
-                {vm.goalLabel}
-              </Text>
-              <SegmentBar
-                value={
-                  vm.goalTargetCents > 0
-                    ? Math.min(1, vm.goalProgressCents / vm.goalTargetCents)
-                    : 0
-                }
-              />
-              <Text style={{ fontFamily: 'Nunito_700Bold', fontSize: 14, color: t.text }}>
-                {formatKept(vm.goalProgressCents)} of {formatKept(vm.goalTargetCents)}
-              </Text>
-            </View>
-          </CloudCard>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="open goal"
+            onPress={() => router.push('/goal')}
+          >
+            <CloudCard fill="c3" height={110} accessibilityLabel="goal">
+              <View style={{ gap: 8 }}>
+                <Text
+                  style={{
+                    fontFamily: 'PixelifySans_500Medium',
+                    fontSize: 12,
+                    letterSpacing: 0.72,
+                    color: t.text,
+                  }}
+                >
+                  KEEPING MONEY FOR
+                </Text>
+                <Text style={{ fontFamily: 'Nunito_900Black', fontSize: 16, color: t.text }}>
+                  {vm.goalLabel}
+                </Text>
+                <SegmentBar
+                  value={
+                    vm.goalTargetCents > 0
+                      ? Math.min(1, vm.goalProgressCents / vm.goalTargetCents)
+                      : 0
+                  }
+                />
+                <Text style={{ fontFamily: 'Nunito_700Bold', fontSize: 14, color: t.text }}>
+                  {formatKept(vm.goalProgressCents)} of {formatKept(vm.goalTargetCents)}
+                </Text>
+              </View>
+            </CloudCard>
+          </Pressable>
         ) : (
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="pick a goal"
-            onPress={() => router.push('/(tabs)/collection')}
+            onPress={() => router.push('/goal')}
             style={{
               borderRadius: 20,
               borderWidth: 2,

@@ -212,3 +212,4 @@ export type Item = typeof items.$inferSelect;
 export type NewItem = typeof items.$inferInsert;
 export type DiaryEntry = typeof diaryEntries.$inferSelect;
 export type PageSticker = typeof pageStickers.$inferSelect;
+export type Goal = typeof goals.$inferSelect;

@@ -10,6 +10,8 @@ export {
   listByWeek,
   listByMonth,
   keptTotalCents,
+  goalProgressCents,
+  keptLogCount,
   type CreateItemInput,
   type UpdateItemInput,
   type Item,
