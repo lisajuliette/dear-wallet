@@ -1,7 +1,7 @@
 import NetInfo from '@react-native-community/netinfo';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { completeLog } from '@/features/log/completeLog';
@@ -11,6 +11,7 @@ import { useTokens } from '@/theme';
 export default function LogRoute() {
   const t = useTokens();
   const insets = useSafeAreaInsets();
+  const { height } = useWindowDimensions();
   const params = useLocalSearchParams<{ kind?: string }>();
   const initialKind = params.kind === 'loved' ? 'loved' : 'kept';
   const [offline, setOffline] = useState(false);
@@ -26,7 +27,9 @@ export default function LogRoute() {
     <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: t.scrim }}>
       <View
         style={{
-          maxHeight: '92%',
+          // Definite height so QuickLogForm's flex:1 ScrollView can lay out.
+          // maxHeight alone collapses the body to ~0 (header only).
+          height: Math.round(height * 0.92),
           backgroundColor: t.surface,
           borderTopLeftRadius: 28,
           borderTopRightRadius: 28,
